@@ -1,0 +1,89 @@
+{
+  "uuid": "ae4094e5-c98a-43e8-b66a-68282dd2462a-tc-0-1000",
+  "name": "WebSiteTests.Demo.Demotest",
+  "children": [
+    "a4216214-fc95-4d76-9d23-776d8d9d152e-tr-0-1001"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694441163538,
+      "stop": 1694441163538
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694441163538,
+      "stop": 1694441163538
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694441163538,
+      "stop": 1694441163538
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694441163538,
+      "stop": 1694441163538
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694441163538,
+      "stop": 1694441163538
+    }
+  ],
+  "links": [],
+  "start": 1694441114525,
+  "stop": 1694441163561
+}

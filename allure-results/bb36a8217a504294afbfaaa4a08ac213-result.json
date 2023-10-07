@@ -1,0 +1,92 @@
+{
+  "uuid": "d5a6ef6c-5644-477f-b04d-8a14ac9ac723-tr-0-1051",
+  "historyId": "WebSiteTests.Payment.AddDreamHomeToBasketAndPurchaseSubscription",
+  "fullName": "WebSiteTests.Payment.AddDreamHomeToBasketAndPurchaseSubscription",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "AddDreamHomeToBasketAndPurchaseSubscription"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Payment"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "AddDreamHomeToBasketAndPurchaseSubscription",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "AddDreamHomeToBasketAndPurchaseSubscription"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "AddDreamHomeToBasketAndPurchaseSubscription",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "16f697c37347452fbfac76fd1a03711c-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694521219595,
+      "stop": 1694521267025
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694521219595,
+  "stop": 1694521267028
+}

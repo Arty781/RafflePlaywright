@@ -1,0 +1,89 @@
+{
+  "uuid": "0f261bda-7c19-49ac-b1b5-59ecab1a511c-tc-0-1068",
+  "name": "WebSiteTests.Validation.VerifyEmailValidationOnSignUpPage",
+  "children": [
+    "cf3005ef-49ee-4ab8-afec-7d4a4682c199-tr-0-1072"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696313999737,
+      "stop": 1696313999737
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696313999737,
+      "stop": 1696313999737
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696313999737,
+      "stop": 1696313999737
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696313999737,
+      "stop": 1696313999737
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696313999737,
+      "stop": 1696313999737
+    }
+  ],
+  "links": [],
+  "start": 1696313970264,
+  "stop": 1696313999751
+}

@@ -1,0 +1,89 @@
+{
+  "uuid": "c66cece9-27dd-437b-87f6-453d285aaba0-tc-0-1062",
+  "name": "WebSiteTests.ErrorPaymentTests.InvalidTransactionError",
+  "children": [
+    "16cfe326-7ec1-46b8-a239-a37268cdd9f3-tr-0-1067"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008320898,
+      "stop": 1694008320898
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008320898,
+      "stop": 1694008320898
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008320898,
+      "stop": 1694008320898
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008320898,
+      "stop": 1694008320898
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008320898,
+      "stop": 1694008320898
+    }
+  ],
+  "links": [],
+  "start": 1694008292162,
+  "stop": 1694008320899
+}

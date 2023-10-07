@@ -1,0 +1,92 @@
+{
+  "uuid": "db79ce6c-cf22-4046-a1d0-4978af9cb7d6-tr-0-1070",
+  "historyId": "WebSiteTests.Validation.VerifyFirstnameValidationOnSignUpPage",
+  "fullName": "WebSiteTests.Validation.VerifyFirstnameValidationOnSignUpPage",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "VerifyFirstnameValidationOnSignUpPage"
+    },
+    {
+      "name": "testClass",
+      "value": "Validation"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Unauthorized"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "ValidationOnSignUpPage"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "VerifyFirstnameValidationOnSignUpPage",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "VerifyFirstnameValidationOnSignUpPage"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "VerifyFirstnameValidationOnSignUpPage",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "70f362032ff04863befccf01f5add947-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1696313999757,
+      "stop": 1696314026313
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1696313999757,
+  "stop": 1696314026313
+}

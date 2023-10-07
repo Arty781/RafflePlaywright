@@ -1,0 +1,89 @@
+{
+  "uuid": "c2edbac8-ed6c-486b-afd4-b1b175f84feb-tc-0-1062",
+  "name": "WebSiteTests.ErrorPaymentTests.RestrictedCardError",
+  "children": [
+    "088a3ae8-4943-4729-9a6f-b3ac3da2557a-tr-0-1064"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008349914,
+      "stop": 1694008349914
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008349914,
+      "stop": 1694008349914
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008349914,
+      "stop": 1694008349914
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008349914,
+      "stop": 1694008349914
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008349914,
+      "stop": 1694008349914
+    }
+  ],
+  "links": [],
+  "start": 1694008320900,
+  "stop": 1694008349915
+}

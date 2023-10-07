@@ -1,0 +1,89 @@
+{
+  "uuid": "64a778b8-31c2-4210-b1e0-89b45f71f77d-tc-0-1002",
+  "name": "WebSiteTests.Authorization.RegisterNewNonActivatedUser",
+  "children": [
+    "318d9a19-5c1d-4b0c-a35f-a3549bb1f263-tr-0-1005"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694602956622,
+      "stop": 1694602956622
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694602956622,
+      "stop": 1694602956622
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694602956622,
+      "stop": 1694602956622
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694602956622,
+      "stop": 1694602956622
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694602956622,
+      "stop": 1694602956622
+    }
+  ],
+  "links": [],
+  "start": 1694602928156,
+  "stop": 1694602956623
+}

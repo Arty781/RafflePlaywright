@@ -1,0 +1,89 @@
+{
+  "uuid": "23566142-c2c7-4f34-988e-9646af22f46e-tc-0-1037",
+  "name": "WebSiteTests.Payment.ActivateNewUserFromEmailAfterThreePayments",
+  "children": [
+    "7ee666c8-5345-443e-9b58-c5ed366ee7cb-tr-0-1039"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694682672297,
+      "stop": 1694682672297
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694682672297,
+      "stop": 1694682672297
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694682672297,
+      "stop": 1694682672297
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694682672297,
+      "stop": 1694682672297
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694682672297,
+      "stop": 1694682672297
+    }
+  ],
+  "links": [],
+  "start": 1694682582901,
+  "stop": 1694682672298
+}

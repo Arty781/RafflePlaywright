@@ -1,0 +1,92 @@
+{
+  "uuid": "bbbdf688-12ac-4dda-8cd6-9e919ce1de29-tr-0-1015",
+  "historyId": "WebSiteTests.SubscriptionsCommon.UnpauseSubscriptionAsAuthorizedUser",
+  "fullName": "WebSiteTests.SubscriptionsCommon.UnpauseSubscriptionAsAuthorizedUser",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "UnpauseSubscriptionAsAuthorizedUser"
+    },
+    {
+      "name": "testClass",
+      "value": "SubscriptionsCommon"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Subscriptions"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "SubscriptionsCommon"
+    }
+  ],
+  "links": [],
+  "name": "UnpauseSubscriptionAsAuthorizedUser",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "UnpauseSubscriptionAsAuthorizedUser"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "UnpauseSubscriptionAsAuthorizedUser",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "93b9194033aa4d918724f8de7012d7ce-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693998616491,
+      "stop": 1693998661878
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693998616491,
+  "stop": 1693998661878
+}

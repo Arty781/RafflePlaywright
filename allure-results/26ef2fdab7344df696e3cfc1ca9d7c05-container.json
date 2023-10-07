@@ -1,0 +1,89 @@
+{
+  "uuid": "3b96a2be-a0ea-4b3e-a685-f1a9609d655b-tc-0-1068",
+  "name": "WebSiteTests.Validation.VerifyLastnameValidationOnSignUpPage",
+  "children": [
+    "3c2129ba-90e4-4704-a983-1a28a9a2880a-tr-0-1071"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314053011,
+      "stop": 1696314053011
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314053011,
+      "stop": 1696314053011
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314053011,
+      "stop": 1696314053011
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314053011,
+      "stop": 1696314053011
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314053011,
+      "stop": 1696314053011
+    }
+  ],
+  "links": [],
+  "start": 1696314026314,
+  "stop": 1696314053013
+}

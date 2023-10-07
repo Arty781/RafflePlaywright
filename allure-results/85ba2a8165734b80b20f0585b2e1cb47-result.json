@@ -1,0 +1,92 @@
+{
+  "uuid": "6db3607f-445f-4e74-ac15-92ef21fcf5aa-tr-0-1046",
+  "historyId": "WebSiteTests.Payment.SignUpAddReferralsAndTicketsMakePurchase",
+  "fullName": "WebSiteTests.Payment.SignUpAddReferralsAndTicketsMakePurchase",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "SignUpAddReferralsAndTicketsMakePurchase"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "E2E"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "SignUpAddReferralsAndTicketsMakePurchase",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "SignUpAddReferralsAndTicketsMakePurchase"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "SignUpAddReferralsAndTicketsMakePurchase",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "99b21e090f9942318dd9f572262c3170-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693997990279,
+      "stop": 1693998076304
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693997990279,
+  "stop": 1693998076304
+}

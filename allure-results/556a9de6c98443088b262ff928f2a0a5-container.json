@@ -1,0 +1,89 @@
+{
+  "uuid": "b61231d2-0b89-4824-9c44-7fb033ae6830-tc-0-1037",
+  "name": "WebSiteTests.Payment.ActivateNewUserFromEmailAfterThreePayments",
+  "children": [
+    "a0e858a8-b10e-49dd-9071-fff53c5f045d-tr-0-1039"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694519072329,
+      "stop": 1694519072329
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694519072329,
+      "stop": 1694519072329
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694519072329,
+      "stop": 1694519072329
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694519072329,
+      "stop": 1694519072329
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694519072329,
+      "stop": 1694519072329
+    }
+  ],
+  "links": [],
+  "start": 1694519017785,
+  "stop": 1694519072350
+}

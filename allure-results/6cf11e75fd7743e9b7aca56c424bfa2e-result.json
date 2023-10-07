@@ -1,0 +1,95 @@
+{
+  "uuid": "d778b1f0-1a0f-4bdd-af48-09f82d0948bf-tr-0-1040",
+  "historyId": "WebSiteTests.Payment.ActivateNewUserAfterPayment",
+  "fullName": "WebSiteTests.Payment.ActivateNewUserAfterPayment",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "ActivateNewUserAfterPayment"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Unauthorized"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "ActivateNewUserAfterPayment",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "Microsoft.Playwright.PlaywrightException : net::ERR_CONNECTION_REFUSED\n=========================== logs ===========================\nwaiting for navigation until \"Load\"\n============================================================\r\n  ----> Microsoft.Playwright.PlaywrightException : net::ERR_CONNECTION_REFUSED",
+    "trace": "   at Microsoft.Playwright.Core.Waiter.WaitForPromiseAsync[T](Task`1 task, Action dispose) in /_/src/Playwright/Core/Waiter.cs:line 226\r\n   at Microsoft.Playwright.Core.Frame.WaitForNavigationInternalAsync(Waiter waiter, String url, Func`2 urlFunc, Regex urlRegex, String urlString, Nullable`1 waitUntil) in /_/src/Playwright/Core/Frame.cs:line 276\r\n   at Microsoft.Playwright.Core.Frame.RunAndWaitForNavigationAsync(Func`1 action, FrameRunAndWaitForNavigationOptions options) in /_/src/Playwright/Core/Frame.cs:line 239\r\n   at Playwright.PageObjects.Basket.VerifyUrl() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\PageObjects\\WebSitePages\\Basket\\BasketAssertions.cs:line 18\r\n   at Playwright.PageObjects.ThankYou.VerifyThankYouPageIsDisplayed() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\PageObjects\\WebSitePages\\ThankYouPage\\ThankYouAssertions.cs:line 7\r\n   at WebSiteTests.Payment.ActivateNewUserAfterPayment() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\WebTests\\TESTS\\WebsiteTests.cs:line 1215\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()\r\n   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)\r\n--PlaywrightException\r\n   at Microsoft.Playwright.Core.Waiter.WaitForPromiseAsync[T](Task`1 task, Action dispose) in /_/src/Playwright/Core/Waiter.cs:line 211"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "ActivateNewUserAfterPayment",
+      "status": "failed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false,
+        "message": "Microsoft.Playwright.PlaywrightException : net::ERR_CONNECTION_REFUSED\n=========================== logs ===========================\nwaiting for navigation until \"Load\"\n============================================================\r\n  ----> Microsoft.Playwright.PlaywrightException : net::ERR_CONNECTION_REFUSED",
+        "trace": "   at Microsoft.Playwright.Core.Waiter.WaitForPromiseAsync[T](Task`1 task, Action dispose) in /_/src/Playwright/Core/Waiter.cs:line 226\r\n   at Microsoft.Playwright.Core.Frame.WaitForNavigationInternalAsync(Waiter waiter, String url, Func`2 urlFunc, Regex urlRegex, String urlString, Nullable`1 waitUntil) in /_/src/Playwright/Core/Frame.cs:line 276\r\n   at Microsoft.Playwright.Core.Frame.RunAndWaitForNavigationAsync(Func`1 action, FrameRunAndWaitForNavigationOptions options) in /_/src/Playwright/Core/Frame.cs:line 239\r\n   at Playwright.PageObjects.Basket.VerifyUrl() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\PageObjects\\WebSitePages\\Basket\\BasketAssertions.cs:line 18\r\n   at Playwright.PageObjects.ThankYou.VerifyThankYouPageIsDisplayed() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\PageObjects\\WebSitePages\\ThankYouPage\\ThankYouAssertions.cs:line 7\r\n   at WebSiteTests.Payment.ActivateNewUserAfterPayment() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\WebTests\\TESTS\\WebsiteTests.cs:line 1215\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()\r\n   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)\r\n--PlaywrightException\r\n   at Microsoft.Playwright.Core.Waiter.WaitForPromiseAsync[T](Task`1 task, Action dispose) in /_/src/Playwright/Core/Waiter.cs:line 211"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "638291a92e024cb9acbcfbf6543c5ac8-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694612138746,
+      "stop": 1694612164455
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694612138745,
+  "stop": 1694612164459
+}

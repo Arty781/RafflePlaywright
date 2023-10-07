@@ -1,0 +1,92 @@
+{
+  "uuid": "4a27e968-f312-4c83-9363-55336c759dd3-tr-0-1006",
+  "historyId": "WebSiteTests.Authorization.EditUserData",
+  "fullName": "WebSiteTests.Authorization.EditUserData",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EditUserData"
+    },
+    {
+      "name": "testClass",
+      "value": "Authorization"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Authorized"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Authorisation"
+    }
+  ],
+  "links": [],
+  "name": "EditUserData",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "EditUserData"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "EditUserData",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "1f508feb324041b78d37f1748b73f246-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694432462166,
+      "stop": 1694432483890
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694432462166,
+  "stop": 1694432483893
+}

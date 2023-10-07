@@ -1,0 +1,89 @@
+{
+  "uuid": "5c5e35d4-e432-499c-9232-ca976c21d03c-tc-0-1037",
+  "name": "WebSiteTests.Payment.ActivateNewUserAfterThreePayments",
+  "children": [
+    "ed7e67a4-50a6-4ba8-9281-14a90a33abda-tr-0-1041"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694514933487,
+      "stop": 1694514933487
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694514933487,
+      "stop": 1694514933487
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694514933487,
+      "stop": 1694514933487
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694514933487,
+      "stop": 1694514933487
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694514933487,
+      "stop": 1694514933487
+    }
+  ],
+  "links": [],
+  "start": 1694514865378,
+  "stop": 1694514933503
+}

@@ -1,0 +1,89 @@
+{
+  "uuid": "da7c1d46-e99e-4d5b-85e0-de32c795ba3a-tc-0-1009",
+  "name": "WebSiteTests.SubscriptionsCommon.CancelSubscriptionAsAuthorizedUser",
+  "children": [
+    "a3e96f50-753c-47e3-ac28-6c67e1e535eb-tr-0-1016"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693998382711,
+      "stop": 1693998382711
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693998382711,
+      "stop": 1693998382711
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693998382711,
+      "stop": 1693998382711
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693998382711,
+      "stop": 1693998382711
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693998382711,
+      "stop": 1693998382711
+    }
+  ],
+  "links": [],
+  "start": 1693998346221,
+  "stop": 1693998382726
+}

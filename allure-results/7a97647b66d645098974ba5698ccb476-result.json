@@ -1,0 +1,92 @@
+{
+  "uuid": "d3aa182a-e699-48c6-9977-6d19f7bdd0df-tr-0-1021",
+  "historyId": "WebSiteTests.SubscriptionsDoubleTickets.PurchaseTenPoundsSubscriptionUnauthorized",
+  "fullName": "WebSiteTests.SubscriptionsDoubleTickets.PurchaseTenPoundsSubscriptionUnauthorized",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "PurchaseTenPoundsSubscriptionUnauthorized"
+    },
+    {
+      "name": "testClass",
+      "value": "SubscriptionsDoubleTickets"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Subscriptions"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "SubscriptionsDoubleTickets"
+    }
+  ],
+  "links": [],
+  "name": "PurchaseTenPoundsSubscriptionUnauthorized",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "PurchaseTenPoundsSubscriptionUnauthorized"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "PurchaseTenPoundsSubscriptionUnauthorized",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "a62afbb63dfd4a0bade33fa580d6466b-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693999845242,
+      "stop": 1693999880198
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693999845242,
+  "stop": 1693999880198
+}

@@ -1,0 +1,89 @@
+{
+  "uuid": "0231209a-92f2-415b-bac7-677e7cf63085-tc-0-1037",
+  "name": "WebSiteTests.Payment.ActivateNewUserFromEmailAfterThreePayments",
+  "children": [
+    "8687d294-70a5-4c0f-8b63-555477ce549f-tr-0-1039"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439060357,
+      "stop": 1694439060357
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439060357,
+      "stop": 1694439060357
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439060357,
+      "stop": 1694439060357
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439060357,
+      "stop": 1694439060357
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439060357,
+      "stop": 1694439060357
+    }
+  ],
+  "links": [],
+  "start": 1694439031579,
+  "stop": 1694439060378
+}

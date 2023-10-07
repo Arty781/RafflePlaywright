@@ -1,0 +1,89 @@
+{
+  "uuid": "bc71ab63-a057-4cdf-964e-1c7270c3b8ad-tc-0-1020",
+  "name": "WebSiteTests.SubscriptionsDoubleTickets.PurchaseSubscriptionOneRaffleExpired",
+  "children": [
+    "fba786ff-217c-494e-b4e9-086298c2f136-tr-0-1024"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693999845238,
+      "stop": 1693999845238
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693999845238,
+      "stop": 1693999845238
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693999845238,
+      "stop": 1693999845238
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693999845238,
+      "stop": 1693999845238
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693999845238,
+      "stop": 1693999845238
+    }
+  ],
+  "links": [],
+  "start": 1693998905705,
+  "stop": 1693999845241
+}

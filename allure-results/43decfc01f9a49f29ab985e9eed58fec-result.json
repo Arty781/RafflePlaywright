@@ -1,0 +1,95 @@
+{
+  "uuid": "ea24390d-44e7-4beb-b000-c592cc382d17-tr-0-1017",
+  "historyId": "WebSiteTests.SubscriptionsCommon.PurchaseNormalTicketsAsSubscribedAuthorizedUser",
+  "fullName": "WebSiteTests.SubscriptionsCommon.PurchaseNormalTicketsAsSubscribedAuthorizedUser",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "PurchaseNormalTicketsAsSubscribedAuthorizedUser"
+    },
+    {
+      "name": "testClass",
+      "value": "SubscriptionsCommon"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Subscriptions"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "SubscriptionsCommon"
+    }
+  ],
+  "links": [],
+  "name": "PurchaseNormalTicketsAsSubscribedAuthorizedUser",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "System.TimeoutException : Timeout 10000ms exceeded.\n=========================== logs ===========================\nwaiting for Locator(\"#pay-button\")\n============================================================",
+    "trace": "   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](String guid, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 214\r\n   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal)\r\n   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 534\r\n   at Playwright.Helpers.WaitUntil.CustomElementIsVisible(String selector, Int32 timeoutMilliseconds)\r\n   at Playwright.Helpers.Button.Click(String element)\r\n   at Playwright.PageObjects.Basket.ClickPayNowBtn()\r\n   at WebSiteTests.SubscriptionsCommon.PurchaseNormalTicketsAsSubscribedAuthorizedUser()\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()\r\n   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "PurchaseNormalTicketsAsSubscribedAuthorizedUser",
+      "status": "failed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false,
+        "message": "System.TimeoutException : Timeout 10000ms exceeded.\n=========================== logs ===========================\nwaiting for Locator(\"#pay-button\")\n============================================================",
+        "trace": "   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](String guid, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 214\r\n   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal)\r\n   at Microsoft.Playwright.Core.Frame.WaitForSelectorAsync(String selector, FrameWaitForSelectorOptions options) in /_/src/Playwright/Core/Frame.cs:line 534\r\n   at Playwright.Helpers.WaitUntil.CustomElementIsVisible(String selector, Int32 timeoutMilliseconds)\r\n   at Playwright.Helpers.Button.Click(String element)\r\n   at Playwright.PageObjects.Basket.ClickPayNowBtn()\r\n   at WebSiteTests.SubscriptionsCommon.PurchaseNormalTicketsAsSubscribedAuthorizedUser()\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()\r\n   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "082670d9933f46f1b9680c4b056d6853-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693998481675,
+      "stop": 1693998507684
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693998481675,
+  "stop": 1693998507685
+}

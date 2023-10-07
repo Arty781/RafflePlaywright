@@ -1,0 +1,92 @@
+{
+  "uuid": "3c2129ba-90e4-4704-a983-1a28a9a2880a-tr-0-1071",
+  "historyId": "WebSiteTests.Validation.VerifyLastnameValidationOnSignUpPage",
+  "fullName": "WebSiteTests.Validation.VerifyLastnameValidationOnSignUpPage",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "VerifyLastnameValidationOnSignUpPage"
+    },
+    {
+      "name": "testClass",
+      "value": "Validation"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Unauthorized"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "ValidationOnSignUpPage"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "VerifyLastnameValidationOnSignUpPage",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "VerifyLastnameValidationOnSignUpPage"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "VerifyLastnameValidationOnSignUpPage",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "ade64936070e4aeea2ec55a5bd95e59b-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1696314026314,
+      "stop": 1696314053011
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1696314026314,
+  "stop": 1696314053011
+}

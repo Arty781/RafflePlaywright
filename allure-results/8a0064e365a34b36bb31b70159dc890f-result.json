@@ -1,0 +1,92 @@
+{
+  "uuid": "ce999a20-677a-4725-849d-dd5b1879076c-tr-0-1047",
+  "historyId": "WebSiteTests.Payment.GetPurchaseDreamHome",
+  "fullName": "WebSiteTests.Payment.GetPurchaseDreamHome",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "GetPurchaseDreamHome"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Payment"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "GetPurchaseDreamHome",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "GetPurchaseDreamHome"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "GetPurchaseDreamHome",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "25d29b0e523b487088249cce5c9d9643-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694603437914,
+      "stop": 1694603469309
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694603437914,
+  "stop": 1694603469309
+}

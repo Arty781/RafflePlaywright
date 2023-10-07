@@ -1,0 +1,92 @@
+{
+  "uuid": "b5e153c0-ee7d-4ff0-8e3f-4408e14927e5-tr-0-1040",
+  "historyId": "WebSiteTests.Payment.ActivateNewUserAfterPayment",
+  "fullName": "WebSiteTests.Payment.ActivateNewUserAfterPayment",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "ActivateNewUserAfterPayment"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Unauthorized"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "ActivateNewUserAfterPayment",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "ActivateNewUserAfterPayment"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "ActivateNewUserAfterPayment",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "68e498b93b4143ddb84e779bfcfb8e45-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694513318832,
+      "stop": 1694513366394
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694513318832,
+  "stop": 1694513366397
+}

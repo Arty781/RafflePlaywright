@@ -1,0 +1,89 @@
+{
+  "uuid": "20196f87-e62f-455b-83e2-2a222caf3e73-tc-0-1037",
+  "name": "WebSiteTests.Payment.SignUpAddReferralsAndTicketsMakePurchase",
+  "children": [
+    "6db3607f-445f-4e74-ac15-92ef21fcf5aa-tr-0-1046"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693998076303,
+      "stop": 1693998076303
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693998076303,
+      "stop": 1693998076303
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693998076303,
+      "stop": 1693998076303
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693998076303,
+      "stop": 1693998076303
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693998076303,
+      "stop": 1693998076303
+    }
+  ],
+  "links": [],
+  "start": 1693997990279,
+  "stop": 1693998076305
+}

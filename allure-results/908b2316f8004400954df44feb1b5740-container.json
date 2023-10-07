@@ -1,0 +1,89 @@
+{
+  "uuid": "06c81e7e-80d0-44f7-ad70-b635524d0620-tc-0-1062",
+  "name": "WebSiteTests.ErrorPaymentTests.SecurityVioLationError",
+  "children": [
+    "11e2ae8c-d177-4e5a-8f25-d2ef84653e65-tr-0-1066"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008378375,
+      "stop": 1694008378375
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008378375,
+      "stop": 1694008378375
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008378375,
+      "stop": 1694008378375
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008378375,
+      "stop": 1694008378375
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694008378375,
+      "stop": 1694008378375
+    }
+  ],
+  "links": [],
+  "start": 1694008349916,
+  "stop": 1694008378376
+}

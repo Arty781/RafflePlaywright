@@ -1,0 +1,92 @@
+{
+  "uuid": "16cfe326-7ec1-46b8-a239-a37268cdd9f3-tr-0-1067",
+  "historyId": "WebSiteTests.ErrorPaymentTests.InvalidTransactionError",
+  "fullName": "WebSiteTests.ErrorPaymentTests.InvalidTransactionError",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "InvalidTransactionError"
+    },
+    {
+      "name": "testClass",
+      "value": "ErrorPaymentTests"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Test displaying of Errors"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "InvalidTransactionError",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "InvalidTransactionError"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "InvalidTransactionError",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "51fe96bda17546cba3a841e48f4e708d-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694008292162,
+      "stop": 1694008320898
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694008292162,
+  "stop": 1694008320899
+}

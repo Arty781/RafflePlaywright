@@ -1,0 +1,89 @@
+{
+  "uuid": "f648dec6-0583-49ff-b68f-9a0bf0271130-tc-0-1062",
+  "name": "WebSiteTests.ErrorPaymentTests.InvalidTransactionError",
+  "children": [
+    "3949fdfc-a006-434a-bcaa-dd46602a81e3-tr-0-1067"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694007888684,
+      "stop": 1694007888684
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694007888684,
+      "stop": 1694007888684
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694007888684,
+      "stop": 1694007888684
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694007888684,
+      "stop": 1694007888684
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694007888684,
+      "stop": 1694007888684
+    }
+  ],
+  "links": [],
+  "start": 1694007864289,
+  "stop": 1694007888685
+}

@@ -1,0 +1,89 @@
+{
+  "uuid": "3a0b489e-703d-49e7-a02e-0a3ddef3f29c-tc-0-1037",
+  "name": "WebSiteTests.Payment.MakeAPurchaseByPayPalAndBuySub",
+  "children": [
+    "1afea117-aa2b-4aa6-99c4-ec11ceedb929-tr-0-1052"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693997724077,
+      "stop": 1693997724077
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693997724077,
+      "stop": 1693997724077
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693997724077,
+      "stop": 1693997724077
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693997724077,
+      "stop": 1693997724077
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1693997724077,
+      "stop": 1693997724077
+    }
+  ],
+  "links": [],
+  "start": 1693997680047,
+  "stop": 1693997724078
+}

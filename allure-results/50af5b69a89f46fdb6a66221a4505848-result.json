@@ -1,0 +1,95 @@
+{
+  "uuid": "a6522c33-c772-484b-8637-8fbffc103ab0-tr-0-1004",
+  "historyId": "WebSiteTests.Authorization.RegisterNewUser",
+  "fullName": "WebSiteTests.Authorization.RegisterNewUser",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "RegisterNewUser"
+    },
+    {
+      "name": "testClass",
+      "value": "Authorization"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Authorized"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Authorisation"
+    }
+  ],
+  "links": [],
+  "name": "RegisterNewUser",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "  String lengths are both 40. Strings differ at index 19.\r\n  Expected: \"qatester-2023-09-11T02-37-56@putsbox.com\"\r\n  But was:  \"qatester-2023-09-11t02-37-56@putsbox.com\"\r\n  ------------------------------^\r\n",
+    "trace": "   at Playwright.PageObjects.SignUp.VerifyEmail(String email)\r\n   at WebSiteTests.Authorization.RegisterNewUser() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\WebTests\\TESTS\\WebsiteTests.cs:line 65\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()\r\n   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)\r\n"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "RegisterNewUser",
+      "status": "failed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false,
+        "message": "  String lengths are both 40. Strings differ at index 19.\r\n  Expected: \"qatester-2023-09-11T02-37-56@putsbox.com\"\r\n  But was:  \"qatester-2023-09-11t02-37-56@putsbox.com\"\r\n  ------------------------------^\r\n",
+        "trace": "   at Playwright.PageObjects.SignUp.VerifyEmail(String email)\r\n   at WebSiteTests.Authorization.RegisterNewUser() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\WebTests\\TESTS\\WebsiteTests.cs:line 65\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()\r\n   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)\r\n"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "9382851793de4760b77f65c44f2fc165-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694432271150,
+      "stop": 1694432287246
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694432271150,
+  "stop": 1694432287249
+}

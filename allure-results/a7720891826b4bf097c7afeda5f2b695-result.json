@@ -1,0 +1,92 @@
+{
+  "uuid": "61ddae6f-01a5-41bf-8261-8ad14158c10b-tr-0-1045",
+  "historyId": "WebSiteTests.Payment.SignUpAddTicketsMakePurchase",
+  "fullName": "WebSiteTests.Payment.SignUpAddTicketsMakePurchase",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "SignUpAddTicketsMakePurchase"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "E2E"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "SignUpAddTicketsMakePurchase",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "SignUpAddTicketsMakePurchase"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "SignUpAddTicketsMakePurchase",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "9b83e380b79c47ada6f9a3cac45940d9-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693998076306,
+      "stop": 1693998161054
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693998076306,
+  "stop": 1693998161054
+}

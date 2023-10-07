@@ -1,0 +1,95 @@
+{
+  "uuid": "cce30aba-fc16-449a-b1fd-b95d457cc437-tr-0-1023",
+  "historyId": "WebSiteTests.SubscriptionsDoubleTickets.Purchase10PoundsSubscriptionOneRaffleActive",
+  "fullName": "WebSiteTests.SubscriptionsDoubleTickets.Purchase10PoundsSubscriptionOneRaffleActive",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "Purchase10PoundsSubscriptionOneRaffleActive"
+    },
+    {
+      "name": "testClass",
+      "value": "SubscriptionsDoubleTickets"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Subscriptions"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "SubscriptionsDoubleTickets"
+    }
+  ],
+  "links": [],
+  "name": "Purchase10PoundsSubscriptionOneRaffleActive",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "System.ArgumentOutOfRangeException : StartIndex cannot be less than zero. (Parameter 'startIndex')",
+    "trace": "   at System.String.Substring(Int32 startIndex, Int32 length)\r\n   at System.String.Substring(Int32 startIndex)\r\n   at Playwright.Helpers.PutsBox.GetBodyData(String value) in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\Helpers\\ClickHelper.cs:line 233\r\n   at Playwright.Helpers.PutsBox.GetLinkFromEmailWithValue(String domain, String value) in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\Helpers\\ClickHelper.cs:line 313\r\n   at Playwright.Helpers.Elements.GoToActivationLink(String email) in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\Helpers\\ClickHelper.cs:line 413\r\n   at WebSiteTests.SubscriptionsDoubleTickets.Purchase10PoundsSubscriptionOneRaffleActive() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\WebTests\\TESTS\\WebsiteTests.cs:line 568\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()\r\n   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "Purchase10PoundsSubscriptionOneRaffleActive",
+      "status": "failed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false,
+        "message": "System.ArgumentOutOfRangeException : StartIndex cannot be less than zero. (Parameter 'startIndex')",
+        "trace": "   at System.String.Substring(Int32 startIndex, Int32 length)\r\n   at System.String.Substring(Int32 startIndex)\r\n   at Playwright.Helpers.PutsBox.GetBodyData(String value) in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\Helpers\\ClickHelper.cs:line 233\r\n   at Playwright.Helpers.PutsBox.GetLinkFromEmailWithValue(String domain, String value) in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\Helpers\\ClickHelper.cs:line 313\r\n   at Playwright.Helpers.Elements.GoToActivationLink(String email) in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\Helpers\\ClickHelper.cs:line 413\r\n   at WebSiteTests.SubscriptionsDoubleTickets.Purchase10PoundsSubscriptionOneRaffleActive() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\WebTests\\TESTS\\WebsiteTests.cs:line 568\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()\r\n   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "22686f00e4a243db99c1dbf96d4a18bf-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1696430721846,
+      "stop": 1696430749021
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1696430721846,
+  "stop": 1696430749023
+}

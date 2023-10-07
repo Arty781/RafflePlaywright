@@ -1,0 +1,89 @@
+{
+  "uuid": "da8bf05e-d6fb-4cc1-977e-66cece23f1d2-tc-0-1037",
+  "name": "WebSiteTests.Payment.PurchaseTicketsFromWinAndDiscountPages",
+  "children": [
+    "015e9d84-771d-477f-b762-487755d7c629-tr-0-1048"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439443828,
+      "stop": 1694439443828
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439443828,
+      "stop": 1694439443828
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439443828,
+      "stop": 1694439443828
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439443828,
+      "stop": 1694439443828
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439443828,
+      "stop": 1694439443828
+    }
+  ],
+  "links": [],
+  "start": 1694439418130,
+  "stop": 1694439443843
+}

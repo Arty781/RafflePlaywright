@@ -1,0 +1,89 @@
+{
+  "uuid": "cdf60d65-cb30-4c1f-a223-90c9b1a0a9aa-tc-0-1037",
+  "name": "WebSiteTests.Payment.AddDreamHomeToBasketAndPurchaseSubscription",
+  "children": [
+    "d5a6ef6c-5644-477f-b04d-8a14ac9ac723-tr-0-1051"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694521267022,
+      "stop": 1694521267022
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694521267022,
+      "stop": 1694521267022
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694521267022,
+      "stop": 1694521267022
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694521267022,
+      "stop": 1694521267022
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694521267022,
+      "stop": 1694521267022
+    }
+  ],
+  "links": [],
+  "start": 1694521219594,
+  "stop": 1694521267038
+}

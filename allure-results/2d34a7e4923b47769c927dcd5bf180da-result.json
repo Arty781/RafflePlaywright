@@ -1,0 +1,95 @@
+{
+  "uuid": "b2ca5829-206b-4de0-baee-796797ceadd5-tr-0-1006",
+  "historyId": "WebSiteTests.Authorization.EditUserData",
+  "fullName": "WebSiteTests.Authorization.EditUserData",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EditUserData"
+    },
+    {
+      "name": "testClass",
+      "value": "Authorization"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Authorized"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Authorisation"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "EditUserData",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "System.NullReferenceException : Object reference not set to an instance of an object.",
+    "trace": "   at NUnit.Allure.Core.Steps.AllureStepAspect.WrapStep(String name, MethodBase methodBase, Object[] arguments, Func`2 method)\r\n   at Playwright.APIHelpers.Web.SignUpPageWeb.SignUpRequest.__a$_around_RegisterNewUser_100664047_w_0(Object[] )\r\n   at Playwright.APIHelpers.Web.SignUpPageWeb.SignUpRequest.RegisterNewUser(SignUpResponse& response) in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\APIHelpers\\Web\\SignUpPageWeb\\SignUpRequest.cs:line 98\r\n   at WebSiteTests.Authorization.EditUserData() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\WebTests\\TESTS\\WebsiteTests.cs:line 125\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.GetResult()\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "EditUserData",
+      "status": "failed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false,
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object.",
+        "trace": "   at NUnit.Allure.Core.Steps.AllureStepAspect.WrapStep(String name, MethodBase methodBase, Object[] arguments, Func`2 method)\r\n   at Playwright.APIHelpers.Web.SignUpPageWeb.SignUpRequest.__a$_around_RegisterNewUser_100664047_w_0(Object[] )\r\n   at Playwright.APIHelpers.Web.SignUpPageWeb.SignUpRequest.RegisterNewUser(SignUpResponse& response) in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\APIHelpers\\Web\\SignUpPageWeb\\SignUpRequest.cs:line 98\r\n   at WebSiteTests.Authorization.EditUserData() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\WebTests\\TESTS\\WebsiteTests.cs:line 125\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.GetResult()\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "79baf9001ffe4ef69db88938e151b220-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693953291476,
+      "stop": 1693953299005
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693953291476,
+  "stop": 1693953299008
+}

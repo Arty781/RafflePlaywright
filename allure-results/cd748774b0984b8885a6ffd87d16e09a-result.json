@@ -1,0 +1,95 @@
+{
+  "uuid": "ae58b33d-e4cb-40c1-9a4e-0fbed6595ea8-tr-0-1047",
+  "historyId": "WebSiteTests.Payment.GetPurchaseDreamHome",
+  "fullName": "WebSiteTests.Payment.GetPurchaseDreamHome",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "16"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "GetPurchaseDreamHome"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Payment"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "GetPurchaseDreamHome",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "System.ArgumentOutOfRangeException : Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')",
+    "trace": "   at System.Collections.Generic.List`1.get_Item(Int32 index)\r\n   at Playwright.APIHelpers.Web.SignUpPageWeb.SignUpRequest.JsonBody() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\APIHelpers\\Web\\SignUpPageWeb\\SignUpRequest.cs:line 9\r\n   at Playwright.APIHelpers.Web.SignUpPageWeb.SignUpRequest.RegisterNewUser(SignUpResponse& response) in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\APIHelpers\\Web\\SignUpPageWeb\\SignUpRequest.cs:line 70\r\n   at WebSiteTests.Payment.GetPurchaseDreamHome() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\WebTests\\TESTS\\WebsiteTests.cs:line 1486\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.GetResult()\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "GetPurchaseDreamHome",
+      "status": "failed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false,
+        "message": "System.ArgumentOutOfRangeException : Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')",
+        "trace": "   at System.Collections.Generic.List`1.get_Item(Int32 index)\r\n   at Playwright.APIHelpers.Web.SignUpPageWeb.SignUpRequest.JsonBody() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\APIHelpers\\Web\\SignUpPageWeb\\SignUpRequest.cs:line 9\r\n   at Playwright.APIHelpers.Web.SignUpPageWeb.SignUpRequest.RegisterNewUser(SignUpResponse& response) in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\Playwright\\APIHelpers\\Web\\SignUpPageWeb\\SignUpRequest.cs:line 70\r\n   at WebSiteTests.Payment.GetPurchaseDreamHome() in C:\\Users\\ARTY\\source\\repos\\Arty781\\PlaywrightSolution\\WebTests\\TESTS\\WebsiteTests.cs:line 1486\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.GetResult()\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "14029121d9b949efb04ef450c18fd75b-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694438716589,
+      "stop": 1694438723685
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694438716588,
+  "stop": 1694438723688
+}

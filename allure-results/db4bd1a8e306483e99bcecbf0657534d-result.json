@@ -1,0 +1,92 @@
+{
+  "uuid": "dea4898d-abb1-45ee-bff4-c5db51d037bd-tr-0-1027",
+  "historyId": "WebSiteTests.SubscriptionsMailing.VerifyPauseSubscriptionEmailAsUnauthorizedUser",
+  "fullName": "WebSiteTests.SubscriptionsMailing.VerifyPauseSubscriptionEmailAsUnauthorizedUser",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "VerifyPauseSubscriptionEmailAsUnauthorizedUser"
+    },
+    {
+      "name": "testClass",
+      "value": "SubscriptionsMailing"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Subscriptions"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Subscriptions"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "VerifyPauseSubscriptionEmailAsUnauthorizedUser",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "VerifyPauseSubscriptionEmailAsUnauthorizedUser"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "VerifyPauseSubscriptionEmailAsUnauthorizedUser",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "58f871a918424c459a723289211feec2-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694003962725,
+      "stop": 1694004002717
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694003962725,
+  "stop": 1694004002717
+}

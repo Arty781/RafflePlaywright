@@ -1,0 +1,92 @@
+{
+  "uuid": "af791d84-5479-4b67-ab4c-020c00859cc3-tr-0-1048",
+  "historyId": "WebSiteTests.Payment.PurchaseTicketsFromWinAndDiscountPages",
+  "fullName": "WebSiteTests.Payment.PurchaseTicketsFromWinAndDiscountPages",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "PurchaseTicketsFromWinAndDiscountPages"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Payment"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "PurchaseTicketsFromWinAndDiscountPages",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "PurchaseTicketsFromWinAndDiscountPages"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "PurchaseTicketsFromWinAndDiscountPages",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "2916e56c5e574a0bbcafe45e2e12f78a-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693997865790,
+      "stop": 1693997913880
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693997865790,
+  "stop": 1693997913880
+}

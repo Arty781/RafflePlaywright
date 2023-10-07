@@ -1,0 +1,92 @@
+{
+  "uuid": "977cd928-2c84-4e31-982d-073bb9cf271f-tr-0-1014",
+  "historyId": "WebSiteTests.SubscriptionsCommon.PauseSubscriptionAsAuthorizedUser",
+  "fullName": "WebSiteTests.SubscriptionsCommon.PauseSubscriptionAsAuthorizedUser",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "PauseSubscriptionAsAuthorizedUser"
+    },
+    {
+      "name": "testClass",
+      "value": "SubscriptionsCommon"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Subscriptions"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "SubscriptionsCommon"
+    }
+  ],
+  "links": [],
+  "name": "PauseSubscriptionAsAuthorizedUser",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "PauseSubscriptionAsAuthorizedUser"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "PauseSubscriptionAsAuthorizedUser",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "44e1c37412e84b7ba06261593baf9829-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693998382731,
+      "stop": 1693998417842
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693998382731,
+  "stop": 1693998417842
+}

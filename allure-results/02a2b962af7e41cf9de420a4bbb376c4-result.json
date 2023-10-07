@@ -1,0 +1,92 @@
+{
+  "uuid": "25c35d15-05a4-45b3-b1fa-26b7637a27c9-tr-0-1073",
+  "historyId": "WebSiteTests.Validation.VerifyPasswordValidationOnSignUpPage",
+  "fullName": "WebSiteTests.Validation.VerifyPasswordValidationOnSignUpPage",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "VerifyPasswordValidationOnSignUpPage"
+    },
+    {
+      "name": "testClass",
+      "value": "Validation"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Unauthorized"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "ValidationOnSignUpPage"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "VerifyPasswordValidationOnSignUpPage",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "VerifyPasswordValidationOnSignUpPage"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "VerifyPasswordValidationOnSignUpPage",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "211d97e293a9405aace4048b4aeabcd4-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1696314053013,
+      "stop": 1696314084085
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1696314053013,
+  "stop": 1696314084085
+}

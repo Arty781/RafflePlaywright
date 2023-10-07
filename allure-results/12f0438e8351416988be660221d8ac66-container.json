@@ -1,0 +1,89 @@
+{
+  "uuid": "e6f8a3ab-4262-4931-a0e5-cacbc4f952fd-tc-0-1037",
+  "name": "WebSiteTests.Payment.SignUpAddTicketsMakePurchase",
+  "children": [
+    "afef16f9-1414-4f36-934d-bd2e50840a14-tr-0-1045"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694442064897,
+      "stop": 1694442064897
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694442064897,
+      "stop": 1694442064897
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694442064897,
+      "stop": 1694442064897
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694442064897,
+      "stop": 1694442064897
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694442064897,
+      "stop": 1694442064897
+    }
+  ],
+  "links": [],
+  "start": 1694442014566,
+  "stop": 1694442064912
+}

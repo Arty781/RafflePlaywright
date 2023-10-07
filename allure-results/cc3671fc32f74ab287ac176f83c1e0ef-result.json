@@ -1,0 +1,92 @@
+{
+  "uuid": "ab6a88cf-cea6-4243-9035-72a1b502ab34-tr-0-1044",
+  "historyId": "WebSiteTests.Payment.PurchaseTwoActiveDreamHome",
+  "fullName": "WebSiteTests.Payment.PurchaseTwoActiveDreamHome",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "PurchaseTwoActiveDreamHome"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Payment"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "PurchaseTwoActiveDreamHome",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "PurchaseTwoActiveDreamHome"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "PurchaseTwoActiveDreamHome",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "456e9a370c7c4d6293d6c013aa7bb87a-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694604392212,
+      "stop": 1694604429686
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694604392212,
+  "stop": 1694604429687
+}

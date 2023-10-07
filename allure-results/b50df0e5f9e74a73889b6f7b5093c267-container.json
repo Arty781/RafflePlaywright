@@ -1,0 +1,89 @@
+{
+  "uuid": "19b85243-6231-441c-8afd-203914e253d8-tc-0-1037",
+  "name": "WebSiteTests.Payment.PurchaseTicketsFromWinAndDiscountPages",
+  "children": [
+    "0cda5a4c-e7b2-4d76-9b2a-19e776e2af32-tr-0-1048"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439592879,
+      "stop": 1694439592879
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439592879,
+      "stop": 1694439592879
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439592879,
+      "stop": 1694439592879
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439592879,
+      "stop": 1694439592879
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439592879,
+      "stop": 1694439592879
+    }
+  ],
+  "links": [],
+  "start": 1694439533710,
+  "stop": 1694439592897
+}

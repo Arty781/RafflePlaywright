@@ -1,0 +1,89 @@
+{
+  "uuid": "e8597903-f4e0-46d9-8171-c68123bd37f6-tc-0-1037",
+  "name": "WebSiteTests.Payment.ActivateNewUserAfterThreePayments",
+  "children": [
+    "e28fb9ba-5c6a-4dec-9e1f-9fa42d4e0a80-tr-0-1041"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694604316973,
+      "stop": 1694604316973
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694604316973,
+      "stop": 1694604316973
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694604316973,
+      "stop": 1694604316973
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694604316973,
+      "stop": 1694604316973
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694604316973,
+      "stop": 1694604316973
+    }
+  ],
+  "links": [],
+  "start": 1694604229370,
+  "stop": 1694604316975
+}

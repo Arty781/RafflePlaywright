@@ -1,0 +1,92 @@
+{
+  "uuid": "fc43c1eb-937d-47aa-8e2b-f141be94548f-tr-0-1029",
+  "historyId": "WebSiteTests.SubscriptionsMailing.VerifyCancelSubscriptionEmailAsUnauthorizedUser",
+  "fullName": "WebSiteTests.SubscriptionsMailing.VerifyCancelSubscriptionEmailAsUnauthorizedUser",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "VerifyCancelSubscriptionEmailAsUnauthorizedUser"
+    },
+    {
+      "name": "testClass",
+      "value": "SubscriptionsMailing"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Subscriptions"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Subscriptions"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "VerifyCancelSubscriptionEmailAsUnauthorizedUser",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "VerifyCancelSubscriptionEmailAsUnauthorizedUser"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "VerifyCancelSubscriptionEmailAsUnauthorizedUser",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "2fe4183878e8483aa2ba75db64b3d20c-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694003892848,
+      "stop": 1694003934073
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694003892847,
+  "stop": 1694003934076
+}

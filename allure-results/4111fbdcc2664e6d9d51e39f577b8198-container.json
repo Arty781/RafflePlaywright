@@ -1,0 +1,89 @@
+{
+  "uuid": "fa1d4e84-0026-4f75-a6de-78ba04f6abda-tc-0-1068",
+  "name": "WebSiteTests.Validation.VerifyValidationPersonalDetailsOnProfilePage",
+  "children": [
+    "dac72de6-debe-458b-9284-6dace24cfe45-tr-0-1074"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314213960,
+      "stop": 1696314213960
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314213960,
+      "stop": 1696314213960
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314213960,
+      "stop": 1696314213960
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314213960,
+      "stop": 1696314213960
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314213960,
+      "stop": 1696314213960
+    }
+  ],
+  "links": [],
+  "start": 1696314178019,
+  "stop": 1696314213961
+}

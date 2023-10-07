@@ -1,0 +1,92 @@
+{
+  "uuid": "87fec1c8-b118-47d3-8dc2-0c4f720bde47-tr-0-1063",
+  "historyId": "WebSiteTests.ErrorPaymentTests.InsufientFundsError",
+  "fullName": "WebSiteTests.ErrorPaymentTests.InsufientFundsError",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "InsufientFundsError"
+    },
+    {
+      "name": "testClass",
+      "value": "ErrorPaymentTests"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Test displaying of Errors"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "InsufientFundsError",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "InsufientFundsError"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "InsufientFundsError",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "ddaa9dd2130a4b429075792f9e0f5cae-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694008263489,
+      "stop": 1694008292160
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694008263489,
+  "stop": 1694008292161
+}

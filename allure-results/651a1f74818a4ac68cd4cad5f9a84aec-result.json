@@ -1,0 +1,92 @@
+{
+  "uuid": "dac72de6-debe-458b-9284-6dace24cfe45-tr-0-1074",
+  "historyId": "WebSiteTests.Validation.VerifyValidationPersonalDetailsOnProfilePage",
+  "fullName": "WebSiteTests.Validation.VerifyValidationPersonalDetailsOnProfilePage",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "VerifyValidationPersonalDetailsOnProfilePage"
+    },
+    {
+      "name": "testClass",
+      "value": "Validation"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Authorized"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "ValidationOnProfilePage"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "VerifyValidationPersonalDetailsOnProfilePage",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "VerifyValidationPersonalDetailsOnProfilePage"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "VerifyValidationPersonalDetailsOnProfilePage",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "710e3f82ef734962a2d751c2de827160-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1696314178019,
+      "stop": 1696314213960
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1696314178019,
+  "stop": 1696314213960
+}

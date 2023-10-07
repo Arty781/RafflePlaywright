@@ -1,0 +1,68 @@
+{
+  "uuid": "ba039de0-6245-4f59-902e-9183f612e6a9-tr-0-1001",
+  "historyId": "WebSiteTests.Demo.Demotest",
+  "fullName": "WebSiteTests.Demo.Demotest",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "Demotest"
+    },
+    {
+      "name": "testClass",
+      "value": "Demo"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "Demotest",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "Demotest"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "Demotest",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "109d33f5522c4a2a9a531228bcc6177d-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1694441386343,
+      "stop": 1694441476406
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1694441386343,
+  "stop": 1694441476409
+}

@@ -1,0 +1,89 @@
+{
+  "uuid": "103a83f6-ed35-4cf8-b669-c9efb12fd657-tc-0-1068",
+  "name": "WebSiteTests.Validation.VerifyValidationPasswordOnProfilePage",
+  "children": [
+    "486e71fe-05fe-498b-9fa3-a00a2c0a7bfe-tr-0-1075"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314178017,
+      "stop": 1696314178017
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314178017,
+      "stop": 1696314178017
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314178017,
+      "stop": 1696314178017
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314178017,
+      "stop": 1696314178017
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314178017,
+      "stop": 1696314178017
+    }
+  ],
+  "links": [],
+  "start": 1696314131753,
+  "stop": 1696314178018
+}

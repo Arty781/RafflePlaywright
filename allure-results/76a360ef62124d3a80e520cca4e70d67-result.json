@@ -1,0 +1,92 @@
+{
+  "uuid": "cf3005ef-49ee-4ab8-afec-7d4a4682c199-tr-0-1072",
+  "historyId": "WebSiteTests.Validation.VerifyEmailValidationOnSignUpPage",
+  "fullName": "WebSiteTests.Validation.VerifyEmailValidationOnSignUpPage",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "VerifyEmailValidationOnSignUpPage"
+    },
+    {
+      "name": "testClass",
+      "value": "Validation"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Unauthorized"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "ValidationOnSignUpPage"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "VerifyEmailValidationOnSignUpPage",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "VerifyEmailValidationOnSignUpPage"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "VerifyEmailValidationOnSignUpPage",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "dca87739b9c34a14baf89cb90e7e6c67-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1696313970265,
+      "stop": 1696313999739
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1696313970265,
+  "stop": 1696313999742
+}

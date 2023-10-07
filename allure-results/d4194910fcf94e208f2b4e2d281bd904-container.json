@@ -1,0 +1,89 @@
+{
+  "uuid": "abcd9b5d-b77e-4d91-a163-4976cb2cc66a-tc-0-1002",
+  "name": "WebSiteTests.Authorization.RegisterNewNonActivatedUser",
+  "children": [
+    "bd64b126-fa43-430d-8016-bdb4eae63109-tr-0-1005"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1695803973191,
+      "stop": 1695803973191
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1695803973191,
+      "stop": 1695803973191
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1695803973191,
+      "stop": 1695803973191
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1695803973191,
+      "stop": 1695803973191
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1695803973191,
+      "stop": 1695803973191
+    }
+  ],
+  "links": [],
+  "start": 1695803919230,
+  "stop": 1695803973193
+}

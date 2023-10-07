@@ -1,0 +1,95 @@
+{
+  "uuid": "fba786ff-217c-494e-b4e9-086298c2f136-tr-0-1024",
+  "historyId": "WebSiteTests.SubscriptionsDoubleTickets.PurchaseSubscriptionOneRaffleExpired",
+  "fullName": "WebSiteTests.SubscriptionsDoubleTickets.PurchaseSubscriptionOneRaffleExpired",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "PurchaseSubscriptionOneRaffleExpired"
+    },
+    {
+      "name": "testClass",
+      "value": "SubscriptionsDoubleTickets"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Subscriptions"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "SubscriptionsDoubleTickets"
+    }
+  ],
+  "links": [],
+  "name": "PurchaseSubscriptionOneRaffleExpired",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "System.IndexOutOfRangeException : Index was outside the bounds of the array.\r\n\r\nMultiple failures or warnings in test:\r\n  1)   Texts don't match\r\n  Expected string length 1899 but was 34. Strings differ at index 0.\r\n  Expected: \"<html><head><style>@media screen and (max-width: 480px) {\\n   ...\"\r\n  But was:  \"{\"status\":404,\"error\":\"Not Found\"}\"\r\n  -----------^\r\n\r\n  2)   Number of elements doesn't match\r\n  Expected: 34\r\n  But was:  1899\r\n\r\n",
+    "trace": "   at System.String.get_Chars(Int32 index)\r\n   at Playwright.Helpers.ParseHelper.<>c__DisplayClass1_0.<CompareEmailWithTemplate>b__2(<>f__AnonymousType0`2 item)\r\n   at System.Linq.Enumerable.WhereSelectEnumerableIterator`2.ToList()\r\n   at Playwright.Helpers.ParseHelper.<>c__DisplayClass1_0.<CompareEmailWithTemplate>b__0()\r\n   at NUnit.Framework.Assert.Multiple(TestDelegate testDelegate)\r\n   at Playwright.Helpers.ParseHelper.CompareEmailWithTemplate(String html, String template)\r\n   at Playwright.Helpers.ParseHelper.ParseHtmlAndCompare(String html, String template)\r\n   at Playwright.Helpers.EmailVerificator.VerifyMonthlyEmailAuth(String email, String name, String charity, Int32 activeRaffles)\r\n   at Playwright.PageObjects.Profile.WaitUntilScriptRuning(Int32 activeRaffles)\r\n   at WebSiteTests.SubscriptionsDoubleTickets.PurchaseSubscriptionOneRaffleExpired()\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()\r\n   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "PurchaseSubscriptionOneRaffleExpired",
+      "status": "failed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false,
+        "message": "System.IndexOutOfRangeException : Index was outside the bounds of the array.\r\n\r\nMultiple failures or warnings in test:\r\n  1)   Texts don't match\r\n  Expected string length 1899 but was 34. Strings differ at index 0.\r\n  Expected: \"<html><head><style>@media screen and (max-width: 480px) {\\n   ...\"\r\n  But was:  \"{\"status\":404,\"error\":\"Not Found\"}\"\r\n  -----------^\r\n\r\n  2)   Number of elements doesn't match\r\n  Expected: 34\r\n  But was:  1899\r\n\r\n",
+        "trace": "   at System.String.get_Chars(Int32 index)\r\n   at Playwright.Helpers.ParseHelper.<>c__DisplayClass1_0.<CompareEmailWithTemplate>b__2(<>f__AnonymousType0`2 item)\r\n   at System.Linq.Enumerable.WhereSelectEnumerableIterator`2.ToList()\r\n   at Playwright.Helpers.ParseHelper.<>c__DisplayClass1_0.<CompareEmailWithTemplate>b__0()\r\n   at NUnit.Framework.Assert.Multiple(TestDelegate testDelegate)\r\n   at Playwright.Helpers.ParseHelper.CompareEmailWithTemplate(String html, String template)\r\n   at Playwright.Helpers.ParseHelper.ParseHtmlAndCompare(String html, String template)\r\n   at Playwright.Helpers.EmailVerificator.VerifyMonthlyEmailAuth(String email, String name, String charity, Int32 activeRaffles)\r\n   at Playwright.PageObjects.Profile.WaitUntilScriptRuning(Int32 activeRaffles)\r\n   at WebSiteTests.SubscriptionsDoubleTickets.PurchaseSubscriptionOneRaffleExpired()\r\n   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()\r\n   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)\r\n   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context)\r\n   at NUnit.Framework.Internal.Commands.BeforeAndAfterTestCommand.<>c__DisplayClass1_0.<Execute>b__0()\r\n   at NUnit.Framework.Internal.Commands.DelegatingTestCommand.RunTestMethodInThreadAbortSafeZone(TestExecutionContext context, Action action)"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "59ac71a262844783b6a116e1f70b4b44-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693998905705,
+      "stop": 1693999845240
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693998905705,
+  "stop": 1693999845240
+}

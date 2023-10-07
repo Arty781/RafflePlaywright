@@ -1,0 +1,92 @@
+{
+  "uuid": "921cdbb8-e566-4936-be81-6c1ec957db8c-tr-0-1004",
+  "historyId": "WebSiteTests.Authorization.RegisterNewUser",
+  "fullName": "WebSiteTests.Authorization.RegisterNewUser",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "RegisterNewUser"
+    },
+    {
+      "name": "testClass",
+      "value": "Authorization"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Authorized"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Authorisation"
+    }
+  ],
+  "links": [],
+  "name": "RegisterNewUser",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "RegisterNewUser"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "RegisterNewUser",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "23fd5f86ca264eadb6e7ceca10d3f1c1-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1696434595856,
+      "stop": 1696434611493
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1696434595856,
+  "stop": 1696434611496
+}

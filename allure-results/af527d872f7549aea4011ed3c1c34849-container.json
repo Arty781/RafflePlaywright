@@ -1,0 +1,89 @@
+{
+  "uuid": "0ef1b39a-91e5-4ab3-bc38-cc5d04dee5b3-tc-0-1037",
+  "name": "WebSiteTests.Payment.PurchaseTicketsFromWinAndDiscountPages",
+  "children": [
+    "52cd7cc9-968c-42e5-9c87-e63671787c22-tr-0-1048"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439277811,
+      "stop": 1694439277811
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439277812,
+      "stop": 1694439277812
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439277812,
+      "stop": 1694439277812
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439277812,
+      "stop": 1694439277812
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694439277812,
+      "stop": 1694439277812
+    }
+  ],
+  "links": [],
+  "start": 1694439227207,
+  "stop": 1694439277826
+}

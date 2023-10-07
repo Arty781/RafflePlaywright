@@ -1,0 +1,89 @@
+{
+  "uuid": "d8f9aea6-e91e-4815-9717-11e49449b5dd-tc-0-1068",
+  "name": "WebSiteTests.Validation.VerifyFirstnameValidationOnSignUpPage",
+  "children": [
+    "db79ce6c-cf22-4046-a1d0-4978af9cb7d6-tr-0-1070"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314026312,
+      "stop": 1696314026312
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314026312,
+      "stop": 1696314026312
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314026312,
+      "stop": 1696314026312
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314026312,
+      "stop": 1696314026312
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1696314026312,
+      "stop": 1696314026312
+    }
+  ],
+  "links": [],
+  "start": 1696313999757,
+  "stop": 1696314026313
+}

@@ -1,0 +1,89 @@
+{
+  "uuid": "1d3ac152-a741-4664-bb09-3cbefcd3a66e-tc-0-1002",
+  "name": "WebSiteTests.Authorization.ResetPasswordAfterPaymentAsUnauthorized",
+  "children": [
+    "bed3bbaf-81d5-4fca-a0d9-fb26593814ad-tr-0-1008"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694603030374,
+      "stop": 1694603030374
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694603030374,
+      "stop": 1694603030374
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694603030374,
+      "stop": 1694603030374
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694603030374,
+      "stop": 1694603030374
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694603030374,
+      "stop": 1694603030374
+    }
+  ],
+  "links": [],
+  "start": 1694602994851,
+  "stop": 1694603030375
+}

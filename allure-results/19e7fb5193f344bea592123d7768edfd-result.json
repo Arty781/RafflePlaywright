@@ -1,0 +1,92 @@
+{
+  "uuid": "1afea117-aa2b-4aa6-99c4-ec11ceedb929-tr-0-1052",
+  "historyId": "WebSiteTests.Payment.MakeAPurchaseByPayPalAndBuySub",
+  "fullName": "WebSiteTests.Payment.MakeAPurchaseByPayPalAndBuySub",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "MakeAPurchaseByPayPalAndBuySub"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Payment"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "MakeAPurchaseByPayPalAndBuySub",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "MakeAPurchaseByPayPalAndBuySub"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "MakeAPurchaseByPayPalAndBuySub",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "3bc44406fcaf44fab5df70761aba1ab8-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693997680047,
+      "stop": 1693997724077
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693997680047,
+  "stop": 1693997724078
+}

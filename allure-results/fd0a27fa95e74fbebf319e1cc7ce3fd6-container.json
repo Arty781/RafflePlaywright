@@ -1,0 +1,89 @@
+{
+  "uuid": "5e199364-860a-4df4-b74a-8d5d28fc9c48-tc-0-1025",
+  "name": "WebSiteTests.SubscriptionsMailing.VerifyInitialSubscriptionEmailAsUnauthorizedUser",
+  "children": [
+    "ee8e4def-a7ee-47f1-af7c-f004a433ec2d-tr-0-1026"
+  ],
+  "befores": [
+    {
+      "name": "WorkerSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694003962723,
+      "stop": 1694003962723
+    },
+    {
+      "name": "PlaywrightSetup",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694003962723,
+      "stop": 1694003962723
+    },
+    {
+      "name": "Initialize",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694003962723,
+      "stop": 1694003962723
+    }
+  ],
+  "afters": [
+    {
+      "name": "WorkerTeardown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694003962723,
+      "stop": 1694003962723
+    },
+    {
+      "name": "OneTimeTearDown",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1694003962723,
+      "stop": 1694003962723
+    }
+  ],
+  "links": [],
+  "start": 1694003934093,
+  "stop": 1694003962724
+}

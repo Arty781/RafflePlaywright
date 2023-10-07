@@ -1,0 +1,92 @@
+{
+  "uuid": "ebc63112-59f5-4026-9000-e7ebda4f3341-tr-0-1049",
+  "historyId": "WebSiteTests.Payment.PurchaseTicketsWin",
+  "fullName": "WebSiteTests.Payment.PurchaseTicketsWin",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-1QH9UGA"
+    },
+    {
+      "name": "package",
+      "value": "WebSiteTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "PurchaseTicketsWin"
+    },
+    {
+      "name": "testClass",
+      "value": "Payment"
+    },
+    {
+      "name": "owner",
+      "value": "Artem <qatester91311@gmail.com>"
+    },
+    {
+      "name": "tag",
+      "value": "Payment"
+    },
+    {
+      "name": "tag",
+      "value": "Regression"
+    },
+    {
+      "name": "owner",
+      "value": "Artem Sukharevskyi"
+    },
+    {
+      "name": "severity",
+      "value": "critical"
+    },
+    {
+      "name": "subSuite",
+      "value": "Payment"
+    },
+    {
+      "name": "suite",
+      "value": "Client"
+    }
+  ],
+  "links": [],
+  "name": "PurchaseTicketsWin",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "PurchaseTicketsWin"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "PurchaseTicketsWin",
+      "status": "passed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [
+        {
+          "name": "Console Output",
+          "source": "c13dc912b1644bb59f3be90960ce07a1-attachment.txt",
+          "type": "text/plain"
+        }
+      ],
+      "parameters": [],
+      "start": 1693997913882,
+      "stop": 1693997952764
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1693997913882,
+  "stop": 1693997952764
+}
