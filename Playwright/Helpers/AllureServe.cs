@@ -1,4 +1,4 @@
-﻿namespace Playwright.Helpers
+﻿namespace PlaywrightRaffle.Helpers
 {
     [AllureSuite("DriverLevel")]
     class AllureServe

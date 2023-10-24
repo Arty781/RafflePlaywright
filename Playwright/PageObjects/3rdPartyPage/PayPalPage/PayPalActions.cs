@@ -1,4 +1,4 @@
-﻿namespace Playwright.PageObjects
+﻿namespace PlaywrightRaffle.PageObjects
 {
     public partial class PayPal
     {
@@ -25,7 +25,7 @@
             await popup.WaitForSelectorAsync(btnSubmit);
             await popup.ClickAsync(btnSubmit, new() { Timeout = 10000 });
 
-            Browser.Page = windows[0];
+            Browser.Driver = windows[0];
 
 
         }

@@ -1,7 +1,7 @@
 ﻿using Chilkat;
 using Newtonsoft.Json.Linq;
 
-namespace Playwright.APIHelpers.Web.Subscriptions
+namespace PlaywrightRaffle.APIHelpers.Web.Subscriptions
 {
     public class SubscriptionsRequest
     {
@@ -96,12 +96,14 @@ namespace Playwright.APIHelpers.Web.Subscriptions
 
         public static void CheckEmailsCountFor35Minutes(List<PutsboxEmail>? userEmails, string email)
         {
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(35);
+            var stopWatch = Stopwatch.StartNew();
             DateTime startTime = DateTime.Now;
             int checkInterval = 30000; // in milliseconds
             bool statusChanged = false;
             int minutes = 35;
 
-            while (DateTime.Now - startTime < TimeSpan.FromMinutes(minutes)) // loop for 15 minutes
+            while (stopWatch.Elapsed <= maxWaitTime) // loop for 35 minutes
             {
                 switch (userEmails.Any(x => x != null && !x.subject.Contains("How many stars would you give")))
                 {
@@ -118,6 +120,7 @@ namespace Playwright.APIHelpers.Web.Subscriptions
 
 
             }
+            stopWatch.Stop();
         LoopExit:
             // Continue with the rest of the code outside the switch statement            
             if (!statusChanged)
@@ -128,21 +131,12 @@ namespace Playwright.APIHelpers.Web.Subscriptions
 
         public static void ParseHTML(string html)
         {
-            // Load the HTML document from a string
             HtmlDocument doc = new();
-            doc.LoadHtml(html);
-
-            // Create a JSON object
-            dynamic jsonObj = new Newtonsoft.Json.Linq.JObject();
-
-            // Traverse the HTML document and add nodes to the JSON object
+            doc.LoadHtml(html); // Load the HTML document from a string
+            dynamic jsonObj = new Newtonsoft.Json.Linq.JObject(); // Create a JSON object
             HtmlNode root = doc.DocumentNode;
-            TraverseNodes(root, jsonObj);
-
-            // Convert the JSON object to a string
+            TraverseNodes(root, jsonObj); // Traverse the HTML document and add nodes to the JSON object
             string jsonStr = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
-            Console.WriteLine(jsonStr);
-
             // Helper method to traverse HTML nodes and add them to the JSON object
             void TraverseNodes(HtmlNode node, dynamic obj)
             {

@@ -1,42 +1,27 @@
 using Microsoft.Playwright;
-using static Playwright.Helpers.AppDbHelper;
+using RimuTec.Faker;
+using static PlaywrightRaffle.Helpers.AppDbHelper;
+
 
 namespace WebSiteTests
 {
     [TestFixture]
     [AllureNUnit]
     [AllureSuite("Client")]
+    [AllureTag("Demo"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(SeverityLevel.critical), AllureSubSuite("Demo")]
     public class Demo : BaseWeb
     {
         [Test]
-        public void Demotest()
+        [Repeat(2)]
+        public async Task DemotestAsync()
         {
-            //Insert.InsertSubscriptionModel(Errors.ErrorTotalCost.ERROR_BAD_TRACK_DATA);
-            var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
-            var subscriptionsModel = AppDbHelper.Subscriptions.GetAllSubscriptionModels();
-            SignUpResponse? responseFail = null;
-            SignUpResponse? response = null;
+            await Common.CloseCookiesPopUp();
+            string email = "qatester" + DateTime.Now.ToString("yyyy-MM-d'-'hh-mm-ss") + "@putsbox.com";
+            await Home.AddTicketsToBasket(2);
+            int countOrders = await Basket.GetOrderCount();
+            double totalOrder = await Basket.GetOrderTotal();
 
-            for (int i = 0; i < 10; i++)
-            {
-                var emailFail = string.Concat("qatester-", DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss-fff"), "@putsbox.com");
-                SignUpRequest.RegisterNewUser(emailFail, out responseFail);
-                var userFail = AppDbHelper.Users.GetUserByEmail(emailFail);
-                Insert.InsertSubscriptionsToUserForFailPayment(userFail, raffle.FirstOrDefault(), subscriptionsModel);
-
-                string email = "qatester" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + "@putsbox.com";
-                SignUpRequest.RegisterNewUser(email, out response);
-                var subscriptionsList = SubscriptionsRequest.GetActiveSubscriptions().SubscriptionModels.Where(x => x.TotalCost == 2500).Select(x => x).FirstOrDefault();
-                var user = AppDbHelper.Users.GetUserByEmailpattern(email).FirstOrDefault();
-                AppDbHelper.Insert.InsertSubscriptionsToUsers(user, raffle.FirstOrDefault(), subscriptionsModel);
-            }
-            var users = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com");
-            gr4vy.AddUsersToKlavio(users);
-
-
-
-
-
+            await Basket.MakeAPurchaseAsUnauthorizedUser(email);
         }
 
 
@@ -199,7 +184,7 @@ namespace WebSiteTests
     [AllureNUnit]
     [AllureSuite("Client")]
     [AllureTag("Regression"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(SeverityLevel.critical), AllureSubSuite("SubscriptionsCommon")]
-    public class SubscriptionsCommon : TestBaseWeb
+    public class SubscriptionsCommon : Base
     {
         [Test]
         [Category("Subscriptions")]
@@ -326,7 +311,7 @@ namespace WebSiteTests
             await Profile.OpenDreamHomeHistoryList(); ;
             await Profile.OpenSubscriptionInProfile();
             await Profile.PauseSubscription();
-            await Profile.VerifyPauseEmail(response.User.Email, name);
+            await EmailVerificator.VerifyPauseEmail(response.User.Email, name);
         }
 
         [Test]
@@ -362,7 +347,7 @@ namespace WebSiteTests
         [Author("Artem", "qatester91311@gmail.com")]
         public async Task CancelSubscriptionAsAuthorizedUser()
         {
-
+            WaitUntil.WaitSomeInterval(100);
             SignUpRequest.RegisterNewUser(out SignUpResponse? response);
             var subscriptionsList = SubscriptionsRequest.GetActiveSubscriptions();
             string? name;
@@ -376,12 +361,13 @@ namespace WebSiteTests
             await Profile.OpenDreamHomeHistoryList();
             await Profile.OpenSubscriptionInProfile();
             await Profile.CancelSubscription();
-            await Profile.VerifyCancelationEmail(response.User.Email, name);
+            await EmailVerificator.VerifyCancelationEmail(response.User.Email, name);
         }
 
         [Test]
         [Category("Subscriptions")]
         [Author("Artem", "qatester91311@gmail.com")]
+        [Repeat(10)]
         public async Task PurchaseNormalTicketsAsSubscribedAuthorizedUser()
         {
             SignUpRequest.RegisterNewUser(out SignUpResponse? response);
@@ -455,16 +441,16 @@ namespace WebSiteTests
         {
             #region Preconditions
 
-            int addFirstStartHours = -3600;
-            int addFirstEndHours = 360;
-            int addSecondStartHours = -1740;
-            int addSecondEndHours = 1780;
+            //int addFirstStartHours = -3600;
+            //int addFirstEndHours = 360;
+            //int addSecondStartHours = -1740;
+            //int addSecondEndHours = 1780;
 
-            var activeDreamhomeList = DreamHome.GetAllRaffles().Where(x => x.Active == true).Select(x => x).ToList();
-            List<DbModels.Raffle> dreamhomeList = DreamHome.GetAllRaffles().Distinct(new ItemNameEqualityComparer()).Where(x => x.IsClosed == true).Select(x => x).ToList();
-            DreamHome.DeactivateDreamHome(activeDreamhomeList);
-            dreamhomeList.Reverse();
-            DreamHome.ActivateTwoClosedDreamHome(dreamhomeList, addFirstStartHours, addFirstEndHours, addSecondStartHours, addSecondEndHours);
+            //var activeDreamhomeList = DreamHome.GetAllRaffles().Where(x => x.Active == true).Select(x => x).ToList();
+            //List<DbModels.Raffle> dreamhomeList = DreamHome.GetAllRaffles().Distinct(new ItemNameEqualityComparer()).Where(x => x.IsClosed == true).Select(x => x).ToList();
+            //DreamHome.DeactivateDreamHome(activeDreamhomeList);
+            //dreamhomeList.Reverse();
+            //DreamHome.ActivateTwoClosedDreamHome(dreamhomeList, addFirstStartHours, addFirstEndHours, addSecondStartHours, addSecondEndHours);
             Users.DeleteUsersByEmail("^(?!.*(@gmail\\.com|@outlook\\.com|@anuitex\\.net|@test\\.co|@raffle-house\\.com)).*$"); //Delete all users except these emails
 
 
@@ -497,16 +483,16 @@ namespace WebSiteTests
         {
             #region Preconditions
 
-            int addFirstStartHours = -3600;
-            int addFirstEndHours = 360;
-            int addSecondStartHours = -1740;
-            int addSecondEndHours = -80;
+            //int addFirstStartHours = -3600;
+            //int addFirstEndHours = 360;
+            //int addSecondStartHours = -1740;
+            //int addSecondEndHours = -80;
 
-            List<DbModels.Raffle> activeDreamhomeList = DreamHome.GetAllRaffles().Where(x => x.Active == true).Select(x => x).ToList();
-            List<DbModels.Raffle> dreamhomeList = DreamHome.GetAllRaffles().Distinct(new ItemNameEqualityComparer()).Where(x => x.IsClosed == true).Select(x => x).ToList();
-            DreamHome.DeactivateDreamHome(activeDreamhomeList);
-            dreamhomeList.Reverse();
-            DreamHome.ActivateTwoClosedDreamHome(dreamhomeList, addFirstStartHours, addFirstEndHours, addSecondStartHours, addSecondEndHours);
+            //List<DbModels.Raffle> activeDreamhomeList = DreamHome.GetAllRaffles().Where(x => x.Active == true).Select(x => x).ToList();
+            //List<DbModels.Raffle> dreamhomeList = DreamHome.GetAllRaffles().Distinct(new ItemNameEqualityComparer()).Where(x => x.IsClosed == true).Select(x => x).ToList();
+            //DreamHome.DeactivateDreamHome(activeDreamhomeList);
+            //dreamhomeList.Reverse();
+            //DreamHome.ActivateTwoClosedDreamHome(dreamhomeList, addFirstStartHours, addFirstEndHours, addSecondStartHours, addSecondEndHours);
             Users.DeleteUsersByEmail("^(?!.*(@gmail\\.com|@outlook\\.com|@anuitex\\.net|@test\\.co|@raffle-house\\.com)).*$"); //Delete all users except these emails
 
 
@@ -580,16 +566,16 @@ namespace WebSiteTests
         {
             #region Preconditions
 
-            int addFirstStartHours = -3600;
-            int addFirstEndHours = 360;
-            int addSecondStartHours = -1740;
-            int addSecondEndHours = -80;
+            //int addFirstStartHours = -3600;
+            //int addFirstEndHours = 360;
+            //int addSecondStartHours = -1740;
+            //int addSecondEndHours = -80;
 
-            List<DbModels.Raffle> activeDreamhomeList = DreamHome.GetAllRaffles().Where(x => x.Active == true).Select(x => x).ToList();
-            List<DbModels.Raffle> dreamhomeList = DreamHome.GetAllRaffles().Distinct(new ItemNameEqualityComparer()).Where(x => x.IsClosed == true).Select(x => x).ToList();
-            DreamHome.DeactivateDreamHome(activeDreamhomeList);
-            dreamhomeList.Reverse();
-            DreamHome.ActivateTwoClosedDreamHome(dreamhomeList, addFirstStartHours, addFirstEndHours, addSecondStartHours, addSecondEndHours);
+            //List<DbModels.Raffle> activeDreamhomeList = DreamHome.GetAllRaffles().Where(x => x.Active == true).Select(x => x).ToList();
+            //List<DbModels.Raffle> dreamhomeList = DreamHome.GetAllRaffles().Distinct(new ItemNameEqualityComparer()).Where(x => x.IsClosed == true).Select(x => x).ToList();
+            //DreamHome.DeactivateDreamHome(activeDreamhomeList);
+            //dreamhomeList.Reverse();
+            //DreamHome.ActivateTwoClosedDreamHome(dreamhomeList, addFirstStartHours, addFirstEndHours, addSecondStartHours, addSecondEndHours);
             Subscriptions.DeleteSubscriptions();
             Users.DeleteUsersByEmail("^(?!.*(@gmail\\.com|@outlook\\.com|@anuitex\\.net|@test\\.co|@raffle-house\\.com)).*$"); //Delete all users except these emails
 
@@ -618,7 +604,8 @@ namespace WebSiteTests
             await Profile.OpenMyTicketsCompetitions();
             await Profile.OpenDreamHomeHistoryList();
             await Profile.ScrollToEndOfHistoryList(1);
-            await Profile.VerifyAddingTickets((double?)subscriptionsList.TotalCost / 100 ?? throw new Exception("TotalCost is null."), raffle.Count);
+            await Profile.VerifyAddingTickets((double?)subscriptionsList.TotalCost / 100 ?? throw new Exception("TotalCost is null."), 
+                                              raffle.Count);
 
 
         }
@@ -647,10 +634,8 @@ namespace WebSiteTests
             await Common.CloseCookiesPopUp();
             await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscription.Id);
             await ThankYou.VerifyThankYouPageIsDisplayed();
-            await Profile.VerifyInitialEmailUnauth(email,
+            await EmailVerificator.VerifyInitialEmailUnauth(email,
                                     name,
-                                    subscription.NumOfTickets + subscription.Extra ?? throw new Exception("NumOfTickets is null."),
-                                    (double?)subscription.TotalCost ?? throw new Exception("TotalCost is null."),
                                     "None Selected",
                                     activeRaffles.Count);
         }
@@ -679,7 +664,7 @@ namespace WebSiteTests
             name = await SignIn.VerifyIsSignIn();
             await Profile.OpenSubscriptionInProfile();
             await Profile.PauseSubscription();
-            await Profile.VerifyPauseEmail(email, name);
+            await EmailVerificator.VerifyPauseEmail(email, name);
 
         }
 
@@ -710,10 +695,9 @@ namespace WebSiteTests
             await Profile.PauseSubscription();
             await Profile.OpenSubscriptionInProfile();
             await Profile.UnpauseSubscription();
-            await Profile.VerifyUnpauseEmail(email,
+            await EmailVerificator.VerifyIsUnpauseEmail(email,
                                     name,
-                                    "None Selected",
-                                    raffle.Count);
+                                    "None Selected");
 
         }
 
@@ -741,7 +725,7 @@ namespace WebSiteTests
             name = await SignIn.VerifyIsSignIn();
             await Profile.OpenSubscriptionInProfile();
             await Profile.CancelSubscription();
-            await Profile.VerifyCancelationEmail(email, name);
+            await EmailVerificator.VerifyCancelationEmail(email, name);
 
 
         }
@@ -750,7 +734,7 @@ namespace WebSiteTests
     [TestFixture]
     [AllureNUnit]
     [AllureSuite("Client")]
-    public class CheckingEmailAfterScriptRunning : TestBaseApi
+    public class CheckingEmailAfterScriptRunning : TestBaseWeb
     {
 
 
@@ -793,6 +777,7 @@ namespace WebSiteTests
             AppDbHelper.Insert.InsertPauseSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate, pausedAt, pauseEnd);
             AppDbHelper.Insert.InsertReminderSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate, pausedAt, pauseEndReminder);
             AppDbHelper.Insert.InsertActiveSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate);
+
 
             #endregion
 
@@ -853,14 +838,25 @@ namespace WebSiteTests
             DreamHomeRequest.EditDreamHomeStartEndDate(tokenAdmin, dreamResponse, false, -7920, 50);
             var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
             var subscriptionsModel = Subscriptions.GetAllSubscriptionModels();
-            Insert.InsertUser(raffle);
-            users = Users.GetUserByEmailpattern("@putsbox.com");
             var charity = "None Selected";
             int nextPurchaseDate = 100;
             int purchaseDate = 0;
             int pausedAt = -720;
             int pauseEnd = -24;
-            Insert.InsertPauseSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate, pausedAt, pauseEnd);
+
+            SignUpRequest.RegisterNewUser(out SignUpResponse? response);
+            await Common.CloseCookiesPopUp();
+            await HeaderPage.OpenSignInPage();
+            await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
+            await SignIn.VerifyIsSignIn();
+            await Basket.MakeAPurchaseSubscriptionAsAuthorizedUser(subscriptionsModel.Last().Id.ToString());
+            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await Profile.OpenMyTicketsCompetitions();
+            await Profile.OpenSubscriptionInProfile();
+            await Profile.PauseSubscription();
+            var userData = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com").FirstOrDefault();
+            await Profile.VerifyPauseEmail(response.User.Email, userData.Name);
+            AppDbHelper.Update.UpdatePauseSubscriptionToUser(userData.Id, charity, nextPurchaseDate, purchaseDate, pausedAt, pauseEnd);
 
             #endregion
 
@@ -884,16 +880,16 @@ namespace WebSiteTests
         {
             #region Preconditions
 
-            int addFirstStartHours = -3600;
-            int addFirstEndHours = 360;
-            int addSecondStartHours = -1740;
-            int addSecondEndHours = 1780;
+            //int addFirstStartHours = -3600;
+            //int addFirstEndHours = 360;
+            //int addSecondStartHours = -1740;
+            //int addSecondEndHours = 1780;
 
-            List<DbModels.Raffle> activeDreamhomeList = DreamHome.GetAllRaffles().Where(x => x.Active == true).Select(x => x).ToList();
-            List<DbModels.Raffle> dreamhomeList = DreamHome.GetAllRaffles().Distinct(new ItemNameEqualityComparer()).Where(x => x.IsClosed == true).Select(x => x).ToList();
-            DreamHome.DeactivateDreamHome(activeDreamhomeList);
-            dreamhomeList.Reverse();
-            DreamHome.ActivateTwoClosedDreamHome(dreamhomeList, addFirstStartHours, addFirstEndHours, addSecondStartHours, addSecondEndHours);
+            //List<DbModels.Raffle> activeDreamhomeList = DreamHome.GetAllRaffles().Where(x => x.Active == true).Select(x => x).ToList();
+            //List<DbModels.Raffle> dreamhomeList = DreamHome.GetAllRaffles().Distinct(new ItemNameEqualityComparer()).Where(x => x.IsClosed == true).Select(x => x).ToList();
+            //DreamHome.DeactivateDreamHome(activeDreamhomeList);
+            //dreamhomeList.Reverse();
+            //DreamHome.ActivateTwoClosedDreamHome(dreamhomeList, addFirstStartHours, addFirstEndHours, addSecondStartHours, addSecondEndHours);
 
             //Delete all subscritions and test users 
             var users = Users.GetAllUsers().Where(x => x.Email.Contains("@putsbox.com")).Select(x => x).ToList();
@@ -908,15 +904,25 @@ namespace WebSiteTests
             DreamHomeRequest.EditDreamHomeStartEndDate(tokenAdmin, dreamResponse, true, -170, 720);
             DreamHomeRequest.EditDreamHomeStartEndDate(tokenAdmin, dreamResponse, false, -7920, -50);
             var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
-            var subscriptionsModel = Subscriptions.GetAllSubscriptionModels();
-            Insert.InsertUser(raffle);
-            users = Users.GetUserByEmailpattern("@putsbox.com");
+            var subscriptionsModel = Subscriptions.GetAllSubscriptionModels();            
             var charity = "None Selected";
             int nextPurchaseDate = 100;
             int purchaseDate = 0;
             int pausedAt = -720;
             int pauseEnd = -24;
-            Insert.InsertPauseSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate, pausedAt, pauseEnd);
+            SignUpRequest.RegisterNewUser(out SignUpResponse? response);
+            await Common.CloseCookiesPopUp();
+            await HeaderPage.OpenSignInPage();
+            await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
+            await SignIn.VerifyIsSignIn();
+            await Basket.MakeAPurchaseSubscriptionAsAuthorizedUser(subscriptionsModel.Last().Id.ToString());
+            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await Profile.OpenMyTicketsCompetitions();
+            await Profile.OpenSubscriptionInProfile();
+            await Profile.PauseSubscription();
+            var userData = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com").FirstOrDefault();
+            await Profile.VerifyPauseEmail(response.User.Email, userData.Name);
+            AppDbHelper.Update.UpdatePauseSubscriptionToUser(userData.Id, charity, nextPurchaseDate, purchaseDate, pausedAt, pauseEnd);
 
             #endregion
 
@@ -966,9 +972,16 @@ namespace WebSiteTests
             DreamHomeRequest.EditDreamHomeStartEndDate(tokenAdmin, dreamResponse, false, -7920, 50);
             var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
             var subscriptionsModel = AppDbHelper.Subscriptions.GetAllSubscriptionModels();
-            AppDbHelper.Insert.InsertUser(raffle);
-            users = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com");
-            AppDbHelper.Insert.InsertActiveSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate);
+            SignUpRequest.RegisterNewUser(out SignUpResponse? response);
+            await Common.CloseCookiesPopUp();
+            await HeaderPage.OpenSignInPage();
+            await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
+            await SignIn.VerifyIsSignIn();
+            await Basket.MakeAPurchaseSubscriptionAsAuthorizedUser(subscriptionsModel.Last().Id.ToString());
+            await ThankYou.VerifyThankYouPageIsDisplayed();
+
+            var userId = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com").FirstOrDefault().Id;
+            AppDbHelper.Update.UpdateActiveSubscriptionToUser(userId, charity, nextPurchaseDate, purchaseDate);
 
             #endregion
 
@@ -1022,9 +1035,16 @@ namespace WebSiteTests
             DreamHomeRequest.EditDreamHomeStartEndDate(tokenAdmin, dreamResponse, false, -7920, -50);
             var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
             var subscriptionsModel = AppDbHelper.Subscriptions.GetAllSubscriptionModels();
-            AppDbHelper.Insert.InsertUser(raffle);
-            users = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com");
-            AppDbHelper.Insert.InsertActiveSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate);
+            SignUpRequest.RegisterNewUser(out SignUpResponse? response);
+            await Common.CloseCookiesPopUp();
+            await HeaderPage.OpenSignInPage();
+            await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
+            await SignIn.VerifyIsSignIn();
+            await Basket.MakeAPurchaseSubscriptionAsAuthorizedUser(subscriptionsModel.Last().Id.ToString());
+            await ThankYou.VerifyThankYouPageIsDisplayed();
+
+            var userId = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com").FirstOrDefault().Id;
+            AppDbHelper.Update.UpdateActiveSubscriptionToUser(userId, charity, nextPurchaseDate, purchaseDate);
 
             #endregion
 
@@ -1083,9 +1103,16 @@ namespace WebSiteTests
             DreamHomeRequest.EditDreamHomeStartEndDate(tokenAdmin, dreamResponse, false, -7920, 50);
             dreamResponse = DreamHomeRequest.GetActiveDreamHome(tokenAdmin, out raffleCloseEarlier);
             var subscriptionsModel = AppDbHelper.Subscriptions.GetAllSubscriptionModels();
-            AppDbHelper.Insert.InsertUser(raffleCloseEarlier);
-            users = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com");
-            AppDbHelper.Insert.InsertActiveSubscriptionToUser(users, raffleCloseEarlier, subscriptionsModel, charity, nextPurchaseDate, purchaseDate);
+            SignUpRequest.RegisterNewUser(out SignUpResponse? response);
+            await Common.CloseCookiesPopUp();
+            await HeaderPage.OpenSignInPage();
+            await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
+            await SignIn.VerifyIsSignIn();
+            await Basket.MakeAPurchaseSubscriptionAsAuthorizedUser(subscriptionsModel.Last().Id.ToString());
+            await ThankYou.VerifyThankYouPageIsDisplayed();
+
+            var userId = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com").FirstOrDefault().Id;
+            AppDbHelper.Update.UpdateActiveSubscriptionToUser(userId, charity, nextPurchaseDate, purchaseDate);
             DreamHome.DeactivateDreamHome(raffleCloseEarlier);
             var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
 
@@ -1761,21 +1788,117 @@ namespace WebSiteTests
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         //[Ignore("")]
-        public async Task VerifiedHomePage()
+        public async Task VerifyHomePage()
         {
             await Common.CloseCookiesPopUp();
             await Home.OpenHomePage(WebEndpoints.WEBSITE_HOST);
             await Home.VerifySecondaryBannerTitle();
             await Home.VerifySecondaryBannerSubtitle();
             await Home.VerifyBottomSliderTitle();
-            await Home.VerifyBottomSliderSubitle();
             await Element.Action("End");
             await Home.VerifyInfoBlockTitles();
+            await Home.SelectParagraphs();
             await Home.VerifyInfoBlockParagraphs();
             await Home.VerifyHowItWorksTitle();
             await Home.VerifyHowItWorksParagraph();
             await Home.VerifyHowItWorksStepsTitles();
             await Home.VerifyHowItWorksStepsParagraphs();
+
+        }
+
+        [Test, Category("Home")]
+        [AllureTag("Regression")]
+        [AllureOwner("Artem Sukharevskyi")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [Author("Artem", "qatester91311@gmail.com")]
+        [AllureSubSuite("Home Page")]
+        //[Ignore("")]
+        public async Task VerifyLifestylePage()
+        {
+            await Common.CloseCookiesPopUp();
+            await Lifestyle.OpenLifePage(WebEndpoints.LIFESTYLE);
+            await Lifestyle.VerifyTopBannerTitle();
+            await Lifestyle.VerifyTopBannerSubtitle();
+            await Lifestyle.VerifyBottomSliderTitle();
+            await Element.Action("End");
+            await Lifestyle.VerifyInfoBlockTitles();
+            await Lifestyle.VerifyInfoBlockParagraphs();
+            await Lifestyle.VerifyHowItWorksTitle();
+            await Lifestyle.VerifyHowItWorksParagraph();
+            await Lifestyle.VerifyHowItWorksStepsTitles();
+            await Lifestyle.VerifyHowItWorksStepsParagraphs();
+
+        }
+
+        [Test, Category("Home")]
+        [AllureTag("Regression")]
+        [AllureOwner("Artem Sukharevskyi")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [Author("Artem", "qatester91311@gmail.com")]
+        [AllureSubSuite("Home Page")]
+        //[Ignore("")]
+        public async Task VerifyCountrysidePage()
+        {
+            await Common.CloseCookiesPopUp();
+            await Countryside.OpenLifePage(WebEndpoints.WIN_YOUR_COUNTRYSIDE_DREAMHOME);
+            await Countryside.VerifyTopBannerTitle();
+            await Countryside.VerifyTopBannerSubtitle();
+            await Countryside.VerifyBottomSliderTitle();
+            await Element.Action("End");
+            await Countryside.VerifyInfoBlockTitles();
+            await Countryside.VerifyInfoBlockParagraphs();
+            await Countryside.VerifyHowItWorksTitle();
+            await Countryside.VerifyHowItWorksParagraph();
+            await Countryside.VerifyHowItWorksStepsTitles();
+            await Countryside.VerifyHowItWorksStepsParagraphs();
+
+        }
+
+        [Test, Category("Home")]
+        [AllureTag("Regression")]
+        [AllureOwner("Artem Sukharevskyi")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [Author("Artem", "qatester91311@gmail.com")]
+        [AllureSubSuite("Home Page")]
+        //[Ignore("")]
+        public async Task VerifyCityPage()
+        {
+            await Common.CloseCookiesPopUp();
+            await City.OpenLifePage(WebEndpoints.CITY);
+            await City.VerifyTopBannerTitle();
+            await City.VerifyTopBannerSubtitle();
+            await City.VerifyBottomSliderTitle();
+            await Element.Action("End");
+            await City.VerifyInfoBlockTitles();
+            await City.VerifyInfoBlockParagraphs();
+            await City.VerifyHowItWorksTitle();
+            await City.VerifyHowItWorksParagraph();
+            await City.VerifyHowItWorksStepsTitles();
+            await City.VerifyHowItWorksStepsParagraphs();
+
+        }
+
+        [Test, Category("Home")]
+        [AllureTag("Regression")]
+        [AllureOwner("Artem Sukharevskyi")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [Author("Artem", "qatester91311@gmail.com")]
+        [AllureSubSuite("Home Page")]
+        //[Ignore("")]
+        public async Task VerifyHolidayPage()
+        {
+            await Common.CloseCookiesPopUp();
+            await Holiday.OpenLifePage(WebEndpoints.HOLIDAY_HOME);
+            await Holiday.VerifyTopBannerTitle();
+            await Holiday.VerifyTopBannerSubtitle();
+            await Holiday.VerifyBottomSliderTitle();
+            await Element.Action("End");
+            await Holiday.VerifyInfoBlockTitles();
+            await Holiday.VerifyInfoBlockParagraphs();
+            await Holiday.VerifyHowItWorksTitle();
+            await Holiday.VerifyHowItWorksParagraph();
+            await Holiday.VerifyHowItWorksStepsTitles();
+            await Holiday.VerifyHowItWorksStepsParagraphs();
 
         }
 

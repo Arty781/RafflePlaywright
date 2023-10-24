@@ -1,9 +1,9 @@
 ﻿using Fizzler.Systems.HtmlAgilityPack;
-using Playwright.PageObjects;
+using PlaywrightRaffle.PageObjects;
 using RestSharp;
 using System.Collections.ObjectModel;
 
-namespace Playwright.Helpers
+namespace PlaywrightRaffle.Helpers
 {
 
 
@@ -93,7 +93,8 @@ namespace Playwright.Helpers
         public static async Task<string> GetText(string element)
         {
             await WaitUntil.CustomElementIsVisible(element);
-            return await Browser.Driver.QuerySelectorAsync(element).Result.TextContentAsync();
+            var t = await Browser.Driver.QuerySelectorAsync(element).Result.TextContentAsync();
+            return Regex.Replace(t, @"&nbsp;|[\u00A0]", "");
         }
 
         public static async Task<string> GetAttribute(string element, string attribute)
@@ -105,7 +106,21 @@ namespace Playwright.Helpers
         public static async Task<string> GetTextForList(string selector, int index)
         {
             await WaitUntil.CustomElementIsVisible(selector);
-            return (await Browser.Driver.QuerySelectorAllAsync(selector))[index].TextContentAsync().Result ?? throw new Exception("Element is null");
+            var t = (await Browser.Driver.QuerySelectorAllAsync(selector))[index].TextContentAsync().Result ?? throw new Exception("Element is null");
+            return Regex.Replace(t, @"&nbsp;|[\u00A0]", "");
+        }
+
+        public static async Task<List<string>> GetListOfTexts(string selector)
+        {
+            List<string> list = new List<string>();
+            await WaitUntil.CustomElementIsVisible(selector);
+            var t = Browser.Driver.QuerySelectorAllAsync(selector).Result.ToList();
+            foreach(var item in t)
+            {
+                var text = item.TextContentAsync().Result;
+                list.Add(Regex.Replace(text, @"&nbsp;|[\u00A0]", ""));
+            }
+            return list;
         }
     }
 
@@ -301,13 +316,20 @@ namespace Playwright.Helpers
 
         public static string GetLinkFromEmailWithValue(string domain, string value)
         {
+            var maxTime = TimeSpan.FromMinutes(5);
+            var stopWatch = Stopwatch.StartNew();
             Thread.Sleep(2000);
             string jsonContent = GetJsonContent(domain);
-            if (jsonContent.Contains("Not Found"))
+            while(stopWatch.Elapsed <= maxTime)
             {
-                Thread.Sleep(2000);
-                jsonContent = GetJsonContent(domain);
+                if (!jsonContent.Contains("Not Found"))
+                {
+                    jsonContent = GetJsonContent(domain);
+                    break;
+                }
+                Thread.Sleep(10000);
             }
+            stopWatch.Stop();
 
             string text = Decode(jsonContent);
             GetBodyData(text);
@@ -316,63 +338,90 @@ namespace Playwright.Helpers
 
         public static string GetTextFromEmailWithValue(string domain, string value)
         {
-            string value2 = value;
+            var maxTime = TimeSpan.FromMinutes(5);
+            var stopWatch = Stopwatch.StartNew();
             Thread.Sleep(2000);
             string jsonContent = GetJsonContent(domain);
-            if (jsonContent.Contains("Not Found"))
+            while (stopWatch.Elapsed <= maxTime)
             {
-                Thread.Sleep(2000);
-                jsonContent = GetJsonContent(domain);
+                if (!jsonContent.Contains("Not Found"))
+                {
+                    jsonContent = GetJsonContent(domain);
+                    break;
+                }
+                Thread.Sleep(10000);
             }
+            stopWatch.Stop();
 
             string text = Decode(jsonContent);
             GetBodyData(text);
             string[] texts = ParseAllText(text)
                 .Split(Environment.NewLine)
-                .Where(x => x.Contains(value2))
+                .Where(x => x.Contains(value))
                 .ToArray();
-            return ParseAllText(text).Split(Environment.NewLine).Where(x => x.Contains(value2)).FirstOrDefault().Replace($"{value2}", "");
+            return ParseAllText(text).Split(Environment.NewLine).Where(x => x.Contains(value)).FirstOrDefault().Replace($"{value}", "");
         }
 
         public static string GetHtmlFromEmail(string domain)
         {
+            var maxTime = TimeSpan.FromMinutes(5);
+            var stopWatch = Stopwatch.StartNew();
             Thread.Sleep(2000);
-            string htmlContent = GetHtmlContent(domain);
-            if (htmlContent.Contains("Not Found"))
+            string Content = GetHtmlContent(domain);
+            while(stopWatch.Elapsed <= maxTime)
             {
-                Thread.Sleep(2000);
-                htmlContent = GetHtmlContent(domain);
+                if (!Content.Contains("Not Found"))
+                {
+                    Content = GetHtmlContent(domain);
+                    break;
+                }
+                Thread.Sleep(10000);
             }
+            stopWatch.Stop();
 
-            string text = Decode(htmlContent);
+            string text = Decode(Content);
             return text;
         }
 
         public static async Task<string> GetHtmlFromEmail(string domain, string id)
         {
-            await Task.Delay(2000);
-            string htmlContent = GetHtmlContent(domain, id).Result;
-            if (htmlContent.Contains("Not Found"))
+            var maxTime = TimeSpan.FromMinutes(5);
+            var stopWatch = Stopwatch.StartNew();
+            Thread.Sleep(2000);
+            string Content = GetHtmlContent(domain, id).Result;
+            while (stopWatch.Elapsed <= maxTime)
             {
-                Thread.Sleep(2000);
-                htmlContent = GetHtmlContent(domain, id).Result;
+                if (!Content.Contains("Not Found"))
+                {
+                    Content = GetHtmlContent(domain, id).Result;
+                    break;
+                }
+                Thread.Sleep(10000);
             }
+            stopWatch.Stop();
 
-            string text = Decode(htmlContent);
+            string text = Decode(Content);
             return text;
         }
 
         public static async Task<List<PutsboxEmail>?> GetAllEmails(string domain)
         {
-            await Task.Delay(2000);
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(2);
+            var stopWatch = Stopwatch.StartNew();
+            int checkInterval = 10000;
             var htmlContent = GetEmailContent(domain);
-            List<PutsboxEmail>? emailList = JsonConvert.DeserializeObject<List<PutsboxEmail>?>(htmlContent);
-            if (htmlContent.Contains("Not Found"))
+
+            while (stopWatch.Elapsed <= maxWaitTime) // loop for 35 minutes
             {
-                Thread.Sleep(2000);
+                if (!htmlContent.Contains("Not Found"))
+                {
+                    break;
+                }
+                await Task.Delay(checkInterval);
                 htmlContent = GetEmailContent(domain);
             }
-            return emailList;
+            stopWatch.Stop();
+            return JsonConvert.DeserializeObject<List<PutsboxEmail>?>(htmlContent);
         }
 
     }

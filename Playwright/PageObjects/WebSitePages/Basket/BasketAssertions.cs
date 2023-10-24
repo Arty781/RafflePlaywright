@@ -1,4 +1,4 @@
-﻿namespace Playwright.PageObjects
+﻿namespace PlaywrightRaffle.PageObjects
 {
     public partial class Basket
     {
@@ -7,7 +7,7 @@
             await WaitUntil.CustomCheckoutIsDisplayed();
             await Task.Delay(500);
             string expectedUrl = WebEndpoints.WEBSITE_HOST;
-            string currentUrl = Browser.Page.Url;
+            string currentUrl = Browser.Driver.Url;
 
             if (currentUrl.Contains("localhost") && !currentUrl.Contains(expectedUrl))
             {

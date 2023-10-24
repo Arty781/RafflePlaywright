@@ -1,6 +1,6 @@
 ﻿
 
-namespace Playwright.PageObjects
+namespace PlaywrightRaffle.PageObjects
 {
     public partial class Home
     {
@@ -8,7 +8,7 @@ namespace Playwright.PageObjects
         public static async Task OpenHomePage(string url)
         {
             await Browser.Driver.GotoAsync(url);
-            await WaitUntil.CustomElementIsVisible(tbsSlider);
+            await WaitUntil.CustomElementIsVisible(btnPrevTopSlider);
 
 
         }
@@ -57,7 +57,7 @@ namespace Playwright.PageObjects
 
         public static async Task OpenDreamTicketSelector()
         {
-            await Button.Click(btnDreamTicketSelector);
+            await Button.Click(btnTicketSelectorInfoBlock);
 
 
         }
@@ -115,34 +115,54 @@ namespace Playwright.PageObjects
                         await Element.Action("End");
                         await OpenDreamTicketSelector();
                         await SelectFirstBundleBtn();
+                        await WaitUntil.WaitSomeInterval(3000);
                         break;
                     case 1:
                         await OpenHomePage();
                         await Element.Action("End");
                         await OpenDreamTicketSelector();
                         await SelectSecondBundleBtn();
+                        await WaitUntil.WaitSomeInterval(3000);
                         break;
                     case 2:
                         await OpenHomePage();
                         await Element.Action("End");
                         await OpenDreamTicketSelector();
                         await SelectForthBundleBtn();
+                        await WaitUntil.WaitSomeInterval(3000);
                         break;
                     case 3:
                         await OpenHomePage();
                         await Element.Action("End");
                         await OpenDreamTicketSelector();
                         await SelectThirdBundleBtn();
+                        await WaitUntil.WaitSomeInterval(3000);
                         break;
                     default:
                         await OpenHomePage();
                         await Element.Action("End");
                         await OpenDreamTicketSelector();
                         await SelectFirstBundleBtn();
+                        await WaitUntil.WaitSomeInterval(3000);
                         break;
                 }
             }
 
+
+        }
+
+        public static async Task<List<string>> SelectParagraphs()
+        {
+            await WaitUntil.CustomElementIsVisible(textParagraph);
+            List<string> paragraphs = new List<string>();
+            var actualTitle = Browser.Driver.QuerySelectorAllAsync(textParagraph).Result.ToList();
+            foreach (var paragraph in actualTitle)
+            {
+                var t = paragraph.TextContentAsync();
+                paragraphs.Add(t.Result);
+            }
+
+            return paragraphs;
 
         }
     }

@@ -1,12 +1,12 @@
-﻿namespace Playwright.PageObjects
+﻿namespace PlaywrightRaffle.PageObjects
 {
     public partial class Home
     {
         #region Top Slider
 
         public const string tbsSlider = "//div[contains(@class,'change-button')]/button";
-        public const string btnPrevTopSlider = "//section[@class='startpage-slider']//button[@class='slick-arrow slick-prev']";
-        public const string btnNextTopSlider = "//section[@class='startpage-slider']//button[@class='slick-arrow slick-next']";
+        public const string btnPrevTopSlider = "//div[@class='startpage-slider']//button[@class='slick-arrow slick-prev']";
+        public const string btnNextTopSlider = "//div[@class='startpage-slider']//button[@class='slick-arrow slick-next']";
         public const string imgFloorPlan = "//img[@alt='floorplan']";
         public const string imgMap = "//img[@alt='dreamhome location']";
 
@@ -14,21 +14,22 @@
 
         #region Banner Secondary Section
 
-        public const string textTitleBannerSecondary = "//div[@class='home-page-title-block']/h1";
-        public const string textSubtitleBannerSecondary = "//h1/parent::div/p";
+        public const string textTitleBannerSecondary = "div h1";
+        public const string textSubtitleBannerSecondary = "div.home-page-title-block p";
+        public const string btnTicketSelectorDreamCard = "div.dream-home-card button";
+        public const string btnTicketSelectorBannerSecondary = "section.banner-secondary button";
+        public const string btnTicketSelectorSecondSlider = "div.dream-slider-bg div.container button";
 
         #endregion
 
         #region Info blocks
 #if CHROME || FIREFOX || DEBUG
 
-        public const string textTitle = "//div[@class='info-block']/div[@class='desktop']//h2";
-        public const string textParagraph = "//div[@class='info-block']/div[@class='desktop']//p";
-        public const string textBottomSliderTitle = "//div[@class='dream-slider-bg']/div[@class='container']//h2";
-        public const string textBottomSliderParagraph = "//div[@class='dream-slider-bg']/div[@class='container']//p";
-        public const string textCharityTitle = "//section[@class='charitable-home-block']//div[@class='givingAbout']//h2";
-        public const string textCharityParagraph = "//section[@class='charitable-home-block']//div[@class='givingAbout']//p";
-        public const string textCharityCard = "//section[@class='charitable-home-block']//div[@class='givingAbout']//section//p";
+        public const string textTitle = "div.desktop h2";
+        public const string textParagraph = "div.desktop p";
+        public const string textBottomSliderTitle = "div.dream-slider-bg h2";
+        public const string textBottomSliderParagraph = "div.dream-slider-bg p";
+        public const string btnTicketSelectorInfoBlock = "div.info-block div.desktop button";
 
 #endif
 
@@ -59,13 +60,18 @@
 
         #region How It Works
 
-        public const string textHowItWorksTitle = "//section[@class='how-it-works-home']//h2";
-        public const string textHowItWorksParagraph = "//section[@class='how-it-works-home']//div[@class='howMainContent']/p";
-        public const string textHowItWorksStepsTitle = "//section[@class='how-it-works-home']//div[@class='howStepper']//h3";
-        public const string textHowItWorksStepsParagraph = "//section[@class='how-it-works-home']//div[@class='howStepper']//p";
-        public const string btnDreamTicketSelector = "//button[text()='Enter Now']";
-        public const string btnPostalBundle = "//div[text()='Postal Entry']/parent::div";
-        public const string btnBundles = "//div[@class='ticket-list']//button[text()='Buy Now']";
+        public const string textHowItWorksTitle = "section.how-it-works-home h2";
+        public const string textHowItWorksParagraph = "section.how-it-works-home div.howMainContent p";
+        public const string textHowItWorksStepsTitle = "section.how-it-works-home div.howStepper h3";
+        public const string textHowItWorksStepsParagraph = "section.how-it-works-home div.howStepper p";
+        public const string btnTicketSelectorHowItWorks = "section.how-it-works-home button";
+
+        #endregion
+
+        #region TicketSelector
+
+        public const string btnPostalBundle = "div.desktop-postal div.postal-card";
+        public const string btnBundles = "div.ticket-card button";
 
         #endregion
 

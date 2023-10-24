@@ -1,19 +1,19 @@
 using ApiTests.BASE;
 using MongoDB.Driver;
 using NUnit.Framework;
-using Playwright.APIHelpers.Admin;
-using Playwright.APIHelpers.Admin.DreamHomePage;
-using Playwright.APIHelpers.Admin.UsersPage;
-using Playwright.APIHelpers.Web;
-using Playwright.APIHelpers.Web.ForgotPasswordWeb;
-using Playwright.APIHelpers.Web.SignIn;
-using Playwright.APIHelpers.Web.SignUpPageWeb;
-using Playwright.APIHelpers.Web.Subscriptions;
-using Playwright.APIHelpers.Web.Weekly;
-using Playwright.Helpers;
-using Playwright.PageObjects;
+using PlaywrightRaffle.APIHelpers.Admin;
+using PlaywrightRaffle.APIHelpers.Admin.DreamHomePage;
+using PlaywrightRaffle.APIHelpers.Admin.UsersPage;
+using PlaywrightRaffle.APIHelpers.Web;
+using PlaywrightRaffle.APIHelpers.Web.ForgotPasswordWeb;
+using PlaywrightRaffle.APIHelpers.Web.SignIn;
+using PlaywrightRaffle.APIHelpers.Web.SignUpPageWeb;
+using PlaywrightRaffle.APIHelpers.Web.Subscriptions;
+using PlaywrightRaffle.APIHelpers.Web.Weekly;
+using PlaywrightRaffle.Helpers;
+using PlaywrightRaffle.PageObjects;
 using Telegram.Bot.Types;
-using static Playwright.Helpers.AppDbHelper;
+using static PlaywrightRaffle.Helpers.AppDbHelper;
 
 namespace API
 {
@@ -30,7 +30,7 @@ namespace API
             SignUpResponse? responseFail = null;
             SignUpResponse? response = null;
 
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 50; i++)
             {
                 var emailFail = string.Concat("qatester-", DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss-fff"), "@putsbox.com");
                 SignUpRequest.RegisterNewUser(emailFail, out responseFail);
@@ -38,12 +38,14 @@ namespace API
                 //Insert.InsertSubscriptionsToUserForFailPayment(userFail, raffle.FirstOrDefault(), subscriptionsModel);
                 AppDbHelper.Insert.InsertSubscriptionsToUsers(userFail, raffle.FirstOrDefault(), subscriptionsModel);
 
-                //string email = "qatester" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + "@putsbox.com";
-                //SignUpRequest.RegisterNewUser(email, out response);
-                //var subscriptionsList = SubscriptionsRequest.GetActiveSubscriptions().SubscriptionModels.Where(x => x.TotalCost == 2500).Select(x => x).FirstOrDefault();
-                //var user = AppDbHelper.Users.GetUserByEmailpattern(email).FirstOrDefault();
+                string email = "qatester" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + "@putsbox.com";
+                SignUpRequest.RegisterNewUser(email, out response);
+                var user = AppDbHelper.Users.GetUserByEmailpattern(email).FirstOrDefault();
+                Insert.InsertSubscriptionsToUserForFailPayment(user, raffle.FirstOrDefault(), subscriptionsModel);
                 
+
             }
+
             var users = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com");
             gr4vy.AddUsersToKlavio(users);
         }

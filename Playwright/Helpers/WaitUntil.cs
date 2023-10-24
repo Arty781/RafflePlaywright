@@ -1,5 +1,5 @@
 ﻿
-namespace Playwright.Helpers
+namespace PlaywrightRaffle.Helpers
 {
     public class WaitUntil
     {

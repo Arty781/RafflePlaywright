@@ -1,4 +1,4 @@
-﻿namespace Playwright.APIHelpers.Admin
+﻿namespace PlaywrightRaffle.APIHelpers.Admin
 {
     public class SettingsGeneralAdminAssertions
     {

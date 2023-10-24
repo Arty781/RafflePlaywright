@@ -1,4 +1,4 @@
-﻿namespace Playwright.Helpers
+﻿namespace PlaywrightRaffle.Helpers
 {
     public partial class RandomHelper
     {

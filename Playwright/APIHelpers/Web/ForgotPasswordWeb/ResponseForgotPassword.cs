@@ -1,4 +1,4 @@
-﻿namespace Playwright.APIHelpers.Web.ForgotPasswordWeb
+﻿namespace PlaywrightRaffle.APIHelpers.Web.ForgotPasswordWeb
 {
     public class RequestForgot
     {

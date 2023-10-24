@@ -1,6 +1,6 @@
 ﻿using Chilkat;
 
-namespace Playwright.APIHelpers.Web.SignIn
+namespace PlaywrightRaffle.APIHelpers.Web.SignIn
 {
     public class SignInRequestWeb
     {

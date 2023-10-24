@@ -1,6 +1,6 @@
 ﻿using Chilkat;
 
-namespace Playwright.APIHelpers.Admin.DreamHomePage
+namespace PlaywrightRaffle.APIHelpers.Admin.DreamHomePage
 {
     public class DreamHomeRequest
     {

@@ -1,4 +1,4 @@
-﻿namespace Playwright.PageObjects
+﻿namespace PlaywrightRaffle.PageObjects
 {
     public partial class Profile
     {
@@ -229,6 +229,11 @@
         public static async Task VerifyUnpauseEmail(string email, string name, string charity, int activeRaffles)
         {
             await EmailVerificator.VerifyUnpauseEmail(email, name, charity);
+        }
+
+        public static async Task VerifyUnpauseEmail(string email, string name, string charity)
+        {
+            await EmailVerificator.VerifyIsUnpauseEmail(email, name, charity);
         }
 
         public static async Task VerifyInitialEmailAuth(string email, string name, int quantity, double value, string charity)

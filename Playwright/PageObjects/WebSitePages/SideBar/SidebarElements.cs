@@ -1,4 +1,4 @@
-﻿namespace Playwright.PageObjects
+﻿namespace PlaywrightRaffle.PageObjects
 {
     public class SidebarElements
     {

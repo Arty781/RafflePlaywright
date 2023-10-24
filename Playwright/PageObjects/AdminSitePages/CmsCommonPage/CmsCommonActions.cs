@@ -1,6 +1,6 @@
 ﻿
 
-namespace Playwright.PageObjects
+namespace PlaywrightRaffle.PageObjects
 {
     public partial class CmsCommon
     {

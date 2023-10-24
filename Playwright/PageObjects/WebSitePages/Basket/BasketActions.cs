@@ -1,4 +1,6 @@
-﻿namespace Playwright.PageObjects
+﻿using Fizzler;
+
+namespace PlaywrightRaffle.PageObjects
 {
     public partial class Basket
     {
@@ -196,6 +198,9 @@
         private static async Task SelectCharity()
         {
             string text = Charities.CHARITY[RandomHelper.RandomCharityNumber(10)];
+            var l = Browser.Driver.QuerySelectorAllAsync(listCharities).Result.Select(x=>x.TextContentAsync()).ToList();
+            
+            
             await DropdownList.SelectDropdownItemByText(listCharities, text);
         }
     }

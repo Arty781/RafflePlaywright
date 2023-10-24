@@ -1,6 +1,6 @@
 ﻿using Chilkat;
 
-namespace Playwright.APIHelpers.Web.WinnersWeb
+namespace PlaywrightRaffle.APIHelpers.Web.WinnersWeb
 {
     public partial class WinnersRequest
     {

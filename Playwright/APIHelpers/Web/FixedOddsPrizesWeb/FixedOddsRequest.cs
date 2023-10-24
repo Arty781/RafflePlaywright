@@ -1,6 +1,6 @@
 ﻿using Chilkat;
 
-namespace Playwright.APIHelpers.Web.FixedOddsPrizesWeb
+namespace PlaywrightRaffle.APIHelpers.Web.FixedOddsPrizesWeb
 {
     public class FixedOddsRequest
     {

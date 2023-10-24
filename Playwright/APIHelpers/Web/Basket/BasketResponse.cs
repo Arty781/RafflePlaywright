@@ -1,4 +1,4 @@
-﻿namespace Playwright.APIHelpers.Web.Basket
+﻿namespace PlaywrightRaffle.APIHelpers.Web.Basket
 {
     public class GetBasketOrdersRequest
     {

@@ -1,4 +1,4 @@
-﻿namespace Playwright.APIHelpers.Admin.DreamHomePage
+﻿namespace PlaywrightRaffle.APIHelpers.Admin.DreamHomePage
 {
     [JsonObject]
     public class CreateDreamHomeRequestModel

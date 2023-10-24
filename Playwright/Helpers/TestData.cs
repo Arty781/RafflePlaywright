@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Playwright.Helpers
+namespace PlaywrightRaffle.Helpers
 {
 
 #if DEBUG || CHROME || FIREFOX || DEBUG_MOBILE
@@ -25,7 +25,7 @@ namespace Playwright.Helpers
         public const string SIGN_IN = "https://staging.rafflehouse.com/sign-in";
         public const string SIGN_UP = "https://staging.rafflehouse.com/sign-up";
         public const string DREAMHOME = "https://staging.rafflehouse.com/dreamhome";
-        public const string LIFESTYLE = "https://staging.rafflehouse.com/lifestyleprizes";
+        public const string LIFESTYLE_PRIZE = "https://staging.rafflehouse.com/lifestyleprizes";
         public const string FIXEDODDS = "https://staging.rafflehouse.com/fixedodds";
         public const string WINNERS = "https://staging.rafflehouse.com/winners";
         public const string ABOUT = "https://staging.rafflehouse.com/about-us";
@@ -34,6 +34,11 @@ namespace Playwright.Helpers
         public const string BASKET = "https://staging.rafflehouse.com/basket";
         public const string PAGE_DISCOUNT = "https://pagediscount-staging.rafflehouse.com/";
         public const string WIN_RAFFLE = "https://win-staging.rafflehouse.com/";
+        public const string THESUN_RAFFLE = "https://thesun-staging.rafflehouse.com/";
+        public const string LIFESTYLE = "https://staging.rafflehouse.com/lifestyle";
+        public const string WIN_YOUR_COUNTRYSIDE_DREAMHOME = "https://staging.rafflehouse.com/win-your-countryside-dream-home";
+        public const string CITY = "https://staging.rafflehouse.com/city";
+        public const string HOLIDAY_HOME = "https://staging.rafflehouse.com/holiday-home";
     }
 
     public class ApiEndpoints
@@ -171,10 +176,10 @@ namespace Playwright.Helpers
     public class HomeTexts
     {
         public const string STEPPER_TITLE = "Win a £250,000 Early Bird Prize!";
-        public static readonly string SECONDARY_BANNER_TITLE = "Win This Dream Home Worth More Than £2 Million";
-        public static readonly string SECONDARY_BANNER_SUBTITLE = "Plus £1 million in early bird cash-prizes to be won by four lucky customers! Enter today for your chance to win.";
+        public static readonly string SECONDARY_BANNER_TITLE = "Win YOUR Dream Home";
+        public static readonly string SECONDARY_BANNER_SUBTITLE = "Everybody’s dream home is different. By winning our new Dream Home competition, we’ll furnish you with £3,000,000 to achieve your own property dreams.";
 
-        public static readonly string BOTTOM_SLIDER_TITLE = "Let’s Take A Closer Look At Your Dream Home";
+        public static readonly string BOTTOM_SLIDER_TITLE = "Win £3,000,000 To Spend On Your Property Dreams.";
         public static readonly List<string> BOTTOM_SLIDER_SUBTITLE = new()
         {
             "Built to the highest standard and nestled in Ovingdean, a stone’s throw from Brighton and the South Downs National Park, this luxury and bespoke Dream Home boasts a private courtyard and woodland to enjoy those lazy days in." ,
@@ -183,29 +188,25 @@ namespace Playwright.Helpers
 
         public static readonly List<string> TITLES_INFO_BLOCKS = new()
         {
-            "This Home Is What Dreams Are Made Of; Meet The Orchard",
-            "Move In Immediately. Furnishings Included",
-            "Location, location, location",
-            "No mortgage. No Stamp Duty. No strings attached",
-            "Dream Big. Do Good",
-            "Enter Now To Win A £250,000 Early Bird Bonus Prize"
+            "Picture Your Dream Home. What Do You See?",
+            "Everybody’s Dream Home Is Different",
+            "Win Your Dream Car",
+            "Dream Big. Do Good."
         };
         public static readonly List<string> PARAGRAPHS_INFO_BLOCKS = new()
         {
-            "A Dream Home prize worth more than £2 million, with £100,000 to help start your new life. Or a tax-free alternative of £2 million cash.",
-            "The Orchard is a luxury and contemporary four-bedroom house with private gardens and woodland on England’s south coast." ,
-            "Your Dream Home is here.",
-            "We want to make the winner’s journey that much more exciting by providing a further £100,000 to furnish the property as you see fit." ,
-            "We’ll set you up with world renowned and leading interior design house, Alexander James, to fully kit out your new Dream Home with dramatic and sublime home décor.",
-            "This sublime Dream Home can be found in Ovingdean, a hop, skip and jump from our country’s summer capital, Brighton.",
-            "The Orchard is surrounded by private woodland, the South Downs, and England’s great countryside, which are yours to enjoy in your new mortgage-free life.",
-            "You won't pay a penny more than your ticket to win. There's no Stamp Duty to pay and you'd own the freehold outright. We also cover any conveyancing fees as well.",
-            "Or you can choose to take the £2 million tax-free cash alternative. It's time to dream big and do good, our 7th Dream Home competition has arrived.",
-            "Every time you enter, you’ll be supporting the Great Ormond Street Hospital, which sees about 600 children and young people from across the UK arrive for life-changing treatments every single day.",
-            "This extraordinary hospital has always depended on charitable support, and you can make a difference today by supporting them just by buying a ticket to win your Dream Home.",
-            "Enter today for your chance to win your slice of £1 million in bonus, early bird prizes as well.",
-            "Every time you buy Dream Home tickets, every single one of them will be entered into all upcoming £250,000 draws - and there are four of these before the big £2 million Dream Home competition ends!",
-            "That's a total prize pool worth more than £3 million. The time to dream big is today."
+            "Is it a country manor with open fires and flagstone floors?",
+            "Perhaps it’s a contemporary penthouse apartment, overlooking the city skyline below?",
+            "A coastal bolthole, far from the madding crowd with beach frontage for daily dips?",
+            "Maybe you've already found your dream home, but want it renovated, modernised, and extended with a cinema room and a couple of extra bedrooms. Or maybe your dream home is abroad?",
+            "A single ticket can unlock your dreams.",
+            "Every Dream Home ticket you buy before midnight on November 19 will also be entered into our Early Bird Draw, where you can win your dream car.",
+            "What would you buy with £70,000? A new 4x4 to make your neighbours envious? Or something more environmentally friendly?",
+            "Or, will you pocket the cash for a rainy day? Unlock your dreams today.",
+            "Every time you enter, you’ll be able to choose from one of over 15 charities to donate to.",
+            "Everyone has a cause that is near and dear to their hearts, and so we want you to be able to choose where 10% of your purchase goes to.",
+            "It’s time to dream big and do good."
+
         };
 
         public static readonly string HOW_IT_WORKS_TITLE = "How It Works";
@@ -214,13 +215,235 @@ namespace Playwright.Helpers
         public static readonly string[] TITLES_STEPS =
         {
             "Choose your ticket bundle",
-            "Make an account",
+            "Unlock your dreams",
             "More than just a ticket"
         };
         public static readonly string[] PARAGRAPHS_STEPS =
         {
-            "Select which ticket bundle you want to buy to win your Dream Home. ",
-            "We will direct you to make an account to keep a record of your purchase. We'll also email you a receipt containing your ticket numbers.",
+            "Select which ticket bundle you want to buy to win your Dream Home.",
+            "We'll then email you a receipt with your ticket numbers in. Your tickets will also be available in your online account.",
+            "We'll make a donation to our charity partner and you can sit back and start dreaming! We always contact our winners by email & phone."
+        };
+
+    }
+
+    public class LifestyleTexts
+    {
+        public const string STEPPER_TITLE = "Win a £250,000 Early Bird Prize!";
+        public static readonly string TOP_TITLE = "Win £3 million to unlock YOUR dreams";
+        public static readonly string TOP_SUBTITLE = "What would you do with £3,000,000? Win our latest competition and we’ll furnish you with a truly life changing sum of money to spend as you see fit.";
+
+        public static readonly string BOTTOM_SLIDER_TITLE = "Win £3,000,000 To Spend On Your Dreams.";
+        public static readonly List<string> BOTTOM_SLIDER_SUBTITLE = new()
+        {
+            "Built to the highest standard and nestled in Ovingdean, a stone’s throw from Brighton and the South Downs National Park, this luxury and bespoke Dream Home boasts a private courtyard and woodland to enjoy those lazy days in." ,
+            "It’s time to quit the rat race and put your feet up."
+        };
+
+        public static readonly List<string> TITLES_INFO_BLOCKS = new()
+        {
+            "Everybody’s Dreams Are Different.",
+            "Indulge. Adventure. Enjoy.",
+            "Win Your Dream Car",
+            "Dream Big. Do Good."
+        };
+        public static readonly List<string> PARAGRAPHS_INFO_BLOCKS = new()
+        {
+            "Our £3 Million prize pot is a truly life changing sum of money.",
+            "What would you do if you won?",
+            "Would it pay off the mortgage?",
+            "Open up the world for some far-flung adventures?",
+            "Or perhaps present the opportunity to buy that vintage car you’ve been picturing yourself behind the driving wheel of?",
+            "Unlock the best that your world has to offer by winning our £3 Million competition.",
+            "A truly life changing amount of money to spend as you as please.",
+            "Every Dream Home ticket you buy before midnight on November 19 will also be entered into our Early Bird Draw, where you can win your dream car.",
+            "What would you buy with £70,000? A new 4x4 to make your neighbours envious? Or something more environmentally friendly?",
+            "Or, will you pocket the cash for a rainy day? Unlock your dreams today.",
+            "Every time you enter, you’ll be able to choose from one of over 15 charities to donate to.",
+            "Everyone has a cause that is near and dear to their hearts, and so we want you to be able to choose where 10% of your purchase goes to.",
+            "It’s time to dream big and do good."
+
+        };
+
+        public static readonly string HOW_IT_WORKS_TITLE = "How It Works";
+        public static readonly string HOW_IT_WORKS_PARAGRAPH = "Entering any of our competitions is quick and easy.";
+
+        public static readonly string[] TITLES_STEPS =
+        {
+            "Choose your ticket bundle",
+            "Unlock your dreams",
+            "More than just a ticket"
+        };
+        public static readonly string[] PARAGRAPHS_STEPS =
+        {
+            "Select which ticket bundle you want to buy to win your Dream Home.",
+            "We'll then email you a receipt with your ticket numbers in. Your tickets will also be available in your online account.",
+            "We'll make a donation to our charity partner and you can sit back and start dreaming! We always contact our winners by email & phone."
+        };
+
+    }
+
+    public class CityTexts
+    {
+        public const string STEPPER_TITLE = "Win a £250,000 Early Bird Prize!";
+        public static readonly string TOP_TITLE = "Win YOUR £3 million Dream City Home";
+        public static readonly string TOP_SUBTITLE = "Win £3,000,000 to live the city dream. Penthouse apartments, beautiful Georgian terraces, or contemporary homes filled with glass.";
+
+        public static readonly string BOTTOM_SLIDER_TITLE = "Win £3,000,000 To Spend On Your Property Dreams.";
+        public static readonly List<string> BOTTOM_SLIDER_SUBTITLE = new()
+        {
+            "Built to the highest standard and nestled in Ovingdean, a stone’s throw from Brighton and the South Downs National Park, this luxury and bespoke Dream Home boasts a private courtyard and woodland to enjoy those lazy days in." ,
+            "It’s time to quit the rat race and put your feet up."
+        };
+
+        public static readonly List<string> TITLES_INFO_BLOCKS = new()
+        {
+            "Live Mortgage Free In The Big City",
+            "Win £3,000,000 To Own Your City Dream Home.",
+            "Win Your Dream Car",
+            "Dream Big. Do Good."
+        };
+        public static readonly List<string> PARAGRAPHS_INFO_BLOCKS = new()
+        {
+            "Living mortgage free is aspiration enough, but doing so in your home city really would be the dream.",
+            "Would you choose that penthouse suite, overlooking the city lights below?",
+            "Or perhaps your dream home is on a classical.",
+            "Georgian terrace, with a cinema room and space for all the family?",
+            "Unlock the very best that your city has to offer, by winning our £3 Million prize pot and own YOUR dream city home.",
+            "Every Dream Home ticket you buy before midnight on November 19 will also be entered into our Early Bird Draw, where you can win your dream car.",
+            "What would you buy with £70,000? A new 4x4 to make your neighbours envious? Or something more environmentally friendly?",
+            "Or, will you pocket the cash for a rainy day? Unlock your dreams today.",
+            "Every time you enter, you’ll be able to choose from one of over 15 charities to donate to.",
+            "Everyone has a cause that is near and dear to their hearts, and so we want you to be able to choose where 10% of your purchase goes to.",
+            "It’s time to dream big and do good."
+
+
+        };
+
+        public static readonly string HOW_IT_WORKS_TITLE = "How It Works";
+        public static readonly string HOW_IT_WORKS_PARAGRAPH = "Entering any of our competitions is quick and easy.";
+
+        public static readonly string[] TITLES_STEPS =
+        {
+            "Choose your ticket bundle",
+            "Unlock your dreams",
+            "More than just a ticket"
+        };
+        public static readonly string[] PARAGRAPHS_STEPS =
+        {
+            "Select which ticket bundle you want to buy to win your Dream Home.",
+            "We'll then email you a receipt with your ticket numbers in. Your tickets will also be available in your online account.",
+            "We'll make a donation to our charity partner and you can sit back and start dreaming! We always contact our winners by email & phone."
+        };
+
+    }
+
+    public class CountrysideTexts
+    {
+        public const string STEPPER_TITLE = "Win a £250,000 Early Bird Prize!";
+        public static readonly string TOP_TITLE = "Win YOUR £3 million Dream Countryside Home";
+        public static readonly string TOP_SUBTITLE = "Dreaming of the good life? Win our latest competition and we’ll furnish you with £3 Million to spend on YOUR Country House Dream.";
+
+        public static readonly string BOTTOM_SLIDER_TITLE = "Win £3,000,000 To Spend On Your Property Dreams.";
+        public static readonly List<string> BOTTOM_SLIDER_SUBTITLE = new()
+        {
+            "Built to the highest standard and nestled in Ovingdean, a stone’s throw from Brighton and the South Downs National Park, this luxury and bespoke Dream Home boasts a private courtyard and woodland to enjoy those lazy days in." ,
+            "It’s time to quit the rat race and put your feet up."
+        };
+
+        public static readonly List<string> TITLES_INFO_BLOCKS = new()
+        {
+            "A Magical Move To The Countryside",
+            "Everybody’s Dream Home Is Different",
+            "Win Your Dream Car",
+            "Dream Big. Do Good."
+        };
+        public static readonly List<string> PARAGRAPHS_INFO_BLOCKS = new()
+        {
+            "What does your rural idyll look like?",
+            "Is it a beautiful Georgian fronted manor, with a creeping wisteria?",
+            "Or a cosy cottage with exposed timber beams and a roaring open fire?",
+            "Or perhaps it’s that coastal bolthole with beachfront access for daily dips in the open water?",
+            "This is your opportunity to live that bucolic life.",
+            "Open skies, forested-hills and nature await you at your doorstep.",
+            "Every Dream Home ticket you buy before midnight on November 19 will also be entered into our Early Bird Draw, where you can win your dream car.",
+            "What would you buy with £70,000? A new 4x4 to make your neighbours envious? Or something more environmentally friendly?",
+            "Or, will you pocket the cash for a rainy day? Unlock your dreams today.",
+            "Every time you enter, you’ll be able to choose from one of over 15 charities to donate to.",
+            "Everyone has a cause that is near and dear to their hearts, and so we want you to be able to choose where 10% of your purchase goes to.",
+            "It’s time to dream big and do good."
+
+
+        };
+
+        public static readonly string HOW_IT_WORKS_TITLE = "How It Works";
+        public static readonly string HOW_IT_WORKS_PARAGRAPH = "Entering any of our competitions is quick and easy.";
+
+        public static readonly string[] TITLES_STEPS =
+        {
+            "Choose your ticket bundle",
+            "Unlock your dreams",
+            "More than just a ticket"
+        };
+        public static readonly string[] PARAGRAPHS_STEPS =
+        {
+            "Select which ticket bundle you want to buy to win your Dream Home.",
+            "We'll then email you a receipt with your ticket numbers in. Your tickets will also be available in your online account.",
+            "We'll make a donation to our charity partner and you can sit back and start dreaming! We always contact our winners by email & phone."
+        };
+
+    }
+
+    public class HolidayTexts
+    {
+        public const string STEPPER_TITLE = "Win a £250,000 Early Bird Prize!";
+        public static readonly string TOP_TITLE = "Win YOUR £3 million Dream Holiday Home";
+        public static readonly string TOP_SUBTITLE = "A life in the sun or the snow? By the beach or atop a mountain? Win our competition and we’ll furnish you with £3,000,000 to buy YOUR Dream Holiday Home.";
+
+        public static readonly string BOTTOM_SLIDER_TITLE = "Win £3,000,000 To Spend On Your Property Dreams.";
+        public static readonly List<string> BOTTOM_SLIDER_SUBTITLE = new()
+        {
+            "Built to the highest standard and nestled in Ovingdean, a stone’s throw from Brighton and the South Downs National Park, this luxury and bespoke Dream Home boasts a private courtyard and woodland to enjoy those lazy days in." ,
+            "It’s time to quit the rat race and put your feet up."
+        };
+
+        public static readonly List<string> TITLES_INFO_BLOCKS = new()
+        {
+            "Your Dream. Your Holiday Home.",
+            "A Holiday Home Changes Everything",
+            "Win Your Dream Car",
+            "Dream Big. Do Good."
+        };
+        public static readonly List<string> PARAGRAPHS_INFO_BLOCKS = new()
+        {
+            "We Brits love to get away, and what better than to do so to a holiday home of your very own.",
+            "The only question is where you’d choose to go. Would it be the glamorous French Riviera?",
+            "An historic Tuscan hilltop?",
+            "Or a bolthole in the Swiss Alps?",
+            "A single ticket into our competition could furnish you with £3,000,000 to spend on your holiday Dream Home. As the sun sets on the first day of your holiday, you’ll think of the moment your entered, glass in hand.",
+            "Every Dream Home ticket you buy before midnight on November 19 will also be entered into our Early Bird Draw, where you can win your dream car.",
+            "What would you buy with £70,000? A new 4x4 to make your neighbours envious? Or something more environmentally friendly?",
+            "Or, will you pocket the cash for a rainy day? Unlock your dreams today.",
+            "Every time you enter, you’ll be able to choose from one of over 15 charities to donate to.",
+            "Everyone has a cause that is near and dear to their hearts, and so we want you to be able to choose where 10% of your purchase goes to.",
+            "It’s time to dream big and do good."
+
+
+        };
+
+        public static readonly string HOW_IT_WORKS_TITLE = "How It Works";
+        public static readonly string HOW_IT_WORKS_PARAGRAPH = "Entering any of our competitions is quick and easy.";
+
+        public static readonly string[] TITLES_STEPS =
+        {
+            "Choose your ticket bundle",
+            "Unlock your dreams",
+            "More than just a ticket"
+        };
+        public static readonly string[] PARAGRAPHS_STEPS =
+        {
+            "Select which ticket bundle you want to buy to win your Dream Home.",
+            "We'll then email you a receipt with your ticket numbers in. Your tickets will also be available in your online account.",
             "We'll make a donation to our charity partner and you can sit back and start dreaming! We always contact our winners by email & phone."
         };
 
@@ -1684,7 +1907,7 @@ namespace Playwright.Helpers
             [BsonElement("user")]
             public ObjectId? User { get; set; }
 
-            [BsonElement("UpdatedAt")]
+            [BsonElement("updatedAt")]
             public DateTime? UpdatedAt { get; set; }
 
             [BsonElement("cardSource")]
@@ -1897,7 +2120,7 @@ namespace Playwright.Helpers
         }
         public static string InitialAuth(string name, int? quantity, double? value, string charity)
         {
-            return $"<html><head><style>@media screen and (max-width: 480px) {{\n    .wrap-btn {{\n        text-align: center;\n    }}\n}}\n\n.im {{\n    color: #31323C !important;\n}}</style></head><body style=\"color:#31323C;font:HK Grotesk;\"><p style=\"color:#31323C;font:HK Grotesk;font-size:15px;\"><strong>Hi {name},</strong></p>\n<img width=\"1px\" height=\"1px\" alt=\"\" src=\"link with token\"></body><p style=\"color:#31323C;font:HK Grotesk;\">Welcome to the Raffle House subscription service. You're now doing good every single month! So sit back, and start dreaming big.\n<p style=\"color:#31323C;font:HK Grotesk;\">Please see your Raffle House subscription receipt below. You will next be billed and issued tickets on the 1st of every month. You’ll also receive confirmation of your new tickets then.</p>\n<table style=\"color:#31323C;border-spacing:10px;\"><tr><td style=\"font-weight:bold;\">Ticket Quantity</td><td>{quantity}</td></tr><tr><td style=\"font-weight:bold;\">Value</td><td>£{value}</td></tr><tr><td style=\"font-weight:bold;\">Charitable Donation</td><td>{charity}</td></tr><tr><td></td></tr></table>\n<p style=\"color:#31323C;font:HK Grotesk;\">Your tickets have been securely saved to your account</p><div class=\"wrap-btn\"><a href=\"link with token\"><button type=\"button\" style=\"color:white;background:#f48202;border-radius:10px;padding:5px 25px;width:184px;height:36px;border:none;\">View tickets</button></a></div><p style=\"color:#31323C;font:HK Grotesk;\">As a subscriber, you can still buy one-off bundles if you want to increase your chances to win. If you want to buy more tickets, just hit the button below.</p>\n<div class=\"wrap-btn\"><a href=\"link with token\"><button type=\"button\" style=\"color:white;background:#f48202;border-radius:10px;padding:5px 25px;width:184px;height:36px;border:none;\">Buy more tickets</button></a>\n</div><p style=\"color:#31323C;font:HK Grotesk;\">Good luck!</p><p style=\"color:#31323C;font:HK Grotesk;font-size:15px;\"><strong>RAFFLE HOUSE</strong></p><p style=\"color:#31323C;font:HK Grotesk;\">You can view our subscription<a href=\"link with token\"> T&Cs here.</a></p></html>\n";
+            return $"<html><head><style>@media screen and (max-width: 480px) {{\n    .wrap-btn {{\n        text-align: center;\n    }}\n}}\n\n.im {{\n    color: #31323C !important;\n}}</style></head><body style=\"color:#31323C;font:HK Grotesk;\"><p style=\"color:#31323C;font:HK Grotesk;font-size:15px;\"><strong>Hi {name},</strong></p>\n<img width=\"1px\" height=\"1px\" alt=\"\" src=\"link with token\"></body><p style=\"color:#31323C;font:HK Grotesk;\">Welcome to the Raffle House subscription service. You're now doing good every single month! So sit back, and start dreaming big.\n<p style=\"color:#31323C;font:HK Grotesk;\">Please see your Raffle House subscription receipt below. You will next be billed and issued tickets on the 1st of every month. You’ll also receive confirmation of your new tickets then.</p>\n<table style=\"color:#31323C;border-spacing:10px;\"><tr><td style=\"font-weight:bold;\">Ticket Quantity</td><td>{quantity}</td></tr><tr><td style=\"font-weight:bold;\">Value</td><td>£{value}</td></tr><tr><td style=\"font-weight:bold;\">Charitable Donation</td><td>{charity}</td></tr><tr><td></td><td></td></tr></table>\n<p style=\"color:#31323C;font:HK Grotesk;\">Your tickets have been securely saved to your account</p><div class=\"wrap-btn\"><a href=\"link with token\"><button type=\"button\" style=\"color:white;background:#f48202;border-radius:10px;padding:5px 25px;width:184px;height:36px;border:none;\">View tickets</button></a></div><p style=\"color:#31323C;font:HK Grotesk;\">As a subscriber, you can still buy one-off bundles if you want to increase your chances to win. If you want to buy more tickets, just hit the button below.</p>\n<div class=\"wrap-btn\"><a href=\"link with token\"><button type=\"button\" style=\"color:white;background:#f48202;border-radius:10px;padding:5px 25px;width:184px;height:36px;border:none;\">Buy more tickets</button></a>\n</div><p style=\"color:#31323C;font:HK Grotesk;\">Good luck!</p><p style=\"color:#31323C;font:HK Grotesk;font-size:15px;\"><strong>RAFFLE HOUSE</strong></p><p style=\"color:#31323C;font:HK Grotesk;\">You can view our subscription<a href=\"link with token\"> T&Cs here.</a></p></html>\n";
         }
         public static string MonthlyAuth(string name, int? quantity, double? value, string charity)
         {
@@ -1938,78 +2161,46 @@ namespace Playwright.Helpers
     {
         public static readonly List<string> CHECKOUT_ID = new List<string>
         {
-            "pay_zozashz6mpo2domxtg2onz32m4",
-            "pay_mmmyrsuds7q2hbyxwlnqijucpe",
-            "pay_rgmpd24ladf2rl2gt46aa5ahsy",
-            "pay_kgqv3kqpq3a25hq6iyy6taswgy",
-            "pay_cntqqf4k5u42tm2raaqwug6ihq",
-            "pay_wl6pllcn6e7khhdwzcmdbwaliu",
-            "pay_y4ifhgvrcilk7kku6s7b7p3inu",
-            "pay_2txlcey3dsakjhb6gjv6tvkag4",
-            "pay_6rh3pyukksf25d3cmns2qsbo4q",
-            "pay_73ydulxnj672tfid4al6mr4rke",
-            "pay_pbqulg5w2c2kjavvqkjrmmg3w4",
-            "pay_vmqwfw6ohzxk3iauijegjvfwb4",
-            "pay_ttskl5rpe63kdggeuggfrregey",
-            "pay_62asca2v43akllz6uzfmxcopry",
-            "pay_xgiv2z4f23l27cfvdhbjm6pge4",
-            "pay_nz5s2prp5wr2ri27rqqkbs73ia",
-            "pay_wjujmck33nnk5ph4gltzcpjskq",
-            "pay_3vc56mhpfwfktn6vzekz3cstq4",
-            "pay_jnibsan2s2ikblaufcobcjxfue",
-            "pay_fbrnwelnvj525kz3r6hxjjtrp4"
-
+            "pay_es22m5rqbad2fcdmqzu662tjs4",
+            "pay_aaktyrmqggzklkxi4qnur7jkb4",
+            "pay_cb4bvpbepjn2hccwhywi6gfcge",
+            "pay_nypnbbwcr272njdn64f2vz5y6a",
+            "pay_zoauvhsyf7g27pqkx6csrbwjiy",
+            "pay_5xamkreqnwrkfeuvv4zjz7bkou",
+            "pay_gxrqpmxhvte2hawpgbtovjobia",
+            "pay_fhvkjvaixtn2rof7vi4z6h7vde",
+            "pay_2h6il5eqe5mkjfoowxe4er6hfa",
+            "pay_k4jv56ptcd425iwvohftmttn6u",
+            "pay_ocx44gdai6d2dp7lkzb4jv3qgy"
 
         };
         public static readonly List<string> REFFERENCE = new List<string>()
         {
-            "47885be9-9dae-4c87-9d44-19a2dca99678",
-            "ff828a52-ed6d-41dc-8487-94e2ec649298",
-            "c4f438c5-5954-4d74-a784-21ebd67bdc8c",
-            "d30e888a-29e6-49a1-85a5-23f9863651e4",
-            "f723114a-2678-4dc7-ab78-8bd89b06805a",
-            "3f221f31-6712-4cfb-bb3e-bfe785dc15ce",
-            "06037f6b-4f75-40b2-a61e-06be9cdbb100",
-            "be0cd6a3-c1c4-4e8c-8211-ff30db68ddc2",
-            "449299e0-8f12-4c7a-b38c-ff8b0d751db0",
-            "eb1ba28a-9b7f-474c-8c3d-767fc6b223fc",
-            "0c83a92a-f851-4264-a142-23291bf62a07",
-            "b3092642-440c-4d84-9c6c-971e545f86cf",
-            "585920a7-2044-42ed-9f7c-6ec320f9ae3f",
-            "c56e472c-0dd9-4161-a140-71a750c407bd",
-            "7eb10715-d03b-49d7-9e5c-450df8b926c8",
-            "d33f45a3-eaed-4481-a726-0b560c96cf65",
-            "d6493868-5108-47a6-88cc-76559d6157b3",
-            "e5e76b05-14c6-43bc-b53a-a06ed9b0afd4",
-            "4b3e428c-ccb9-47bf-931c-f04cec8aca96",
-            "030612c8-d4b0-4cc1-bc48-8e121a4198a7"
-
-
+              "ae00ad26-f68e-4a46-8a7a-c25ac9996323",
+              "121c887f-7165-4e78-9014-e44e4747aaf3",
+              "9283fa3a-31be-4093-8a50-554350555a83",
+              "99536535-d22a-4635-bd58-bdb22e664cae",
+              "22b64379-1115-4dea-b172-625839efda4d",
+              "b26545c3-d598-4c43-ba3a-db997e2e9b7b",
+              "c21346a1-4e08-454f-9322-c372b175a91a",
+              "ee45c42a-7660-4220-a867-2ea2ee02c408",
+              "0304abed-0a4e-4a10-859a-0cb2e50bd14f",
+              "b785b852-f101-4e73-9e71-3515687506e0",
+              "2e93be22-71e5-4675-842e-671f3f7e62db"
         };
         public static readonly List<string> CARD_SOURCE = new List<string>()
         {
-            "src_b2srl7h33bofgcdun744gsjpji",
-            "src_hzfef6jt2phfacgpzdpmgxlrge",
-            "src_rzkgdukr26jvwcg7ew3t5rftee",
-            "src_vojz7nyxzvdfecfkoukjajhu5e",
-            "src_mpksjv7pivqfkcfsiyo3b6eu6e",
-            "src_47yeebnneblvkchchez4cbmdiy",
-            "src_rdwhmhc2durf4cgin2yoxrvlxe",
-            "src_yeqvhjwvzm5vschdfwa4yj3qyq",
-            "src_j4jfe7lbt2ovwcgig52zpigqwm",
-            "src_6gpwglrzujwv6caqz44tynhsrm",
-            "src_e6wfk2d2j2jv6carpfwr4nj4mq",
-            "src_hsmiiawjocsfeccfrb7mf3fjta",
-            "src_yn5hi5m42auvychmoh72mcm4be",
-            "src_od22wd6t3zcvgchvzyx7vasnxq",
-            "src_svwcy4lvwkiveccmknautmhlhu",
-            "src_7htkzb2be3cvgcb2e45gj5mtxm",
-            "src_ujplivxoub5vicatazsyfxm7ve",
-            "src_7u3anjrxfnkvqceqdrkjq777ky",
-            "src_bsuxs3bgzdyfwchddwsbupa76e",
-            "src_i4oqobro5fvfocgviav2bpqwuy"
-
-
+            "src_coanebipcc3vuca37p7e4lw7tu",
+            "src_oxc6nndbqfxfmcepog7unzj244",
+            "src_g3mzrzdzserfych2jdvbhwrkoi",
+            "src_kecpx6dydmrfqcfn37hdsgnzue",
+            "src_j4myhz44vvkvgcb45d2k3so6ca",
+            "src_pfu6iu2llwbfocbcrwrhm66k6m",
+            "src_qzxgozn72hlvucbdaejox2qwpa",
+            "src_5z6nrihqalof6cbawhmuen5qea",
+            "src_nzkvxi7oywyfycc7jegmas55ma",
+            "src_imdxoy5nhrrfocajkueikmwm5i",
+            "src_dfxpo5lo4dpfucfkkwmkbqhvj4"
         };
     }
 
@@ -2022,11 +2213,11 @@ namespace Playwright.Helpers
             "Marie Curie",
             "St. John Ambulance",
             "Alzheimer's Research UK",
-            "Samaritans",
             "Alzheimer's Society",
             "British Red Cross",
             "WWF",
             "Duke of Edinburgh Awards",
+            "The Flying Seagull Project",
             "Save the Children",
             "National Trust",
             "Royal British Legion",
@@ -2038,6 +2229,7 @@ namespace Playwright.Helpers
             "Parkinson's UK",
             "Barnardo's",
             "War Paws"
+
         };
     }
 

@@ -1,7 +1,7 @@
 ﻿using Chilkat;
-using Playwright.APIHelpers.Web.Basket;
+using PlaywrightRaffle.APIHelpers.Web.Basket;
 
-namespace Playwright.PageObjects
+namespace PlaywrightRaffle.PageObjects
 {
     public partial class gr4vy
     {
@@ -57,6 +57,7 @@ namespace Playwright.PageObjects
             req.AddHeader("accept", "application/json, text/plain, */*");
             req.AddHeader("content-type", "application/json");
             req.AddHeader("authorization", $"Klaviyo-API-Key pk_fcab64dd1d921d2e4a77be26e5f9a091fe");
+            req.AddHeader("revision", DateTime.Now.AddDays(-14).ToString("yyyy-MM-dd"));
             req.LoadBodyFromString(Body(users), charset: "utf-8");
 
             Http http = new Http();

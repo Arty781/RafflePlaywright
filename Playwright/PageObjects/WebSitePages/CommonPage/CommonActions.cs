@@ -1,6 +1,6 @@
 ﻿
 
-namespace Playwright.PageObjects
+namespace PlaywrightRaffle.PageObjects
 {
     public partial class Common
     {
@@ -67,7 +67,7 @@ namespace Playwright.PageObjects
             await Browser.Driver.CloseAsync();
             await newPage.BringToFrontAsync();
             await Task.Delay(30000);
-            return Browser.Page = newPage;
+            return Browser.Driver = newPage;
         }
 
     }

@@ -1,4 +1,4 @@
-﻿namespace Playwright.Helpers
+﻿namespace PlaywrightRaffle.Helpers
 {
     [AllureNUnit]
     public class BaseWeb : PlaywrightTest

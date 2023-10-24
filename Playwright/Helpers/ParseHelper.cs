@@ -1,4 +1,4 @@
-﻿namespace Playwright.Helpers
+﻿namespace PlaywrightRaffle.Helpers
 {
     public class ParseHelper
     {
@@ -7,8 +7,9 @@
             // Find the link in the HTML code
             string pattern = $"<a.href=\"" + "(.+?)\"";
             string result = Regex.Replace(html, pattern, "<a href=" + "\"" + "link with token" + "\"", RegexOptions.IgnoreCase);
-            pattern = "src=\"(.+?)\"";
+            pattern = "src=\"([^\"]+)\"";
             result = Regex.Replace(result, pattern, "src=" + "\"" + "link with token" + "\"", RegexOptions.IgnoreCase);
+
             //pattern = "<td>(.+?)</td>";
             //result = Regex.Replace(result, pattern, "<td>" + "</td>", RegexOptions.IgnoreCase);
             //pattern = "<strong>Hi(.+?),";
@@ -98,6 +99,7 @@
 
         public static async Task VerifyMonthlyEmailAuth(string email, string name, string charity, int activeRaffles)
         {
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(35);
             emailsList = await Elements.GgetAllEmailData(email);
             var user = AppDbHelper.Users.GetUserByEmail(email);
             var subscriptionList = AppDbHelper.Subscriptions.GetAllSubscriptionsByUserId(user);
@@ -105,10 +107,23 @@
             var quantity = sub.NumOfTickets + sub.Extra;
             var value = sub.TotalCost / 100;
             emailsList = await Elements.GgetAllEmailData(email);
+            if(emailsList.Where(x => x.subject == "Subscription tickets receipt").Select(q => q.id).Count() <= 1)
+            {
+                var stopwatch = Stopwatch.StartNew();
+                while (stopwatch.Elapsed <= maxWaitTime)
+                {
+                    emailsList = await Elements.GgetAllEmailData(email);
+                    if(emailsList.Where(x => x.subject == "Subscription tickets receipt").Select(q => q.id).Count() > 1)
+                    {
+                        break;
+                    }
+                    await Task.Delay(30000);
+                }
+                stopwatch.Stop();
+            }
             var id = emailsList.Where(x => x.subject == "Subscription tickets receipt").Select(q => q.id).FirstOrDefault();
             Elements.GgetHtmlBody(email, id, out string emailInitial);
             ParseHelper.ParseHtmlAndCompare(emailInitial, SubscriptionEmailsTemplate.MonthlyAuth(name, quantity * activeRaffles, value, charity));
-            Console.WriteLine(quantity * activeRaffles);
 
         }
 
@@ -132,6 +147,37 @@
 
         public static async Task VerifyUnpauseEmail(string email, string name, string charity)
         {
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(35);
+            emailsList = await Elements.GgetAllEmailData(email);
+            var user = AppDbHelper.Users.GetUserByEmail(email);
+            var subscriptionList = AppDbHelper.Subscriptions.GetAllSubscriptionsByUserId(user);
+            var sub = subscriptionList.Where(x => x.Status == "PAUSED" && x.PausedAt != null).Select(x => x).First();
+            var quantity = sub.NumOfTickets + sub.Extra;
+            var value = sub.TotalCost / 100;
+            var ordersList = AppDbHelper.Orders.GetAllSubscriptionOrdersByUserId(user);
+            emailsList = await Elements.GgetAllEmailData(email);
+            if (emailsList.Where(x => x.subject == "Subscription pause reactivation").Select(q => q.id).Count() <= 1)
+            {
+                var stopwatch = Stopwatch.StartNew();
+                while (stopwatch.Elapsed <= maxWaitTime)
+                {
+                    emailsList = await Elements.GgetAllEmailData(email);
+                    if (emailsList.Where(x => x.subject == "Subscription pause reactivation").Select(q => q.id).Count() == 1)
+                    {
+                        break;
+                    }
+                    await Task.Delay(30000);
+                }
+                stopwatch.Stop();
+            }
+            var id = emailsList.Where(x => x.subject == "Subscription pause reactivation").Select(q => q.id).FirstOrDefault();
+            Elements.GgetHtmlBody(email, id, out string emailInitial);
+            ParseHelper.ParseHtmlAndCompare(emailInitial, SubscriptionEmailsTemplate.Unpause(name, quantity, value, charity));
+        }
+
+        public static async Task VerifyIsUnpauseEmail(string email, string name, string charity)
+        {
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(35);
             emailsList = await Elements.GgetAllEmailData(email);
             var user = AppDbHelper.Users.GetUserByEmail(email);
             var subscriptionList = AppDbHelper.Subscriptions.GetAllSubscriptionsByUserId(user);
@@ -140,6 +186,20 @@
             var value = sub.TotalCost / 100;
             var ordersList = AppDbHelper.Orders.GetAllSubscriptionOrdersByUserId(user);
             emailsList = await Elements.GgetAllEmailData(email);
+            if (emailsList.Where(x => x.subject == "Subscription pause reactivation").Select(q => q.id).Count() <= 1)
+            {
+                var stopwatch = Stopwatch.StartNew();
+                while (stopwatch.Elapsed <= maxWaitTime)
+                {
+                    emailsList = await Elements.GgetAllEmailData(email);
+                    if (emailsList.Where(x => x.subject == "Subscription pause reactivation").Select(q => q.id).Count() == 1)
+                    {
+                        break;
+                    }
+                    await Task.Delay(30000);
+                }
+                stopwatch.Stop();
+            }
             var id = emailsList.Where(x => x.subject == "Subscription pause reactivation").Select(q => q.id).FirstOrDefault();
             Elements.GgetHtmlBody(email, id, out string emailInitial);
             ParseHelper.ParseHtmlAndCompare(emailInitial, SubscriptionEmailsTemplate.Unpause(name, quantity, value, charity));

@@ -1,4 +1,4 @@
-﻿namespace Playwright.APIHelpers.Web.FixedOddsPrizesWeb
+﻿namespace PlaywrightRaffle.APIHelpers.Web.FixedOddsPrizesWeb
 {
 
     public partial class CreateFixedOddsOrderRequest

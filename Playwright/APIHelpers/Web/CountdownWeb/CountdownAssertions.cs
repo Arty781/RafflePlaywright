@@ -1,4 +1,4 @@
-﻿namespace Playwright.APIHelpers.Web
+﻿namespace PlaywrightRaffle.APIHelpers.Web
 {
     public class CountdownAssertionsWeb
     {

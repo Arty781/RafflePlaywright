@@ -1,6 +1,6 @@
 ﻿using Chilkat;
 
-namespace Playwright.APIHelpers.Web.Weekly
+namespace PlaywrightRaffle.APIHelpers.Web.Weekly
 {
     public class WeeklyPrizesRequestWeb
     {

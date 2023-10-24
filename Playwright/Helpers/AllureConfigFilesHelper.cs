@@ -1,4 +1,4 @@
-﻿namespace Playwright.Helpers
+﻿namespace PlaywrightRaffle.Helpers
 {
     public class AllureConfigFilesHelper
     {
@@ -111,15 +111,15 @@
 
             var path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory));
             FileInfo fileInf = new(path + "allureConfig.json");
-            if (fileInf.Exists == true)
+            if (fileInf.Exists != true)
             {
-                fileInf.Delete();
-            }
-            string mainpath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory)) + "allureConfig.json";
+                string mainpath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory)) + "allureConfig.json";
 
-            using StreamWriter file = System.IO.File.CreateText(mainpath);
-            JsonSerializer serializer = new();
-            serializer.Serialize(file, json);
+                using StreamWriter file = System.IO.File.CreateText(mainpath);
+                JsonSerializer serializer = new();
+                serializer.Serialize(file, json);
+            }
+            
         }
     }
 }

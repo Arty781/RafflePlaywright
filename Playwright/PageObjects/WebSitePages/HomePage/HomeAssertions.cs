@@ -1,4 +1,4 @@
-﻿namespace Playwright.PageObjects
+﻿namespace PlaywrightRaffle.PageObjects
 {
     public partial class Home
     {
@@ -6,7 +6,7 @@
         public static async Task VerifySecondaryBannerTitle()
         {
             await WaitUntil.CustomElementIsVisible(textTitleBannerSecondary);
-            var text = await Browser.Driver.QuerySelectorAsync(textTitleBannerSecondary).Result.TextContentAsync();
+            var text = TextBox.GetText(textTitleBannerSecondary).Result;
             Assert.That(text.ToLower(), Is.EqualTo(HomeTexts.SECONDARY_BANNER_TITLE.ToLower()), $"Texts are not matched. Expected \"{HomeTexts.SECONDARY_BANNER_TITLE}\" but was \"{text}\"");
 
         }
@@ -15,7 +15,7 @@
         public static async Task VerifySecondaryBannerSubtitle()
         {
             await WaitUntil.CustomElementIsVisible(textSubtitleBannerSecondary);
-            var text = await Browser.Driver.QuerySelectorAsync(textSubtitleBannerSecondary).Result.TextContentAsync();
+            var text = TextBox.GetText(textSubtitleBannerSecondary).Result;
             Assert.That(text.ToLower(), Is.EqualTo(HomeTexts.SECONDARY_BANNER_SUBTITLE.ToLower()), $"Texts are not matched. Expected \"{HomeTexts.SECONDARY_BANNER_SUBTITLE}\" but was \"{text}\"");
 
         }
@@ -24,7 +24,7 @@
         public static async Task VerifyBottomSliderTitle()
         {
             await WaitUntil.CustomElementIsVisible(textBottomSliderTitle);
-            var text = await Browser.Driver.QuerySelectorAsync(textBottomSliderTitle).Result.TextContentAsync();
+            var text = TextBox.GetText(textBottomSliderTitle).Result;
             Assert.That(text.ToLower(), Is.EqualTo(HomeTexts.BOTTOM_SLIDER_TITLE.ToLower()), $"Texts are not matched. Expected \"{HomeTexts.BOTTOM_SLIDER_TITLE}\" but was \"{text}\"");
 
         }
@@ -33,10 +33,10 @@
         public static async Task VerifyBottomSliderSubitle()
         {
             await WaitUntil.CustomElementIsVisible(textBottomSliderParagraph);
-            var listOfText = Browser.Driver.QuerySelectorAllAsync(textBottomSliderParagraph).Result.ToList();
+            var listOfText = TextBox.GetListOfTexts(textBottomSliderParagraph).Result;
             for (int i = 0; i < listOfText.Count; i++)
             {
-                Assert.That(listOfText[i].TextContentAsync().Result.ToLower(), Is.EqualTo(HomeTexts.BOTTOM_SLIDER_SUBTITLE[i].ToLower()), $"Texts are not matched. Expected \"{HomeTexts.BOTTOM_SLIDER_SUBTITLE[i]}\" but was \"{listOfText[i].TextContentAsync().Result}\"");
+                Assert.That(listOfText[i].ToLower(), Is.EqualTo(HomeTexts.BOTTOM_SLIDER_SUBTITLE[i].ToLower()), $"Texts are not matched. Expected \"{HomeTexts.BOTTOM_SLIDER_SUBTITLE[i]}\" but was \"{listOfText[i]}\"");
             }
 
         }
@@ -60,10 +60,10 @@
         public static async Task VerifyInfoBlockParagraphs()
         {
             await WaitUntil.CustomElementIsVisible(textParagraph);
-            var listOfText = Browser.Driver.QuerySelectorAllAsync(textParagraph).Result.ToList();
-            for (int i = 0; i < 5; i++)
+            var listOfText = TextBox.GetListOfTexts(textParagraph).Result;
+            for (int i = 0; i < listOfText.Count; i++)
             {
-                Assert.That(listOfText[i].TextContentAsync().Result.ToLower(), Is.EqualTo(HomeTexts.PARAGRAPHS_INFO_BLOCKS[i].ToLower()), string.Concat("Not matched ", "\"", listOfText[i].TextContentAsync(), "\"", "\r\nwith ", "\"", HomeTexts.PARAGRAPHS_INFO_BLOCKS[i], "\""));
+                Assert.That(listOfText[i].ToLower(), Is.EqualTo(HomeTexts.PARAGRAPHS_INFO_BLOCKS[i].ToLower()), string.Concat("Not matched ", "\"", listOfText[i], "\"", "\r\nwith ", "\"", HomeTexts.PARAGRAPHS_INFO_BLOCKS[i], "\""));
             }
 
 
@@ -107,7 +107,7 @@
             for (int i = 0; i < 3; i++)
             {
                 string expectedParagraph = HomeTexts.PARAGRAPHS_STEPS[i].ToLower();
-                string actualParagraph = Browser.Driver.QuerySelectorAllAsync(textHowItWorksStepsParagraph).Result[i].TextContentAsync().Result.ToLower();
+                var actualParagraph = TextBox.GetTextForList(textHowItWorksStepsParagraph, i).Result.ToLower();
 
                 Assert.That(actualParagraph, Is.EqualTo(expectedParagraph), $"Not matched. Expected: \"{expectedParagraph}\". Actual: \"{actualParagraph}\"");
             }

@@ -1,6 +1,6 @@
 ﻿using Chilkat;
 
-namespace Playwright.APIHelpers.Web
+namespace PlaywrightRaffle.APIHelpers.Web
 {
     public class EmailRequest
     {

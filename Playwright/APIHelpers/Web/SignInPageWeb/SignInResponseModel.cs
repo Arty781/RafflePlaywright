@@ -1,4 +1,4 @@
-﻿namespace Playwright.APIHelpers.Web.SignIn
+﻿namespace PlaywrightRaffle.APIHelpers.Web.SignIn
 {
     public class SignInRequestModelWeb
     {

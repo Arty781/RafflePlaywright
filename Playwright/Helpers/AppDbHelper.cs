@@ -1,7 +1,8 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using PlaywrightRaffle.APIHelpers.Admin.UsersPage;
 
-namespace Playwright.Helpers
+namespace PlaywrightRaffle.Helpers
 {
     public class ItemNameEqualityComparer : IEqualityComparer<DbModels.Raffle>
     {
@@ -732,7 +733,8 @@ namespace Playwright.Helpers
                         CardSource= SubscriptionsCardDetails.CARD_SOURCE[activeCount],
                         CheckoutId= SubscriptionsCardDetails.CHECKOUT_ID[activeCount],
                         NextPurchaseDate = DateTime.Now.AddHours(nextPurchaseDate),
-                        PurchaseDate = DateTime.Now.AddMonths(purchaseDate)
+                        PurchaseDate = DateTime.Now.AddMonths(purchaseDate),
+                        UpdatedAt = DateTime.Now,
                         }
                     };
 
@@ -750,27 +752,27 @@ namespace Playwright.Helpers
                 var collection = database.GetCollection<DbModels.SubscriptionsInsert>("subscriptions");
                 var update = new List<DbModels.SubscriptionsInsert>()
                     {
-                        //new DbModels.SubscriptionsInsert
-                        //{
-                        //Status = "ACTIVE",
-                        //Count= 1,
-                        //Charity= "",
-                        //IsReminderSent= false,
-                        //CreatedAt = DateTime.Now,
-                        //TotalCost= subscriptionModels[firstSub].TotalCost,
-                        //NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
-                        //Extra= subscriptionModels[firstSub].Extra,
-                        //SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
-                        //Emails = new List<string>(),
-                        //Raffle= raffle.Id,
-                        //User= user.Id,
-                        //Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
-                        //CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
-                        //CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
-                        //NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
-                        //PurchaseDate = DateTime.Now
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= 1,
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
 
-                        //},
+                        },
                         new DbModels.SubscriptionsInsert
                         {
                         Status = "PAUSED",
@@ -1046,6 +1048,43 @@ namespace Playwright.Helpers
                 };
                 collection.InsertOne(insert);
             }
+        }
+
+        public class Update
+        {
+            public static void UpdateActiveSubscriptionToUser(ObjectId? userId, string charity, int nextPurchaseDate, int purchaseDate)
+            {
+
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collectionActive = database.GetCollection<DbModels.SubscriptionsActiveInsert>("subscriptions");
+                var filter = Builders<DbModels.SubscriptionsActiveInsert>.Filter.Eq("user", userId);
+                var update = Builders<DbModels.SubscriptionsActiveInsert>.Update
+                .Set(u => u.Charity, charity)
+                .Set(u => u.NextPurchaseDate, DateTime.Now.AddHours(nextPurchaseDate))
+                .Set(u => u.PurchaseDate, DateTime.Now.AddHours(purchaseDate));
+                collectionActive.UpdateMany(filter, update);                
+
+            }
+
+            public static void UpdatePauseSubscriptionToUser(ObjectId? userId, string charity, int nextPurchaseDate, int purchaseDate, int pausedAt, int pauseEnd)
+            {
+
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collectionActive = database.GetCollection<DbModels.SubscriptionsInsert>("subscriptions");
+                var filter = Builders<DbModels.SubscriptionsInsert>.Filter.Eq("user", userId);
+                var update = Builders<DbModels.SubscriptionsInsert>.Update
+                .Set(u => u.Charity, charity)
+                .Set(u => u.NextPurchaseDate, DateTime.Now.AddHours(nextPurchaseDate))
+                .Set(u => u.PurchaseDate, DateTime.Now.AddHours(purchaseDate))
+                .Set(u => u.PausedAt, DateTime.Now.AddHours(pausedAt))
+                .Set(u => u.PauseEnd, DateTime.Now.AddHours(pauseEnd));
+                collectionActive.UpdateMany(filter, update);
+
+            }
+
+
         }
 
         public class Competitions

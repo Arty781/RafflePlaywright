@@ -1,4 +1,4 @@
-﻿namespace Playwright.APIHelpers.Web.Subscriptions
+﻿namespace PlaywrightRaffle.APIHelpers.Web.Subscriptions
 {
     public class SubsriptionsResponse
     {

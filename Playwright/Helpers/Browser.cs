@@ -1,36 +1,21 @@
-﻿namespace Playwright.Helpers
+﻿namespace PlaywrightRaffle.Helpers
 {
     public class Browser
     {
-        public static IPage Page { get; set; }
-        private static IBrowserContext BrowserContext { get; set; }
+        public static IPage Driver { get; set; }
+        public static IBrowser BrowserSet { get; set; }
 
         public static async Task Initialize()
         {
             await AllureConfigFilesHelper.CreateJsonConfigFile();
-            var pl = await Microsoft.Playwright.Playwright.CreateAsync();
-            var browser = await pl.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
-            {
-                Headless = false,
-                Devtools = false,
-                
-                Timeout = 15000
-                
-
-            });
-            BrowserContext = await browser.NewContextAsync();
-            Page = await BrowserContext.NewPageAsync();
-            await Driver.SetViewportSizeAsync(width: 1900, height: 980);
         }
 
-        public static IPage Driver => Page;
-        public static IBrowserContext Context => BrowserContext;
 
         public static string RootPath() => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\..\\"));
         public static string RootPathReport() => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\"));
 
         public static async Task Close() => await Driver.CloseAsync();
-        public static async Task Quit() => await Context.CloseAsync();
+        public static async Task Quit() => await BrowserSet.CloseAsync();
         public static async Task Navigate(string url)
         {
             await Driver.GotoAsync(url);
@@ -39,27 +24,52 @@
 
     }
 
-    public class Base : PlaywrightTest
+    public class Base : Browser
     {
-        [SetUp]
-        public async Task Initialize()
+        
+        [OneTimeSetUp]
+        public async Task OneTimeSetUp()
         {
             await Browser.Initialize();
+            var pl = await Playwright.CreateAsync();
+            var launch = new BrowserTypeLaunchOptions
+            {
+                Headless = true,
+                Devtools = false,
+                Timeout = 15000
+            };
+            BrowserSet = await pl.Chromium.LaunchAsync(launch);
+        }
+
+        [SetUp]
+        public async Task SetUp()
+        {
+            var context = await BrowserSet.NewContextAsync();
+            Driver = await context.NewPageAsync();
+            await Driver.SetViewportSizeAsync(width: 1900, height: 980);
             await Browser.Navigate(WebEndpoints.WEBSITE_HOST);
         }
 
         [TearDown]
-        public static async Task OneTimeTearDown()
+        public static async Task TearDown()
         {
             TestStatus testStatus = TestContext.CurrentContext.Result.Outcome.Status;
             _ = testStatus == TestStatus.Failed ? TelegramHelper.SendMessage() : null;
             await Browser.Close();
+            
+
+        }
+
+        [OneTimeTearDown]
+        public async Task OneTimeTearDown()
+        {
             if (Browser.Driver != null)
             {
                 await Browser.Quit();
                 ForceCloseDriver.ForeseClose();
             }
         }
+
     }
 
     public class ForceCloseDriver
@@ -91,15 +101,6 @@
             return path;
         }
 
-        public static void RemoveBatFile(string path)
-        {
-            FileInfo fileInf = new(path);
-            if (fileInf.Exists == true)
-            {
-                fileInf.Delete();
-            }
-        }
-
         public static void ForeseClose()
         {
             string path = CreateBatFile();
@@ -108,7 +109,11 @@
             process.Start();
             process.Close();
             Thread.Sleep(1000);
-            RemoveBatFile(path);
+            FileInfo fileInf = new(path);
+            if (fileInf.Exists == true)
+            {
+                fileInf.Delete();
+            }
         }
     }
 

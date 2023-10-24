@@ -1,4 +1,4 @@
-﻿namespace Playwright.APIHelpers.Admin.UsersPage
+﻿namespace PlaywrightRaffle.APIHelpers.Admin.UsersPage
 {
     public class CreateUserCmsRequest
     {

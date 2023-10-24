@@ -1,6 +1,6 @@
 ﻿using Chilkat;
 
-namespace Playwright.APIHelpers.Web.SignUpPageWeb
+namespace PlaywrightRaffle.APIHelpers.Web.SignUpPageWeb
 {
     public class SignUpRequest
     {
@@ -11,7 +11,7 @@ namespace Playwright.APIHelpers.Web.SignUpPageWeb
                 Name = Name.FirstName(),
                 Surname = Name.LastName(),
                 Password = Credentials.PASSWORD,
-                Email = "qatester-" + DateTime.Now.ToString("yyyy-MM-dThh-mm-ss") + "@putsbox.com",
+                Email = "qatester-" + DateTime.Now.ToString("yyyy-MM-dThh-mm-ss-ffffff") + "@putsbox.com",
                 EmailCommunication = true,
                 Country = Country.COUNTRY_CODES[138],
                 Phone = "",

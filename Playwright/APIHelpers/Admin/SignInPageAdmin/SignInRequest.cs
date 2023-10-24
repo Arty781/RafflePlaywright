@@ -1,6 +1,6 @@
 ﻿using Chilkat;
 
-namespace Playwright.APIHelpers.Admin
+namespace PlaywrightRaffle.APIHelpers.Admin
 {
     public class SignInRequestAdmin
     {

@@ -1,6 +1,6 @@
-﻿using static Playwright.Helpers.Element;
+﻿using static PlaywrightRaffle.Helpers.Element;
 
-namespace Playwright.PageObjects
+namespace PlaywrightRaffle.PageObjects
 {
     public partial class CmsUserManagement
     {
