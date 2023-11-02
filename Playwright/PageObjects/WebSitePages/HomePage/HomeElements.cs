@@ -7,6 +7,7 @@
         public const string tbsSlider = "//div[contains(@class,'change-button')]/button";
         public const string btnPrevTopSlider = "//div[@class='startpage-slider']//button[@class='slick-arrow slick-prev']";
         public const string btnNextTopSlider = "//div[@class='startpage-slider']//button[@class='slick-arrow slick-next']";
+        public const string imgSlider = "div.startpage-slider div.gallery-image";
         public const string imgFloorPlan = "//img[@alt='floorplan']";
         public const string imgMap = "//img[@alt='dreamhome location']";
 
@@ -27,7 +28,7 @@
 
         public const string textTitle = "div.desktop h2";
         public const string textParagraph = "div.desktop p";
-        public const string textBottomSliderTitle = "div.dream-slider-bg h2";
+        public const string textBottomSliderTitle = "//div[contains(@class,'dream-slider-bg')]//h2";
         public const string textBottomSliderParagraph = "div.dream-slider-bg p";
         public const string btnTicketSelectorInfoBlock = "div.info-block div.desktop button";
 

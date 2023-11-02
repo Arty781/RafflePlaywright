@@ -1,10 +1,7 @@
 ﻿global using Allure.Commons;
-global using ApiTests.BASE;
-global using Microsoft.Playwright.NUnit;
 global using NUnit.Allure.Attributes;
 global using NUnit.Allure.Core;
 global using NUnit.Framework;
-global using NUnit.Framework.Interfaces;
 global using PlaywrightRaffle.APIHelpers.Admin;
 global using PlaywrightRaffle.APIHelpers.Admin.DreamHomePage;
 global using PlaywrightRaffle.APIHelpers.Admin.UsersPage;
@@ -17,4 +14,3 @@ global using PlaywrightRaffle.APIHelpers.Web.WinnersWeb;
 global using PlaywrightRaffle.Helpers;
 global using PlaywrightRaffle.PageObjects;
 global using System.Linq;
-global using WebsiteTests.BASE;

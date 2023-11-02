@@ -1,4 +1,6 @@
-﻿namespace PlaywrightRaffle.PageObjects
+﻿using System.Globalization;
+
+namespace PlaywrightRaffle.PageObjects
 {
     public partial class Winners
     {
@@ -16,7 +18,9 @@
                 {
                     a = a.AddDays(+1);
                 }
-                Assert.That(a.ToString("dd' 'MMMM', 'yyyy").TrimStart('0') == await TextBox.GetTextForList(textWinnerDate, i), Is.True, a.ToString("dd' 'MMMM', 'yyyy") + "\r\n" + await TextBox.GetTextForList(textWinnerDate, i));
+                var expDate = a.ToString("dd' 'MMMM', 'yyyy", new CultureInfo("en-US")).TrimStart('0').TrimEnd();
+                var actDate = TextBox.GetTextForList(textWinnerDate, i).Result.TrimEnd();
+                Assert.That(actDate, Is.EqualTo(expDate), actDate + " is not " + expDate);
             }
         }
 

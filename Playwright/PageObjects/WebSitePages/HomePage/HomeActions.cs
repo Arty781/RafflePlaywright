@@ -8,7 +8,7 @@ namespace PlaywrightRaffle.PageObjects
         public static async Task OpenHomePage(string url)
         {
             await Browser.Driver.GotoAsync(url);
-            await WaitUntil.CustomElementIsVisible(btnPrevTopSlider);
+            await WaitUntil.CustomElementIsVisible(imgSlider);
 
 
         }

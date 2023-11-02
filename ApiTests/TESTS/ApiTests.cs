@@ -24,30 +24,7 @@ namespace API
 
         public async Task Demo()
         {
-            //Insert.InsertSubscriptionModel(Errors.ErrorTotalCost.ERROR_BAD_TRACK_DATA);
-            var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
-            var subscriptionsModel = AppDbHelper.Subscriptions.GetAllSubscriptionModels();
-            SignUpResponse? responseFail = null;
-            SignUpResponse? response = null;
-
-            for (int i = 0; i < 50; i++)
-            {
-                var emailFail = string.Concat("qatester-", DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss-fff"), "@putsbox.com");
-                SignUpRequest.RegisterNewUser(emailFail, out responseFail);
-                var userFail = AppDbHelper.Users.GetUserByEmail(emailFail);
-                //Insert.InsertSubscriptionsToUserForFailPayment(userFail, raffle.FirstOrDefault(), subscriptionsModel);
-                AppDbHelper.Insert.InsertSubscriptionsToUsers(userFail, raffle.FirstOrDefault(), subscriptionsModel);
-
-                string email = "qatester" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + "@putsbox.com";
-                SignUpRequest.RegisterNewUser(email, out response);
-                var user = AppDbHelper.Users.GetUserByEmailpattern(email).FirstOrDefault();
-                Insert.InsertSubscriptionsToUserForFailPayment(user, raffle.FirstOrDefault(), subscriptionsModel);
-                
-
-            }
-
-            var users = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com");
-            gr4vy.AddUsersToKlavio(users);
+            AppDbHelper.Orders.DeleteArchiveOrdersByUserId();
         }
     }
 

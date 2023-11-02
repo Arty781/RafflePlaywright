@@ -26,8 +26,8 @@
 
         public const string textTitle = "div.info-block > div.desktop h2";
         public const string textParagraph = "div.info-block > div.desktop p";
-        public const string textBottomSliderTitle = "div.dream-slider-bg h2";
-        public const string textBottomSliderParagraph = "div.dream-slider-bg p";
+        public const string textBottomSliderTitle = "//div[contains(@class,'dream-slider-bg')]//h2";
+        public const string textBottomSliderParagraph = "//div[contains(@class,'dream-slider-bg')]//p";
         public const string btnTicketSelectorInfoBlock = "div.info-block div.desktop button";
 
         #endregion

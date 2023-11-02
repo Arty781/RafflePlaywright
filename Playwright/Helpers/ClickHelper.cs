@@ -118,7 +118,7 @@ namespace PlaywrightRaffle.Helpers
             foreach(var item in t)
             {
                 var text = item.TextContentAsync().Result;
-                list.Add(Regex.Replace(text, @"&nbsp;|[\u00A0]", ""));
+                list.Add(Regex.Replace(text, @"&nbsp;|[\u00A0]|&ZeroWidthSpace;|[\u200B]", ""));
             }
             return list;
         }

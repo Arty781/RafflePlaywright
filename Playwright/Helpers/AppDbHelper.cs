@@ -285,6 +285,24 @@ namespace PlaywrightRaffle.Helpers
 
             }
 
+            public static void ActivateDreamHome(List<DbModels.Raffle> raffles)
+            {
+                foreach (var raffle in raffles)
+                {
+                    var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                    var database = client.GetDatabase(DbConnection.DB_STAGING);
+                    var collection = database.GetCollection<DbModels.Raffle>("raffles");
+                    var filter = Builders<DbModels.Raffle>.Filter.Eq(r => r.Id, raffle.Id);
+                    var update = Builders<DbModels.Raffle>.Update
+                        .Set(r => r.IsClosed, false)
+                        .Set(r => r.Active, true);
+
+                    collection.UpdateOne(filter, update);
+                    Competitions.ActivateRafflesComp(raffle);
+                }
+
+            }
+
             public static void DeactivateDreamHome(List<DbModels.Raffle> raffles)
             {
                 foreach (var raffle in raffles)
@@ -515,6 +533,16 @@ namespace PlaywrightRaffle.Helpers
                     collection.DeleteMany(filter);
                     collectionArchive.DeleteMany(filterArchive);
                 }
+
+            }
+
+            public static void DeleteArchiveOrdersByUserId()
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collectionArchive = database.GetCollection<DbModels.ArchiveOrders>("archiveorders");
+                var filterArchive = Builders<DbModels.ArchiveOrders>.Filter.Empty;
+                    collectionArchive.DeleteMany(filterArchive);
 
             }
 
@@ -1142,6 +1170,20 @@ namespace PlaywrightRaffle.Helpers
                     .Set(c => c.IsActive, true)
                     .Set(r => r.StartAt, DateTime.Now.AddHours(addHoursStart))
                     .Set(r => r.EndsAt, DateTime.Now.AddHours(addHoursEnd));
+                collection.UpdateMany(filter, update);
+            }
+
+            public static void ActivateRafflesComp(DbModels.Raffle raffle)
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Competitions.Raffle>("competitions");
+                var filterBuilder = Builders<DbModels.Competitions.Raffle>.Filter;
+                var filter = filterBuilder.Eq(r => r.CompetitionType, "DREAMHOME") &
+                    (filterBuilder.Eq(r => r.DreamHome, raffle.Id));
+                var updateBuilder = Builders<DbModels.Competitions.Raffle>.Update;
+                var update = updateBuilder
+                    .Set(c => c.IsActive, true);
                 collection.UpdateMany(filter, update);
             }
         }

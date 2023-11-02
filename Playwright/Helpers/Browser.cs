@@ -18,7 +18,7 @@
         public static async Task Quit() => await BrowserSet.CloseAsync();
         public static async Task Navigate(string url)
         {
-            await Driver.GotoAsync(url);
+            await Driver.GotoAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded});
         }
 
 
@@ -28,7 +28,7 @@
     {
         
         [OneTimeSetUp]
-        public async Task OneTimeSetUp()
+        public static async Task OneTimeSetUp()
         {
             await Browser.Initialize();
             var pl = await Playwright.CreateAsync();
@@ -42,7 +42,7 @@
         }
 
         [SetUp]
-        public async Task SetUp()
+        public static async Task SetUp()
         {
             var context = await BrowserSet.NewContextAsync();
             Driver = await context.NewPageAsync();
@@ -61,7 +61,7 @@
         }
 
         [OneTimeTearDown]
-        public async Task OneTimeTearDown()
+        public static async Task OneTimeTearDown()
         {
             if (Browser.Driver != null)
             {

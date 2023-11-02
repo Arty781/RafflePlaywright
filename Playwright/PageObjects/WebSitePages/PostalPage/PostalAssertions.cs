@@ -12,7 +12,7 @@
         {
             await WaitUntil.CustomElementIsVisible(textParagraphsPostPage);
             List<string> expectedText = PostText.PARAGRAPH_POST.Where(x => x.Any()).Select(x => x.Trim().ToLower()).ToList();
-            List<string> actualText = Browser.Driver.QuerySelectorAllAsync(textParagraphsPostPage).Result.Where(x => x.IsVisibleAsync().Result).Select(x => x.TextContentAsync().Result.Trim().ToLower()).ToList();
+            List<string> actualText = TextBox.GetListOfTexts(textParagraphsPostPage).Result.Where(x => x.Any()).Select(x => x.Trim().ToLower()).ToList();
 
             Assert.Multiple(() =>
             {
