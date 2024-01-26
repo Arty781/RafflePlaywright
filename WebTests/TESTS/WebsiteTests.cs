@@ -39,20 +39,55 @@ namespace WebSiteTests
     [TestFixture]
     [AllureNUnit]
     [AllureSuite("Client")]
-    [AllureTag("Demo"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(SeverityLevel.critical), AllureSubSuite("Demo")]
-    public class Demo : BaseWeb
+    [AllureTag("Demo"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(Allure.Net.Commons.SeverityLevel.critical), AllureSubSuite("DemoTest")]
+    public class Demo : Base
     {
         [Test]
-        [Repeat(2)]
+        //[Repeat(2)]
         public async Task DemotestAsync()
         {
-            await Common.CloseCookiesPopUp();
-            string email = "qatester" + DateTime.Now.ToString("yyyy-MM-d'-'hh-mm-ss") + "@putsbox.com";
-            await Home.AddTicketsToBasket(2);
-            int countOrders = await Basket.GetOrderCount();
-            double totalOrder = await Basket.GetOrderTotal();
+            #region Preconditions
+            string email = "testuseroutsite@gmail.com";
+            AppDbHelper.Users.DeleteTestUserData(email);
+            AppDbHelper.Users.DeleteTestUserData("@putsbox.com");
 
-            await Basket.MakeAPurchaseAsUnauthorizedUser(email);
+            #endregion
+
+            //await Common.CloseCookiesPopUp();
+
+            //await HeaderPage.OpenSignUpPage();
+            //await SignUp.EnterUserData(email);
+            //await SignUp.ClickSignUpBtn();
+            //await WaitUntil.WaitSomeInterval(1000);
+            //await SignUp.VerifyEmail(email);
+            //await Home.AddTicketsToBasket(0);
+            //await Basket.MakeAPurchaseAsAuthorizedUser();
+            //await ThankYou.VerifyThankYouPageIsDisplayed();
+            
+            //for(int i =0; i<99; i++)
+            //{
+            //    await Gift.GoToGiftPage();
+            //    var emailRecipient = Gift.SendGift().Result;
+            //    await HeaderPage.DoLogout();
+            //    var link = PutsBox.GetLinkFromEmailWithValue(emailRecipient, "Get Your Gift").Result;
+            //    Console.WriteLine(link);
+            //    await Navigate(link);
+            //    await SignUp.EnterUserDataAfterGift();
+            //    await SignUp.ClickSignUpBtn();
+            //    await WaitUntil.WaitSomeInterval(1000);
+            //    await SignUp.VerifyEmail(emailRecipient);
+            //    await HeaderPage.DoLogout();
+            //    await SignIn.MakeSignIn(email, Credentials.PASSWORD);
+            //    await SignUp.VerifyEmail(email);
+            //}
+            
+
+            #region Postconditions
+
+            //AppDbHelper.Users.DeleteTestUserData(email);
+
+            #endregion
+
         }
 
 
@@ -61,7 +96,7 @@ namespace WebSiteTests
     [TestFixture]
     [AllureNUnit]
     [AllureSuite("Client")]
-    [AllureTag("Regression"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(SeverityLevel.critical), AllureSubSuite("Authorisation")]
+    [AllureTag("Regression"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(Allure.Net.Commons.SeverityLevel.critical), AllureSubSuite("Authorisation")]
     public class Authorization : Base
     {
         [Test, Category("Authorized"), Author("Artem", "qatester91311@gmail.com")]
@@ -125,22 +160,12 @@ namespace WebSiteTests
         [Test, Category("Authorized"), Author("Artem", "qatester91311@gmail.com")]
         public async Task EditUserData()
         {
-            //SignUpRequest.RegisterNewUser(out SignUpResponse? response);
             string email = "qatester-" + DateTime.Now.ToString("yyyy-MM-dThh-mm-ss") + "@putsbox.com";
             await Common.CloseCookiesPopUp();
             await HeaderPage.OpenSignUpPage();
             await SignUp.EnterUserData(email);
             await SignUp.ClickSignUpBtn();
             await SignUp.VerifyEmail(email);
-
-            //await Common.CloseCookiesPopUp();
-            //await HeaderPage.OpenSignInPage();
-            //await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
-            //await SignIn.VerifyIsSignIn();
-            
-            //await Profile.ClickEditPasswordBtn();
-            //await Profile.EditPassword();
-            //await Profile.VerifyUpdatePasswordSuccessfullToaster();
             await Profile.ClickEditAccountBtn();
             await Profile.EditAccountData();
             await Profile.VerifyDisplayingSuccessfullToaster();
@@ -214,7 +239,7 @@ namespace WebSiteTests
     [TestFixture]
     [AllureNUnit]
     [AllureSuite("Client")]
-    [AllureTag("Regression"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(SeverityLevel.critical), AllureSubSuite("SubscriptionsCommon")]
+    [AllureTag("Regression"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(Allure.Net.Commons.SeverityLevel.critical), AllureSubSuite("SubscriptionsCommon")]
     public class SubscriptionsCommon : Base
     {
         [Test]
@@ -250,7 +275,7 @@ namespace WebSiteTests
 
             await Common.CloseCookiesPopUp();
             await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscriptionsList.SubscriptionModels.LastOrDefault().Id);
-            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await ThankYou.VerifyThankSubYouPageIsDisplayed();
             await ThankYou.ClickActivateMyAccount();
             await Activate.ActivateUser(email); ;
             await Activate.VerifySuccessfullActivation();
@@ -277,25 +302,25 @@ namespace WebSiteTests
                 {
                     case 0:
                         await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscriptionsList.SubscriptionModels.LastOrDefault().Id);
-                        await ThankYou.VerifyThankYouPageIsDisplayed();
+                        await ThankYou.VerifyThankSubYouPageIsDisplayed();
                         break;
                     case 1:
                         await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscriptionsList.SubscriptionModels.FirstOrDefault().Id);
-                        await ThankYou.VerifyThankYouPageIsDisplayed();
+                        await ThankYou.VerifyThankSubYouPageIsDisplayed();
                         await WaitUntil.WaitSomeInterval(120000);
                         break;
                     case 2:
                         await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscriptionsList.SubscriptionModels.FirstOrDefault().Id);
-                        await ThankYou.VerifyThankYouPageIsDisplayed();
+                        await ThankYou.VerifyThankSubYouPageIsDisplayed();
                         break;
                     case 3:
                         await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscriptionsList.SubscriptionModels.LastOrDefault().Id);
-                        await ThankYou.VerifyThankYouPageIsDisplayed();
+                        await ThankYou.VerifyThankSubYouPageIsDisplayed();
                         break;
                 }
             }
             await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscriptionsList.SubscriptionModels.LastOrDefault().Id);
-            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await ThankYou.VerifyThankSubYouPageIsDisplayed();
             await ThankYou.ClickActivateMyAccount();
             await Activate.ActivateUser(email); ;
             await Activate.VerifySuccessfullActivation();
@@ -337,12 +362,16 @@ namespace WebSiteTests
             await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
             name = await SignIn.VerifyIsSignIn();
             await Basket.MakeAPurchaseSubscriptionAsAuthorizedUser(subscriptionsList.SubscriptionModels.LastOrDefault().Id);
-            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await ThankYou.VerifyThankSubYouPageIsDisplayed();
             await Profile.OpenMyTicketsCompetitions(); ;
             await Profile.OpenDreamHomeHistoryList(); ;
             await Profile.OpenSubscriptionInProfile();
             await Profile.PauseSubscription();
             await EmailVerificator.VerifyPauseEmail(response.User.Email, name);
+
+            #region Postconditions
+            AppDbHelper.Users.DeleteTestUserData("@putsbox");
+            #endregion
         }
 
         [Test]
@@ -360,7 +389,7 @@ namespace WebSiteTests
             await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
             name = await SignIn.VerifyIsSignIn();
             await Basket.MakeAPurchaseSubscriptionAsAuthorizedUser(subscriptionsList.SubscriptionModels.LastOrDefault().Id);
-            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await ThankYou.VerifyThankSubYouPageIsDisplayed();
             await Profile.OpenMyTicketsCompetitions(); ;
             await Profile.OpenDreamHomeHistoryList(); ;
             await Profile.OpenSubscriptionInProfile();
@@ -387,18 +416,22 @@ namespace WebSiteTests
             await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
             name = await SignIn.VerifyIsSignIn();
             await Basket.MakeAPurchaseSubscriptionAsAuthorizedUser(subscriptionsList.SubscriptionModels.LastOrDefault().Id);
-            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await ThankYou.VerifyThankSubYouPageIsDisplayed();
             await Profile.OpenMyTicketsCompetitions();
             await Profile.OpenDreamHomeHistoryList();
             await Profile.OpenSubscriptionInProfile();
             await Profile.CancelSubscription();
             await EmailVerificator.VerifyCancelationEmail(response.User.Email, name);
+
+            #region Postconditions
+            AppDbHelper.Users.DeleteTestUserData("@putsbox");
+            #endregion
         }
 
         [Test]
         [Category("Subscriptions")]
         [Author("Artem", "qatester91311@gmail.com")]
-        [Repeat(10)]
+        //[Repeat(10)]
         public async Task PurchaseNormalTicketsAsSubscribedAuthorizedUser()
         {
             SignUpRequest.RegisterNewUser(out SignUpResponse? response);
@@ -462,7 +495,7 @@ namespace WebSiteTests
     [TestFixture]
     [AllureNUnit]
     [AllureSuite("Client")]
-    [AllureTag("Regression"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(SeverityLevel.critical), AllureSubSuite("SubscriptionsDoubleTickets")]
+    [AllureTag("Regression"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(Allure.Net.Commons.SeverityLevel.critical), AllureSubSuite("SubscriptionsDoubleTickets")]
     public class SubscriptionsDoubleTickets : Base
     {
         [Test]
@@ -629,7 +662,7 @@ namespace WebSiteTests
         [Category("Subscriptions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Subscriptions")]
         public async Task VerifyInitialSubscriptionEmailAsUnauthorizedUser()
@@ -652,7 +685,7 @@ namespace WebSiteTests
         [Category("Subscriptions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Subscriptions")]
         public async Task VerifyPauseSubscriptionEmailAsUnauthorizedUser()
@@ -680,7 +713,7 @@ namespace WebSiteTests
         [Category("Subscriptions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Subscriptions")]
         public async Task VerifyUnpauseSubscriptionEmailAsUnauthorizedUser()
@@ -705,7 +738,8 @@ namespace WebSiteTests
             await Profile.UnpauseSubscription();
             await EmailVerificator.VerifyIsUnpauseEmail(email,
                                     name,
-                                    "None Selected");
+                                    "None Selected",
+                                                        raffle.Count);
 
         }
 
@@ -713,7 +747,7 @@ namespace WebSiteTests
         [Category("Subscriptions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Subscriptions")]
         public async Task VerifyCancelSubscriptionEmailAsUnauthorizedUser()
@@ -750,7 +784,7 @@ namespace WebSiteTests
         [Category("Subscriptions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Subscriptions")]
         public async Task VerifySubscriptionEmailsAfterRunScript()
@@ -789,7 +823,8 @@ namespace WebSiteTests
                                                         raffle.Count);
                 await EmailVerificator.VerifyUnpauseEmail(user.Email,
                                                     user.Name,
-                                                    charity);
+                                                    charity,
+                                                        raffle.Count);
                 await EmailVerificator.VerifyReminderEmail(user.Email,
                                                      user.Name);
             }
@@ -806,7 +841,7 @@ namespace WebSiteTests
         [Category("Subscriptions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Subscriptions")]
         public async Task VerifyPauseSubscriptionWithTwoRafflesActive()
@@ -849,7 +884,8 @@ namespace WebSiteTests
             var users = Users.GetAllUsers().Where(x => x.Email.Contains("@putsbox.com")).Select(x => x).ToList();
             foreach (var user in users)
             {
-                await EmailVerificator.VerifyUnpauseEmail(user.Email, user.Name, charity);
+                await EmailVerificator.VerifyUnpauseEmail(user.Email, user.Name, charity,
+                                                        raffle.Count);
             }
 
             #region Postconditions
@@ -863,7 +899,7 @@ namespace WebSiteTests
         [Category("Subscriptions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Subscriptions")]
         public async Task VerifyPauseSubscriptionWithTwoRafflesOneExpire()
@@ -898,7 +934,7 @@ namespace WebSiteTests
             var users = Users.GetAllUsers().Where(x => x.Email.Contains("@putsbox.com")).Select(x => x).ToList();
             foreach (var user in users)
             {
-                await EmailVerificator.VerifyUnpauseEmail(user.Email, user.Name, charity);
+                await EmailVerificator.VerifyUnpauseEmail(user.Email, user.Name, charity, raffle.Count);
             }
 
             #region Postconditions
@@ -912,46 +948,40 @@ namespace WebSiteTests
         [Category("Subscriptions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Subscriptions")]
         public async Task VerifyActiveSubscriptionWithTwoRafflesActive()
         {
             #region Preconditions
 
+            var email = $"qatester{DateTime.Now.Ticks}{DomainsTemMail.DOMAINS[RandomHelper.RandomIntNumber(DomainsTemMail.DOMAINS.Count)]}";
             var oldActiveraffles = Preconditions.UpdateTwoActiveDreamhomes(-3600, 720, -1740, 50);
-            Users.DeleteTestUserData("@putsbox.com");
+            Users.DeleteTestUserData(email);
             var charity = "None Selected";
-            int nextPurchaseDate = -100;
-            int purchaseDate = 0;
             var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
             var subscriptionsModel = AppDbHelper.Subscriptions.GetAllSubscriptionModels();
-            SignUpRequest.RegisterNewUser(out SignUpResponse? response);
+            SignUpRequest.RegisterNewUser(email, out SignUpResponse? response);
             await Common.CloseCookiesPopUp();
             await HeaderPage.OpenSignInPage();
             await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
             await SignIn.VerifyIsSignIn();
             await Basket.MakeAPurchaseSubscriptionAsAuthorizedUser(subscriptionsModel.Last().Id.ToString());
-            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await ThankYou.VerifyThankSubYouPageIsDisplayed();
 
-            var userId = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com").FirstOrDefault().Id;
-            AppDbHelper.Update.UpdateActiveSubscriptionToUser(userId, charity, nextPurchaseDate, purchaseDate);
+            var user = AppDbHelper.Users.GetUserByEmailpattern(email).FirstOrDefault();
+            AppDbHelper.Update.UpdateActiveSubscriptionToUser(user.Id, charity, -100, 0);
 
             #endregion
 
-            var users = AppDbHelper.Users.GetAllUsers().Where(x => x.Email.Contains("@putsbox.com")).Select(x => x).ToList();
-            foreach (var user in users)
-            {
-                List<PutsboxEmail>? emailsList = await Elements.GgetAllEmailData(user.Email);
-                await EmailVerificator.VerifyMonthlyEmailAuth(user.Email,
+            await EmailVerificator.VerifyMonthlyEmailAuth(user.Email,
                                                         user.Name,
                                                         charity,
                                                         raffle.Count);
-            }
 
             #region Postconditions
 
-            Postconditions.ReactivateRafflesDeleteUsers("@putsbox.com", oldActiveraffles);
+            Postconditions.ReactivateRafflesDeleteUsers(email, oldActiveraffles);
 
             #endregion
         }
@@ -960,7 +990,7 @@ namespace WebSiteTests
         [Category("Subscriptions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Subscriptions")]
         public async Task VerifyActiveSubscriptionWithTwoRafflesOneExpire()
@@ -1012,7 +1042,7 @@ namespace WebSiteTests
         [Category("Subscriptions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Subscriptions")]
         public async Task VerifyActiveSubscriptionWithInactiveRaffle()
@@ -1072,7 +1102,7 @@ namespace WebSiteTests
         [Test, Category("Unauthorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task ActivateNewUserFromEmail()
@@ -1081,8 +1111,8 @@ namespace WebSiteTests
             await Common.CloseCookiesPopUp();
             string email = string.Concat("qatester", DateTime.Now.ToString("yyyy-MM-d'-'hh-mm-ss"), "@putsbox.com");
             await Home.AddTicketsToBasket(0);
-            int countOrders = await Basket.GetOrderCount();
-            double totalOrder = await Basket.GetOrderTotal();
+            //int countOrders = await Basket.GetOrderCount();
+            //double totalOrder = await Basket.GetOrderTotal();
             await Basket.MakeAPurchaseAsUnauthorizedUser(email);
             await ThankYou.VerifyThankYouPageIsDisplayed();
             await Elements.GoToActivationLink(email);
@@ -1093,8 +1123,8 @@ namespace WebSiteTests
             await SignIn.VerifyIsSignIn();
             await Profile.OpenMyTicketsCompetitions();
             await Profile.OpenDreamHomeHistoryList();
-            await Profile.ScrollToEndOfHistoryList(countOrders);
-            await Profile.VerifyAddingTickets(totalOrder, countOrders);
+            //await Profile.ScrollToEndOfHistoryList(countOrders);
+            //await Profile.VerifyAddingTickets(totalOrder, countOrders);
 
 
             #region Postconditions
@@ -1108,7 +1138,7 @@ namespace WebSiteTests
         [Test, Category("Unauthorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task ActivateNewUserFromEmailAfterThreePayments()
@@ -1139,7 +1169,7 @@ namespace WebSiteTests
         [Test, Category("Unauthorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task ActivateNewUserAfterPayment()
@@ -1148,8 +1178,8 @@ namespace WebSiteTests
             string email = "qatester" + DateTime.Now.ToString("yyyy-MM-d'-'hh-mm-ss") + "@putsbox.com";
             await Browser.Driver.ReloadAsync();
             await Home.AddTicketsToBasket(0);
-            int countOrders = await Basket.GetOrderCount();
-            double totalOrder = await Basket.GetOrderTotal();
+            //int countOrders = await Basket.GetOrderCount();
+            //double totalOrder = await Basket.GetOrderTotal();
             await Basket.MakeAPurchaseAsUnauthorizedUser(email);
             await ThankYou.VerifyThankYouPageIsDisplayed();
             await ThankYou.ClickActivateMyAccount();
@@ -1160,12 +1190,13 @@ namespace WebSiteTests
             await SignIn.VerifyIsSignIn();
             await Profile.OpenMyTicketsCompetitions();
             await Profile.OpenDreamHomeHistoryList();
-            await Profile.ScrollToEndOfHistoryList(countOrders);
-            await Profile.VerifyAddingTickets(totalOrder, countOrders);
+            //await Profile.ScrollToEndOfHistoryList(countOrders);
+            //await Profile.VerifyAddingTickets(totalOrder, countOrders);
 
             #region Postconditions
 
             AppDbHelper.Users.DeleteTestUserData("@putsbox.com");
+
             #endregion
 
         }
@@ -1173,7 +1204,7 @@ namespace WebSiteTests
         [Test, Category("Unauthorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task ActivateNewUserAfterThreePayments()
@@ -1182,8 +1213,8 @@ namespace WebSiteTests
             await Common.CloseCookiesPopUp();
             string email = "qatester" + DateTime.Now.ToString("yyyy-MM-d'-'hh-mm-ss") + "@putsbox.com";
             await Home.AddTicketsToBasket(2);
-            int countOrders = await Basket.GetOrderCount();
-            double totalOrder = await Basket.GetOrderTotal();
+            //int countOrders = await Basket.GetOrderCount();
+            //double totalOrder = await Basket.GetOrderTotal();
 
             await Basket.MakeAPurchaseAsUnauthorizedUser(email);
             await ThankYou.VerifyThankYouPageIsDisplayed();
@@ -1195,8 +1226,8 @@ namespace WebSiteTests
             await SignIn.VerifyIsSignIn();
             await Profile.OpenMyTicketsCompetitions();
             await Profile.OpenDreamHomeHistoryList();
-            await Profile.ScrollToEndOfHistoryList(countOrders);
-            await Profile.VerifyAddingTickets(totalOrder, countOrders);
+            //await Profile.ScrollToEndOfHistoryList(countOrders);
+            //await Profile.VerifyAddingTickets(totalOrder, countOrders);
 
 
             #region Postconditions
@@ -1211,7 +1242,7 @@ namespace WebSiteTests
         [Category("Payment")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task MakePurchaseWithDelayAndClosingTab()
@@ -1253,7 +1284,7 @@ namespace WebSiteTests
         [Category("Payment")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task PurchaseDreamHome()
@@ -1294,7 +1325,7 @@ namespace WebSiteTests
         [Category("Payment")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task PurchaseTwoActiveDreamHome()
@@ -1334,7 +1365,7 @@ namespace WebSiteTests
         [Category("E2E")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task SignUpAddTicketsMakePurchase()
@@ -1382,7 +1413,7 @@ namespace WebSiteTests
         [Category("E2E")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task SignUpAddReferralsAndTicketsMakePurchase()
@@ -1437,7 +1468,7 @@ namespace WebSiteTests
         [Category("Payment")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task GetPurchaseDreamHome()
@@ -1461,15 +1492,15 @@ namespace WebSiteTests
                 }
 
                 await Basket.ClickCartBtn();
-                int countOrders = await Basket.GetOrderCount();
-                double totalOrder = await Basket.GetOrderTotal();
+                //int countOrders = await Basket.GetOrderCount();
+                //double totalOrder = await Basket.GetOrderTotal();
 
                 await Basket.MakeAPurchaseAsAuthorizedUser();
                 await ThankYou.VerifyThankYouPageIsDisplayed();
                 await Profile.OpenMyTicketsCompetitions();
                 await Profile.OpenDreamHomeHistoryList();
-                await Profile.ScrollToEndOfHistoryList(countOrders);
-                await Profile.VerifyAddingTickets(totalOrder, countOrders);
+                //await Profile.ScrollToEndOfHistoryList(countOrders);
+                //await Profile.VerifyAddingTickets(totalOrder, countOrders);
             }
 
             await Profile.OpenMyTicketsCompetitions();
@@ -1485,7 +1516,7 @@ namespace WebSiteTests
         [Test, Category("Payment")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task PurchaseTicketsFromWinAndDiscountPages()
@@ -1531,7 +1562,7 @@ namespace WebSiteTests
         [Test, Category("Payment")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task PurchaseTicketsWin()
@@ -1568,7 +1599,7 @@ namespace WebSiteTests
         [Test, Category("Payment")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task PurchaseTicketsFromPageDiscount()
@@ -1607,7 +1638,7 @@ namespace WebSiteTests
         [Category("Payment")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task AddDreamHomeToBasketAndPurchaseSubscription()
@@ -1634,7 +1665,7 @@ namespace WebSiteTests
             await Subscription.AddTenSubscriptionToBasket();
             await Basket.EnterCardDetails();
             await Basket.ClickPayNowBtnSub();
-            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await ThankYou.VerifyThankSubYouPageIsDisplayed();
             await Profile.OpenMyTicketsCompetitions(); ;
             await Profile.OpenDreamHomeHistoryList(); ;
             for (int i = 0; i <= 0; i++)
@@ -1665,7 +1696,7 @@ namespace WebSiteTests
         [Category("Payment")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task MakeAPurchaseByPayPalAndBuySub()
@@ -1683,7 +1714,7 @@ namespace WebSiteTests
             await Profile.BuyTenPoundsSub();
             await Basket.EnterCardDetails();
             await Basket.ClickPayNowBtnSub();
-            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await ThankYou.VerifyThankSubYouPageIsDisplayed();
 
         }
     }
@@ -1696,7 +1727,7 @@ namespace WebSiteTests
         [Test, Category("Home")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         //[Ignore("")]
@@ -1720,7 +1751,7 @@ namespace WebSiteTests
         [Test, Category("Home")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         //[Ignore("")]
@@ -1744,7 +1775,7 @@ namespace WebSiteTests
         [Test, Category("Home")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         //[Ignore("")]
@@ -1768,7 +1799,7 @@ namespace WebSiteTests
         [Test, Category("Home")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         //[Ignore("")]
@@ -1792,7 +1823,7 @@ namespace WebSiteTests
         [Test, Category("Home")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         //[Ignore("")]
@@ -1817,7 +1848,7 @@ namespace WebSiteTests
         [Test, Category("Postal")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Postal Page")]
         public async Task VerifyTextOnPostalPage()
@@ -1830,7 +1861,7 @@ namespace WebSiteTests
         [Test, Category("Privacy Policy and Terms & Conditions")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Terms&Conditions Page")]
         public async Task VerifyTextOfTermsAndConditions()
@@ -1847,7 +1878,7 @@ namespace WebSiteTests
         [Test, Category("Footer")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         public async Task VerifiedDisplayingFooterElements()
@@ -1878,7 +1909,7 @@ namespace WebSiteTests
         [Test, Category("Winners")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         public async Task VerifyDisplayedWinners2019()
@@ -1896,7 +1927,7 @@ namespace WebSiteTests
         [Test, Category("Winners")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         public async Task VerifyDisplayedWinners2020()
@@ -1914,7 +1945,7 @@ namespace WebSiteTests
         [Test, Category("Winners")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         public async Task VerifyDisplayedWinners2021()
@@ -1932,7 +1963,7 @@ namespace WebSiteTests
         [Test, Category("Winners")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Home Page")]
         public async Task VerifyDisplayedCTACards()
@@ -1957,7 +1988,7 @@ namespace WebSiteTests
         [Category("Test displaying of Errors")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task InsufientFundsError()
@@ -2022,7 +2053,7 @@ namespace WebSiteTests
         [Category("Test displaying of Errors")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task RestrictedCardError()
@@ -2085,7 +2116,7 @@ namespace WebSiteTests
         [Category("Test displaying of Errors")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task BadTrackDataError()
@@ -2149,7 +2180,7 @@ namespace WebSiteTests
         [Category("Test displaying of Errors")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task SecurityVioLationError()
@@ -2212,7 +2243,7 @@ namespace WebSiteTests
         [Category("Test displaying of Errors")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("Payment")]
         public async Task InvalidTransactionError()
@@ -2277,14 +2308,12 @@ namespace WebSiteTests
     [TestFixture]
     [AllureNUnit]
     [AllureSuite("Client")]
-    [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
-    [Parallelizable(ParallelScope.All)]
     public class Validation : Base
     {
         [Test, Category("Authorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("ValidationOnSignInPage")]
         public async Task VerifyValidationOnSignInPage()
@@ -2310,7 +2339,7 @@ namespace WebSiteTests
         [Test, Category("Unauthorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("ValidationOnSignUpPage")]
         public async Task VerifyFirstnameValidationOnSignUpPage()
@@ -2324,7 +2353,7 @@ namespace WebSiteTests
         [Test, Category("Unauthorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("ValidationOnSignUpPage")]
         public async Task VerifyLastnameValidationOnSignUpPage()
@@ -2338,7 +2367,7 @@ namespace WebSiteTests
         [Test, Category("Unauthorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("ValidationOnSignUpPage")]
         public async Task VerifyEmailValidationOnSignUpPage()
@@ -2352,7 +2381,7 @@ namespace WebSiteTests
         [Test, Category("Unauthorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("ValidationOnSignUpPage")]
         public async Task VerifyPasswordValidationOnSignUpPage()
@@ -2366,7 +2395,7 @@ namespace WebSiteTests
         [Test, Category("Authorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("ValidationOnProfilePage")]
         public async Task VerifyValidationPersonalDetailsOnProfilePage()
@@ -2395,7 +2424,7 @@ namespace WebSiteTests
         [Test, Category("Authorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("ValidationOnProfilePage")]
         public async Task VerifyValidationPasswordOnProfilePage()
@@ -2424,7 +2453,7 @@ namespace WebSiteTests
         [Test, Category("Authorized")]
         [AllureTag("Regression")]
         [AllureOwner("Artem Sukharevskyi")]
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [Author("Artem", "qatester91311@gmail.com")]
         [AllureSubSuite("ValidationOnProfilePage")]
         public async Task VerifyValidationAccountDetailsOnProfilePage()

@@ -101,7 +101,6 @@ namespace PlaywrightRaffle.APIHelpers.Web.Subscriptions
             DateTime startTime = DateTime.Now;
             int checkInterval = 30000; // in milliseconds
             bool statusChanged = false;
-            int minutes = 35;
 
             while (stopWatch.Elapsed <= maxWaitTime) // loop for 35 minutes
             {
@@ -125,7 +124,7 @@ namespace PlaywrightRaffle.APIHelpers.Web.Subscriptions
             // Continue with the rest of the code outside the switch statement            
             if (!statusChanged)
             {
-                throw new Exception($"Subscription status did not change within {minutes} minutes.");
+                throw new Exception($"Subscription status did not change within {maxWaitTime.Minutes} minutes.");
             }
         }
 

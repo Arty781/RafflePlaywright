@@ -14,6 +14,15 @@
             return email.ToLower();
         }
 
+        public static async Task EnterUserDataAfterGift()
+        {
+
+            await InputBox.Element(inputFirstName, Name.FirstName());
+            await InputBox.Element(inputSurname, Name.LastName());
+            await InputBox.Element(inputPhone, RandomHelper.RandomPhone());
+            await InputBox.Element(inputPassword, "Qaz11111");
+        }
+
         public static async Task EnterUserDataForNonActivated(string email)
         {
             await InputBox.Element(inputFirstName, Name.FirstName());

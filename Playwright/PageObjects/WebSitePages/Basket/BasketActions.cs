@@ -7,8 +7,8 @@ namespace PlaywrightRaffle.PageObjects
 
         public static async Task ClickCartBtn()
         {
-            await Browser.Navigate(WebEndpoints.BASKET);
-            await WaitUntil.CustomElementIsVisible(btncheckOutNow);
+            await Browser.Navigate(WebEndpoints.PAYMENT);
+            await WaitUntil.CustomElementIsVisible(btnPay);
         }
 
         public static async Task ClickPayPalBtn()
@@ -64,8 +64,13 @@ namespace PlaywrightRaffle.PageObjects
 
         public static async Task EnterCardDetails()
         {
-            await WaitUntil.CustomElementIsVisible(framePaymentNumber);
-            IFrame frame = await Browser.Driver.QuerySelectorAsync(framePaymentNumber).Result.ContentFrameAsync();
+            await WaitUntil.CustomElementIsVisible("div.checkout-content > h1");
+            await Button.Click("div.checkout-content > h1");
+            await WaitUntil.CustomElementIsVisible(formPayment);
+            var f = await Browser.Driver.QuerySelectorAsync(framePaymentNumber);
+            var frame = await f.ContentFrameAsync();
+            await frame.QuerySelectorAsync(framePaymentNumber);
+            await frame.ContentAsync();
             await frame.TypeAsync(inputCardNumber, CardDetails.CARD_NUMBER[RandomHelper.RandomIntNumber(CardDetails.CARD_NUMBER.Count)]);
             var defaultFrame = frame.ParentFrame;
             frame = await Browser.Driver.QuerySelectorAsync(framePaymentExpiry).Result.ContentFrameAsync();
@@ -141,8 +146,8 @@ namespace PlaywrightRaffle.PageObjects
 
         public static async Task MakeAPurchaseAsUnauthorizedUser(string email)
         {
-            await ClickCheckoutNowBtn();
-            await SelectedCharity();
+            //await ClickCheckoutNowBtn();
+            //await SelectedCharity();
             await EnterEmail(email);
             await EnterCardDetails();
             await ClickPayNowBtn();
@@ -151,14 +156,14 @@ namespace PlaywrightRaffle.PageObjects
 
         public static async Task MakeAPurchaseAsAuthorizedUser()
         {
-            await ClickCheckoutNowBtn();
+            //await ClickCheckoutNowBtn();
             await EnterCardDetails();
             await ClickPayNowBtn();
         }
 
         public static async Task MakeAPurchasePayPal()
         {
-            await ClickCheckoutNowBtn();
+            //await ClickCheckoutNowBtn();
             //await ClickPayPalBtn();
             await PayPal.LogInPayPal();
 

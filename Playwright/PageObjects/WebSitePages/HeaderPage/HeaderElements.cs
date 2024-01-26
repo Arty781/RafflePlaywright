@@ -6,7 +6,7 @@
 #if DEBUG || RELEASE || CHROME || FIREFOX
 
         public const string logo = "//a[@class='headerLogo']";
-        public const string btnBurgerMenu = "//button[@class='headerBurgerMenu']";
+        public const string btnBurgerMenu = "div.menu-block > button";
         public const string liveCompetitionsList = "//button[contains(@class,'toggle-live-btn toggle-live-btn-desk')]";
         public const string linkDreamHome = "//a[@href='/dreamhome']";
         public const string winnersLink = "//nav[@class='headerNav']/a[@href='/winners']";

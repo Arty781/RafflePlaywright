@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using Newtonsoft.Json.Converters;
 using PlaywrightRaffle.APIHelpers.Admin.UsersPage;
 
 namespace PlaywrightRaffle.Helpers
@@ -26,7 +27,9 @@ namespace PlaywrightRaffle.Helpers
                 var users = GetAllUsers().Where(x => x.Email.Contains(email)).Select(x => x).ToList();
                 Subscriptions.DeleteSubscriptionsByUserId(users);
                 Orders.DeleteOrdersByUserId(users);
-                DeleteUsersByEmail("^(?!.*(@gmail\\.com|@outlook\\.com|@anuitex\\.net|@test\\.co|@raffle-house\\.com)).*$");
+                Gifts.DeleteGiftsBySenderId(users);
+                Gifts.DeleteGiftsByEmail(email);
+                DeleteUsersByEmail(email);
             }
 
             public static List<DbModels.UserResponse> GetAllUsers()
@@ -364,9 +367,9 @@ namespace PlaywrightRaffle.Helpers
                 {
                     Assert.Multiple(() =>
                     {
-                        Assert.IsNotNull(subscription.Refference);
-                        Assert.IsNotNull(subscription.CardSource);
-                        Assert.IsNotNull(subscription.CheckoutId);
+                        Assert.That(subscription.Refference, Is.Not.Null);
+                        Assert.That(subscription.CardSource, Is.Not.Null);
+                        Assert.That(subscription.CheckoutId, Is.Not.Null);
                     });
 
                 }
@@ -494,6 +497,19 @@ namespace PlaywrightRaffle.Helpers
                 var filter = Builders<DbModels.Orders>.Filter.Empty;
                 var result = collection.Find(filter).ToList();
                 result = collection1.Find(filter).ToList();
+                return result;
+            }
+
+            public static List<DbModels.Orders> GetAllOrdersByDate()
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Orders>("orders");
+                var collection1 = database.GetCollection<DbModels.Orders>("archiveorders");
+                var filter = Builders<DbModels.Orders>.Filter;
+                var filterCombo = filter.Gte("createdAt", new DateTime(2023, 1, 1)) & filter.Exists("raffle", true);
+                var result = collection.Find(filterCombo).ToList();
+                result = collection1.Find(filterCombo).ToList();
                 return result;
             }
 
@@ -701,7 +717,7 @@ namespace PlaywrightRaffle.Helpers
                 foreach (var user in users)
                 {
                     int i = RandomHelper.RandomIntNumber(subscriptionModels.Count);
-                    int activeCount = RandomHelper.RandomIntNumber(20);
+                    int activeCount = RandomHelper.RandomIntNumber(9);
                     var updateActive = new List<DbModels.SubscriptionsActiveInsert>()
                     {
                         new DbModels.SubscriptionsActiveInsert
@@ -780,27 +796,27 @@ namespace PlaywrightRaffle.Helpers
                 var collection = database.GetCollection<DbModels.SubscriptionsInsert>("subscriptions");
                 var update = new List<DbModels.SubscriptionsInsert>()
                     {
-                        new DbModels.SubscriptionsInsert
-                        {
-                        Status = "ACTIVE",
-                        Count= 1,
-                        Charity= "",
-                        IsReminderSent= false,
-                        CreatedAt = DateTime.Now,
-                        TotalCost= subscriptionModels[firstSub].TotalCost,
-                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
-                        Extra= subscriptionModels[firstSub].Extra,
-                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
-                        Emails = new List<string>(),
-                        Raffle= raffle.Id,
-                        User= user.Id,
-                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
-                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
-                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
-                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
-                        PurchaseDate = DateTime.Now
+                        //new DbModels.SubscriptionsInsert
+                        //{
+                        //Status = "ACTIVE",
+                        //Count= 1,
+                        //Charity= "",
+                        //IsReminderSent= false,
+                        //CreatedAt = DateTime.Now,
+                        //TotalCost= subscriptionModels[firstSub].TotalCost,
+                        //NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        //Extra= subscriptionModels[firstSub].Extra,
+                        //SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        //Emails = new List<string>(),
+                        //Raffle= raffle.Id,
+                        //User= user.Id,
+                        //Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        //CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        //CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        //NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        //PurchaseDate = DateTime.Now
 
-                        },
+                        //},
                         new DbModels.SubscriptionsInsert
                         {
                         Status = "PAUSED",
@@ -822,6 +838,1073 @@ namespace PlaywrightRaffle.Helpers
                         PurchaseDate = DateTime.Now.AddMonths(-1),
                         PausedAt= DateTime.Now.AddMonths(-1),
                         PauseEnd= DateTime.Now.AddMonths(-1).AddDays(-1),
+
+                        }
+
+                    };
+
+                collection.InsertMany(update);
+
+
+            }
+
+            public static void InsertActiveSubscriptionsToUsers(DbModels.UserResponse user, DbModels.Raffle raffle, List<DbModels.SubscriptionsModels> subscriptionModels)
+            {
+                int firstSub = RandomHelper.RandomIntNumber(subscriptionModels.Count);
+                int secondSub = 0;
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.SubscriptionsInsert>("subscriptions");
+                var update = new List<DbModels.SubscriptionsInsert>()
+                    {
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "PAUSED",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "PAUSED",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "PAUSED",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "PAUSED",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "PAUSED",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[secondSub].TotalCost,
+                        NumOfTickets = subscriptionModels[secondSub].NumOfTickets,
+                        Extra= subscriptionModels[secondSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[secondSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
+
+                        },
+                        new DbModels.SubscriptionsInsert
+                        {
+                        Status = "ACTIVE",
+                        Count= RandomHelper.RandomIntNumber(20),
+                        Charity= "",
+                        IsReminderSent= false,
+                        CreatedAt = DateTime.Now,
+                        TotalCost= subscriptionModels[firstSub].TotalCost,
+                        NumOfTickets = subscriptionModels[firstSub].NumOfTickets,
+                        Extra= subscriptionModels[firstSub].Extra,
+                        SubscriptionModel= new ObjectId(subscriptionModels[firstSub].Id.ToString()),
+                        Emails = new List<string>(),
+                        Raffle= raffle.Id,
+                        User= user.Id,
+                        Refference= SubscriptionsCardDetails.REFFERENCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.REFFERENCE.Count)],
+                        CardSource= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CARD_SOURCE.Count)],
+                        CheckoutId= SubscriptionsCardDetails.CARD_SOURCE[RandomHelper.RandomIntNumber(SubscriptionsCardDetails.CHECKOUT_ID.Count)],
+                        NextPurchaseDate = DateTime.Now.AddMonths(-1).AddDays(-1),
+                        PurchaseDate = DateTime.Now
 
                         }
 
@@ -1080,7 +2163,7 @@ namespace PlaywrightRaffle.Helpers
 
         public class Update
         {
-            public static void UpdateActiveSubscriptionToUser(ObjectId? userId, string charity, int nextPurchaseDate, int purchaseDate)
+            public static void UpdateActiveSubscriptionToUser(ObjectId? userId, string charity, int nextPurchaseDateHours, int purchaseDateHours)
             {
 
                 var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
@@ -1089,8 +2172,8 @@ namespace PlaywrightRaffle.Helpers
                 var filter = Builders<DbModels.SubscriptionsActiveInsert>.Filter.Eq("user", userId);
                 var update = Builders<DbModels.SubscriptionsActiveInsert>.Update
                 .Set(u => u.Charity, charity)
-                .Set(u => u.NextPurchaseDate, DateTime.Now.AddHours(nextPurchaseDate))
-                .Set(u => u.PurchaseDate, DateTime.Now.AddHours(purchaseDate));
+                .Set(u => u.NextPurchaseDate, DateTime.Now.AddHours(nextPurchaseDateHours))
+                .Set(u => u.PurchaseDate, DateTime.Now.AddHours(purchaseDateHours));
                 collectionActive.UpdateMany(filter, update);                
 
             }
@@ -1188,7 +2271,81 @@ namespace PlaywrightRaffle.Helpers
             }
         }
 
+        public class Gifts
+        {
+            public static void DeleteGiftsBySenderId(List<DbModels.UserResponse> users)
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Gifts>("gifts");
+                foreach (var user in users)
+                {
+                    var filter = Builders<DbModels.Gifts>.Filter.Eq(o => o.Sender, user.Id);
+                    collection.DeleteMany(filter);
+                    filter = Builders<DbModels.Gifts>.Filter.Eq(o => o.Email, user.Email);
+                    collection.DeleteMany(filter);
+                }
 
+            }
+
+            public static void DeleteGiftsByEmail(string email)
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Gifts>("gifts");
+                var filter = Builders<DbModels.Gifts>.Filter.Empty;
+                var results = collection.Find(filter).ToList().Where(x => x.Email != null && x.Email.Contains(email)).Select(x => x).ToList();
+                foreach (var user in results)
+                {
+                    filter = Builders<DbModels.Gifts>.Filter.Eq(o => o.Email, user.Email);
+                    collection.DeleteMany(filter);
+                }
+
+            }
+        }
+
+        public class Votes
+        {
+            public static List<DbModels.Votes> GetAllVotes()
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Votes>("votes");
+                var filter = Builders<DbModels.Votes>.Filter.Empty;
+                var result = collection.Find(filter).ToList();
+                return result;
+            }
+
+            public static List<DbModels.Votes> GetHomeVotes()
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Votes>("votes");
+                var filter = Builders<DbModels.Votes>.Filter.Eq("value", "home");
+                var result = collection.Find(filter).ToList();
+                return result;
+            }
+
+            public static List<DbModels.Votes> GetTravelVotes()
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Votes>("votes");
+                var filter = Builders<DbModels.Votes>.Filter.Eq("value", "travel");
+                var result = collection.Find(filter).ToList();
+                return result;
+            }
+
+            public static List<DbModels.Votes> GetShareVotes()
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Votes>("votes");
+                var filter = Builders<DbModels.Votes>.Filter.Eq("value", "share");
+                var result = collection.Find(filter).ToList();
+                return result;
+            }
+        }
     }
 
 

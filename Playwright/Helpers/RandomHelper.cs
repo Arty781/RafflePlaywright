@@ -27,6 +27,14 @@
             return genRand;
         }
 
+        public static int RandomNumber(int maxNum)
+        {
+            Random r = new Random();
+            int genRand = r.Next(0, maxNum);
+
+            return genRand;
+        }
+
         public static int RandomCharityNumber(int maxNum)
         {
             Random r = new Random();

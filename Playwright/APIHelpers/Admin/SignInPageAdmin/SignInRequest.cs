@@ -30,9 +30,9 @@ namespace PlaywrightRaffle.APIHelpers.Admin
             req.LoadBodyFromString(SignIn(login, password), charset: "utf-8");
 
             Http http = new();
-            HttpResponse resp = http.SynchronousRequest(ApiEndpoints.API_CHIL, 443, true, req);
+            var resp = http.SynchronousRequest(ApiEndpoints.API_CHIL, 443, true, req);
             var response = http.LastMethodSuccess
-                ? JsonConvert.DeserializeObject<SignInResponseModelAdmin>(resp?.BodyStr ?? throw new Exception("Response body is null."))
+                ? JsonConvert.DeserializeObject<SignInResponseModelAdmin>(resp.BodyStr ?? throw new Exception("Response body is null."))
                 : throw new ArgumentException(http.LastErrorText);
 
             return response;

@@ -6,7 +6,7 @@
 
         #region My Details 
 
-        public const string titleProfile = "//h1[contains(text(),'My Details')]";
+        public const string titleProfile = "div.my-details-container h1";
         public const string btnEditPersonal = "div.my-details-item.personal-details > div.personalTitle > button";
         public const string inputFirstName = "//input[@name='name']";
         public const string inputLastName = "//input[@name='surname']";
@@ -47,22 +47,22 @@
         #region Subscriptions
 
         public const string titleSubscriptionProfile = "//h1[text()='My Subscription']";
-        public const string btnDetails = "//div[contains(@class,'profile-subscription-card ')]//p[text()='Details']";
-        public const string titleSubscriptionStatus = "//div[contains(@class,'profile-subscription-card ')]/div[contains(@class, 'header')]";
-        public const string cbbxCharitySelector = "//div[@class='select-charity-wrapper']/div";
-        public const string listCharities = "//div[@role='presentation']/div/ul/li";
-        public const string inputCharity = "//div[@class='select-charity-wrapper']/div//input";
-        public const string inputPause = "//input[@name='paused']";
-        public const string btnCancelSubscription = "//button[text()='Cancel Subscription']";
+        public const string btnDetails = "div.subscriptions-grid div.button-group > p";
+        public const string titleSubscriptionStatus = "div.subscriptions-grid div.header";
+        public const string cbbxCharitySelector = "div.subscriptions-grid div.details.expanded div.charity-dropdown-wrapper";
+        public const string listCharities = "#menu- ul > li";
+        public const string inputCharity = "div.select-wrapper input";
+        public const string inputPause = "div.profile-checkbox input";
+        public const string btnCancelSubscription = "div.expanded button";
         public const string btnReactivateSubscription = "//button[text()='Reactivate Subscription']";
-        public const string btnPausePopUp = "//button[text()='Pause']";
-        public const string btnUnpausePopUp = "//button[text()='Unpause']";
-        public const string btnCancelPopUp = "//button[text()='Cancel']";
-        public const string btnReactivatePopUp = "//button[text()='Reactivate']";
+        public const string btnPausePopUp = "div.pause-dialog button:nth-child(1)";
+        public const string btnUnpausePopUp = "div.pause-dialog button:nth-child(1)";
+        public const string btnCancelPopUp = "div.dialog-window button:nth-child(1)";
+        public const string btnReactivatePopUp = "div.dialog-window button:nth-child(1)";
         public const string btnBackPopUp = "//button[text()='Back']";
 
-        public const string btn10BundleWithoutSub = "div:nth-child(1) > div.buttons > button";
-        public const string btn25BundleWithoutSub = "div:nth-child(2) > div.buttons > button";
+        public const string btn10BundleWithoutSub = "div.subscription-bundle-card:nth-child(1)  div.buttons > button";
+        public const string btn25BundleWithoutSub = "div.subscription-bundle-card:nth-child(2)  div.buttons > button";
 
         public const string btn10BundleWithSub = "div:nth-child(1) > div.button-group > button";
         public const string btn25BundleWithSub = "div:nth-child(2) > div.button-group > button";

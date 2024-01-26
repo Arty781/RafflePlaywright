@@ -91,7 +91,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(actualText, Is.EqualTo(expectedText), "Texts don't match");
-                Assert.That(expectedText.Count, Is.EqualTo(actualText.Count), "Number of elements doesn't match");
+                Assert.That(actualText.Count, Is.EqualTo(expectedText.Count), "Number of elements doesn't match");
 
                 var mismatchedIndices = expectedText.Select((text, index) => new { text, index })
                     .Where(item => !actualText[item.index].Equals(item.text))

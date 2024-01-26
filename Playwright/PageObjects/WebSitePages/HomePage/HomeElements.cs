@@ -30,7 +30,7 @@
         public const string textParagraph = "div.desktop p";
         public const string textBottomSliderTitle = "//div[contains(@class,'dream-slider-bg')]//h2";
         public const string textBottomSliderParagraph = "div.dream-slider-bg p";
-        public const string btnTicketSelectorInfoBlock = "div.info-block div.desktop button";
+        public const string btnTicketSelectorInfoBlock = "button.enter-now-button";
 
 #endif
 
@@ -72,7 +72,7 @@
         #region TicketSelector
 
         public const string btnPostalBundle = "div.desktop-postal div.postal-card";
-        public const string btnBundles = "div.ticket-card button";
+        public const string btnBundles = "div.ticket-bundle-card  button";
 
         #endregion
 

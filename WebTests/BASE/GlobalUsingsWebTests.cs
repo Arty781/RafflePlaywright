@@ -1,4 +1,4 @@
-﻿global using Allure.Commons;
+﻿global using Allure;
 global using NUnit.Allure.Attributes;
 global using NUnit.Allure.Core;
 global using NUnit.Framework;

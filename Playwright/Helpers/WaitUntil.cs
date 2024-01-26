@@ -32,13 +32,8 @@ namespace PlaywrightRaffle.Helpers
 
         public static async Task CustomCheckoutIsDisplayed(int milliseconds = 30000)
         {
-            var waitForSelectorOptions = new PageWaitForURLOptions 
-            { 
-                Timeout = milliseconds,
-                WaitUntil = WaitUntilState.DOMContentLoaded
-            };
-            await Task.Delay(250);
-            await Browser.Driver.WaitForURLAsync((url) => url.Contains("pending?cko-session-id") || url.Contains("pending?paypal"), waitForSelectorOptions);
+            await Task.Delay(1000);
+            await Browser.Driver.WaitForURLAsync((url) => url.Contains("pending/?cko-session-id") || url.Contains("pending?paypal"));
         }
 
         public static async Task FrameIsVisible(string selector, float milliseconds = 30000)

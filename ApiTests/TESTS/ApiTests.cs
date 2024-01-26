@@ -1,6 +1,7 @@
 using ApiTests.BASE;
 using MongoDB.Driver;
 using NUnit.Framework;
+using PlaywrightRaffle.APIHelpers.Web.PollHome;
 using PlaywrightRaffle.APIHelpers.Admin;
 using PlaywrightRaffle.APIHelpers.Admin.DreamHomePage;
 using PlaywrightRaffle.APIHelpers.Admin.UsersPage;
@@ -24,7 +25,78 @@ namespace API
 
         public async Task Demo()
         {
-            AppDbHelper.Orders.DeleteArchiveOrdersByUserId();
+            //var charity = "None Selected";
+            //int nextPurchaseDate = -100;
+            //int purchaseDate = 0;
+            //int pausedAt = -720;
+            //int pauseEnd = -24;
+            //var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
+            //var subscriptionsModel = AppDbHelper.Subscriptions.GetAllSubscriptionModels();
+            ////for (int i = 0; i < 5; i++)
+            ////{
+            ////    SignUpRequest.RegisterNewUser(out SignUpResponse? response);
+            ////}
+
+            //var users = AppDbHelper.Users.GetUserByEmailpattern("qatester");
+            //foreach (var user in users)
+            //{
+
+            //    AppDbHelper.Update.UpdateActiveSubscriptionToUser(user.Id, charity, -48, -48);
+            //}
+            ////AppDbHelper.Insert.InsertActiveSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate);
+
+            //string email = "qatester91311@gmail.com";
+            //AppDbHelper.Users.DeleteTestUserData("janelore99@gmail.com");
+            //AppDbHelper.Users.DeleteTestUserData("qatester91311@gmail.com");
+            AppDbHelper.Users.DeleteTestUserData("@putsbox.com");
+            AppDbHelper.Users.DeleteTestUserData("@xitroo.com");
+
+            SignUpResponse? response = null;
+            SignInResponseModelWeb? token = null;
+            PollHome.PollResponse? responseContent = null;
+            for (int i = 0; i < 10; i++)
+            {
+                string emailCancell = "qatester" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss-ffff") + "@putsbox.com";
+                SignUpRequest.RegisterNewUser(emailCancell, out response);
+                SignInRequestWeb.MakeSignIn(response.User.Email, Credentials.PASSWORD, out token);
+                PollHome.MakePollRandomVote(token, out responseContent);
+                PollHome.AssertPollVoteResponse(responseContent);
+            }
+            
+
+
+        }
+
+        [Test]
+        public async Task Demo2()
+        {
+            //Insert.InsertSubscriptionModel(Errors.ErrorTotalCost.ERROR_BAD_TRACK_DATA);
+            var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
+            var subscriptionsModel = AppDbHelper.Subscriptions.GetAllSubscriptionModels();
+            SignUpResponse? responseFail = null;
+            SignUpResponse? response = null;
+
+            for (int i = 0; i < 5; i++)
+            {
+                //var emailPause = string.Concat("qatester-", DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss-fffff"), "@putsbox.com");
+                //SignUpRequest.RegisterNewUser(emailPause, out responseFail);
+                //var userFail = AppDbHelper.Users.GetUserByEmail(emailPause);
+                //AppDbHelper.Insert.InsertSubscriptionsToUsers(userFail, raffle.FirstOrDefault(), subscriptionsModel);
+
+                //string emailCancell = "qatester" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss-ffff") + "@putsbox.com";
+                //SignUpRequest.RegisterNewUser(emailCancell, out response);
+                //var user = AppDbHelper.Users.GetUserByEmailpattern(emailCancell).FirstOrDefault();
+                //Insert.InsertSubscriptionsToUserForFailPayment(user, raffle.FirstOrDefault(), subscriptionsModel);
+
+                var emailActive = string.Concat("qatester-", DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss-ffffff"), "@putsbox.com");
+                SignUpRequest.RegisterNewUser(emailActive, out responseFail);
+                var userActive = AppDbHelper.Users.GetUserByEmail(emailActive);
+                AppDbHelper.Insert.InsertActiveSubscriptionsToUsers(userActive, raffle.FirstOrDefault(), subscriptionsModel);
+
+            }
+
+            //var users = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com");
+            //gr4vy.AddUsersToKlavio(users);
         }
     }
 
@@ -37,12 +109,13 @@ namespace API
         [Test]
         public static void AddTicketsToBasket()
         {
-            SignInRequestWeb.MakeSignIn(Credentials.LOGIN, Credentials.PASSWORD, out SignInResponseModelWeb? token);
-            var competitionId = CountdownRequestWeb.GetWeeklyPrizesCompetitionId(token);
-            var listOfWeeklyPrizes = CountdownRequestWeb.GetWeeklyPrizes(token, competitionId[2].Id);
-            for (int i = 0; i < 5; i++)
+            SignInResponseModelWeb? token = null;
+            SignInRequestWeb.MakeSignIn(Credentials.LOGIN, Credentials.PASSWORD, out token);
+            var prizesList = CountdownRequestWeb.GetDreamHomeCountdown(token);
+            for (int q = 0; q < 50; q++)
             {
-                WeeklyPrizesRequestWeb.AddWeeklyPrizes(token, listOfWeeklyPrizes, "151");
+                DreamHomeOrderRequestWeb.AddDreamhomeTickets(token, prizesList.FirstOrDefault());
+                WaitUntil.WaitSomeInterval(250);
             }
 
         }
@@ -96,7 +169,7 @@ namespace API
         {
             SignUpRequest.RegisterNewUser(out SignUpResponse? response);
             RequestForgotPassword.ForgotPassword(response.User.Email);
-            string s = PutsBox.GetLinkFromEmailWithValue(response.User.Email, "Reset Password")[29..];
+            string s = PutsBox.GetLinkFromEmailWithValue(response.User.Email, "Reset Password").Result[29..];
             var token = RequestForgotPassword.GetResetLink(s)[47..];
             var reset = RequestForgotPassword.ResetPassword(token);
             Console.WriteLine(reset.Message);
@@ -134,10 +207,17 @@ namespace API
 
         public void RemoveOrdersAndSubscriptionsByUserId()
         {
-            var users = AppDbHelper.Users.GetAllUsers().Where(x => x.Email.Contains("qatester91311@gmail.com")).Select(x => x).ToList();
+            var users = AppDbHelper.Users.GetAllUsers().Where(x => x.Email.Contains("@putsbox.com")).Select(x => x).ToList();
             AppDbHelper.Subscriptions.DeleteSubscriptionsByUserId(users);
             AppDbHelper.Orders.DeleteOrdersByUserId(users);
             Users.DeleteUsersByEmail("^(?!.*(@gmail\\.com|@outlook\\.com|@anuitex\\.net|@test\\.co|@raffle-house\\.com)).*$");
+        }
+
+        [Test]
+
+        public void RemoveUserDataByEmail()
+        {
+            Users.DeleteTestUserData("@putsbox.com");
         }
 
         [Test]
@@ -180,7 +260,7 @@ namespace API
 
         public void DeleteUsersByEmail()
         {
-            Users.DeleteUsersByEmail("^(?!.*(@gmail\\.com|@outlook\\.com|@anuitex\\.net|@test\\.co|@raffle-house\\.com)).*$");
+            Users.DeleteUsersByEmail("^(?!.*(@gmail\\.com|@outlook\\.com|@anuitex\\.net|@raffle-house\\.com)).*$");
         }
 
         [Test]
@@ -198,7 +278,7 @@ namespace API
                 AppDbHelper.Insert.InsertUser(raffle);
             }
             var users = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com");
-            AppDbHelper.Insert.InsertPauseSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate, pausedAt, pauseEnd);
+            //AppDbHelper.Insert.InsertPauseSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate, pausedAt, pauseEnd);
             AppDbHelper.Insert.InsertActiveSubscriptionToUser(users, raffle, subscriptionsModel, charity, nextPurchaseDate, purchaseDate);
 
         }

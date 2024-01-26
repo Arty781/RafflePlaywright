@@ -1,4 +1,4 @@
-﻿global using Allure.Commons;
+﻿global using Allure;
 global using CONFIG_JSON;
 global using HtmlAgilityPack;
 global using Newtonsoft.Json;

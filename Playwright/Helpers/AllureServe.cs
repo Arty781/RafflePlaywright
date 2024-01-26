@@ -3,7 +3,7 @@
     [AllureSuite("DriverLevel")]
     class AllureServe
     {
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [AllureOwner("Sukharevsky Artem")]
         [AllureSubSuite("GoToAllureResults")]
         [Test]
@@ -12,7 +12,7 @@
             AllureConfigFilesHelper.OpenAllureReport();
         }
 
-        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSeverity(Allure.Net.Commons.SeverityLevel.critical)]
         [AllureOwner("Sukharevsky Artem")]
         [AllureSubSuite("ForceCloseDriver")]
         [Test]

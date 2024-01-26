@@ -1,7 +1,9 @@
 ﻿using Fizzler.Systems.HtmlAgilityPack;
+using PlaywrightRaffle.APIHelpers.Admin.UsersPage;
 using PlaywrightRaffle.PageObjects;
 using RestSharp;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 
 namespace PlaywrightRaffle.Helpers
 {
@@ -253,7 +255,7 @@ namespace PlaywrightRaffle.Helpers
             return Regex.Unescape(rawData);
         }
 
-        private static PutsboxWrapper.Email ParseAllLinks(string rawData)
+        public static PutsboxWrapper.Email ParseAllLinks(string rawData)
         {
             PutsboxWrapper.Email email = new();
             Collection<PutsboxWrapper.Link> collection = new();
@@ -314,94 +316,139 @@ namespace PlaywrightRaffle.Helpers
             return client.ExecuteGetAsync(request).Result.Content ?? throw new Exception("Content is null.");
         }
 
-        public static string GetLinkFromEmailWithValue(string domain, string value)
+        public static async Task<string> GetLinkFromEmailWithValue(string domain, string value)
         {
-            var maxTime = TimeSpan.FromMinutes(5);
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(5);
             var stopWatch = Stopwatch.StartNew();
-            Thread.Sleep(2000);
+            int checkInterval = 10000;
             string jsonContent = GetJsonContent(domain);
-            while(stopWatch.Elapsed <= maxTime)
+            bool statusChanged = false;
+            while (stopWatch.Elapsed <= maxWaitTime)
             {
-                if (!jsonContent.Contains("Not Found"))
+                switch (!jsonContent.Contains("Not Found"))
                 {
-                    jsonContent = GetJsonContent(domain);
-                    break;
+                    case false:
+                        await Task.Delay(checkInterval);
+                        jsonContent = GetJsonContent(domain);
+                        break;
+
+                    case true:
+                        statusChanged = true;
+                        goto LoopExit; // exit the loop since the status has changed
+
                 }
-                Thread.Sleep(10000);
             }
             stopWatch.Stop();
+        LoopExit:
+            if (!statusChanged)
+            {
+                throw new Exception($"There are no emails within {maxWaitTime.Minutes} minutes.");
+            }
 
-            string text = Decode(jsonContent);
-            GetBodyData(text);
-            return ParseAllLinks(text).Link.First((PutsboxWrapper.Link x) => x.Name == value).Url ?? throw new Exception("URL is null.");
+            var body = GetBodyData(Decode(jsonContent));
+            var links = ParseAllLinks(body).Link;
+            var st = links.First((PutsboxWrapper.Link x) => x.Name.Trim() == value).Url ?? throw new Exception("URL not found");
+            return st;
         }
 
-        public static string GetTextFromEmailWithValue(string domain, string value)
+        public static async Task<string> GetTextFromEmailWithValue(string domain, string value)
         {
-            var maxTime = TimeSpan.FromMinutes(5);
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(5);
             var stopWatch = Stopwatch.StartNew();
-            Thread.Sleep(2000);
+            int checkInterval = 10000;
             string jsonContent = GetJsonContent(domain);
-            while (stopWatch.Elapsed <= maxTime)
+            bool statusChanged = false;
+            while (stopWatch.Elapsed <= maxWaitTime)
             {
-                if (!jsonContent.Contains("Not Found"))
+                switch (!jsonContent.Contains("Not Found"))
                 {
-                    jsonContent = GetJsonContent(domain);
-                    break;
+                    case false:
+                        await Task.Delay(checkInterval);
+                        jsonContent = GetJsonContent(domain);
+                        break;
+
+                    case true:
+                        statusChanged = true;
+                        goto LoopExit; // exit the loop since the status has changed
+
                 }
-                Thread.Sleep(10000);
             }
             stopWatch.Stop();
+        LoopExit:
+            if (!statusChanged)
+            {
+                throw new Exception($"There are no emails within {maxWaitTime.Minutes} minutes.");
+            }
 
             string text = Decode(jsonContent);
-            GetBodyData(text);
-            string[] texts = ParseAllText(text)
+            var body = GetBodyData(text);
+            string[] texts = ParseAllText(body)
                 .Split(Environment.NewLine)
                 .Where(x => x.Contains(value))
                 .ToArray();
-            return ParseAllText(text).Split(Environment.NewLine).Where(x => x.Contains(value)).FirstOrDefault().Replace($"{value}", "");
+            return ParseAllText(body).Split(Environment.NewLine).Where(x => x.Contains(value)).FirstOrDefault().Replace($"{value}", "");
         }
 
-        public static string GetHtmlFromEmail(string domain)
+        public static async Task<string> GetHtmlFromEmail(string domain)
         {
-            var maxTime = TimeSpan.FromMinutes(5);
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(5);
             var stopWatch = Stopwatch.StartNew();
-            Thread.Sleep(2000);
-            string Content = GetHtmlContent(domain);
-            while(stopWatch.Elapsed <= maxTime)
+            int checkInterval = 10000;
+            string htmlContent = GetHtmlContent(domain);
+            bool statusChanged = false;
+            while (stopWatch.Elapsed <= maxWaitTime)
             {
-                if (!Content.Contains("Not Found"))
+                switch (!htmlContent.Contains("Not Found"))
                 {
-                    Content = GetHtmlContent(domain);
-                    break;
+                    case false:
+                        await Task.Delay(checkInterval);
+                        htmlContent = GetHtmlContent(domain);
+                        break;
+
+                    case true:
+                        statusChanged = true;
+                        goto LoopExit; // exit the loop since the status has changed
+
                 }
-                Thread.Sleep(10000);
             }
             stopWatch.Stop();
-
-            string text = Decode(Content);
-            return text;
+        LoopExit:
+            if (!statusChanged)
+            {
+                throw new Exception($"There are no emails within {maxWaitTime.Minutes} minutes.");
+            }
+            return Decode(htmlContent);
         }
 
         public static async Task<string> GetHtmlFromEmail(string domain, string id)
         {
-            var maxTime = TimeSpan.FromMinutes(5);
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(5);
             var stopWatch = Stopwatch.StartNew();
-            Thread.Sleep(2000);
-            string Content = GetHtmlContent(domain, id).Result;
-            while (stopWatch.Elapsed <= maxTime)
+            int checkInterval = 10000;
+            string htmlContent = GetHtmlContent(domain, id).Result;
+            bool statusChanged = false;
+            while (stopWatch.Elapsed <= maxWaitTime)
             {
-                if (!Content.Contains("Not Found"))
+                switch (!htmlContent.Contains("Not Found"))
                 {
-                    Content = GetHtmlContent(domain, id).Result;
-                    break;
+                    case false:
+                        await Task.Delay(checkInterval);
+                        htmlContent = GetHtmlContent(domain, id).Result;
+                        break;
+
+                    case true:
+                        statusChanged = true;
+                        goto LoopExit; // exit the loop since the status has changed
+
                 }
-                Thread.Sleep(10000);
             }
             stopWatch.Stop();
-
-            string text = Decode(Content);
-            return text;
+            LoopExit:
+            if (!statusChanged)
+            {
+                throw new Exception($"There are no emails within {maxWaitTime.Minutes} minutes.");
+            }
+            return Decode(htmlContent);
         }
 
         public static async Task<List<PutsboxEmail>?> GetAllEmails(string domain)
@@ -410,18 +457,32 @@ namespace PlaywrightRaffle.Helpers
             var stopWatch = Stopwatch.StartNew();
             int checkInterval = 10000;
             var htmlContent = GetEmailContent(domain);
+            bool statusChanged = false;
 
-            while (stopWatch.Elapsed <= maxWaitTime) // loop for 35 minutes
+            while (stopWatch.Elapsed <= maxWaitTime) 
             {
-                if (!htmlContent.Contains("Not Found"))
+                switch (!htmlContent.Contains("Not Found"))
                 {
-                    break;
+                    case false:
+                        await Task.Delay(checkInterval);
+                        htmlContent = GetEmailContent(domain);
+                        break;
+
+                    case true:
+                        statusChanged = true;
+                        goto LoopExit; // exit the loop since the status has changed
+
                 }
-                await Task.Delay(checkInterval);
-                htmlContent = GetEmailContent(domain);
+                
             }
             stopWatch.Stop();
+            LoopExit:
+            if (!statusChanged)
+            {
+                throw new Exception($"There are no emails within {maxWaitTime.Minutes} minutes.");
+            }
             return JsonConvert.DeserializeObject<List<PutsboxEmail>?>(htmlContent);
+
         }
 
     }
@@ -459,30 +520,26 @@ namespace PlaywrightRaffle.Helpers
 
         public static async Task GoToActivationLink(string email)
         {
-            var activateLink = PutsBox.GetLinkFromEmailWithValue(email, "Activate account");
+            var activateLink = PutsBox.GetLinkFromEmailWithValue(email, "Activate account").Result;
             await Browser.Navigate(activateLink);
         }
 
 
-        public static void GgetHtmlBody(string email, out string emailInitial)
+        public static async Task<string> GgetHtmlBody(string email)
         {
-            emailInitial = PutsBox.GetHtmlFromEmail(email);
+            return PutsBox.GetHtmlFromEmail(email).Result;
         }
 
         //
-        public static void GgetHtmlBody(string email, string id, out string emailInitial)
+        public static async Task<string> GgetHtmlBody(string email, string id)
         {
-            emailInitial = PutsBox.GetHtmlFromEmail(email, id).Result;
+            return PutsBox.GetHtmlFromEmail(email, id).Result;
         }
 
         //
         public static async Task<List<PutsboxEmail>?> GgetAllEmailData(string email)
         {
-            var emailList = await PutsBox.GetAllEmails(email);
-            SubscriptionsRequest.CheckEmailsCountFor35Minutes(emailList, email);
-            emailList = await PutsBox.GetAllEmails(email);
-
-            return emailList;
+            return await PutsBox.GetAllEmails(email);
         }
 
     }

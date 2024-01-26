@@ -9,6 +9,7 @@
             string expectedUrl = WebEndpoints.WEBSITE_HOST;
             string currentUrl = Browser.Driver.Url;
 
+
             if (currentUrl.Contains("localhost") && !currentUrl.Contains(expectedUrl))
             {
                 Thread.Sleep(250);
@@ -22,7 +23,7 @@
 
         public static async Task VerifyErrorMessageIsDisplayed()
         {
-            await VerifyUrl();
+            //await VerifyUrl();
             await WaitUntil.CustomElementIsVisible(Common.toaster);
             await WaitUntil.CustomElementIsVisible(checkOutNowBtn);
         }

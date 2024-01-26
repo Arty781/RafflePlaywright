@@ -20,7 +20,7 @@
 
         public static async Task VerifyVisibilityOfToaster(string email)
         {
-            string s = PutsBox.GetLinkFromEmailWithValue(email, "Verify");
+            string s = PutsBox.GetLinkFromEmailWithValue(email, "Verify").Result;
             await Browser.Driver.GotoAsync(s);
             await WaitUntil.CustomElementIsVisible(toasterSuccessMessage);
         }

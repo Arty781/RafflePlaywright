@@ -18,6 +18,7 @@
         public static async Task Quit() => await BrowserSet.CloseAsync();
         public static async Task Navigate(string url)
         {
+            await WaitUntil.WaitSomeInterval(500);
             await Driver.GotoAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded});
         }
 
@@ -30,11 +31,11 @@
         [OneTimeSetUp]
         public static async Task OneTimeSetUp()
         {
-            await Browser.Initialize();
+            await Initialize();
             var pl = await Playwright.CreateAsync();
             var launch = new BrowserTypeLaunchOptions
             {
-                Headless = true,
+                Headless = false,
                 Devtools = false,
                 Timeout = 15000
             };

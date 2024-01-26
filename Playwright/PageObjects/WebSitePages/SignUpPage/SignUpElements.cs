@@ -6,7 +6,9 @@
         public const string inputPassword = "//input[@name='password']";
         public const string inputFirstName = "//input[@name='name']";
         public const string inputSurname = "//input[@name='surname']";
-        public const string btnSignUp = "//button[@class='rafflebtn primary full-width']";
+        public const string btnSignUp = "div.authLeftSide > div > button";
+        public const string btnSignUpWithGoogle = "div.loginGroupSignUp button.social-g-btn";
+        public const string btnSignUpWithApple = "div.social-auth-wrap > button.social-ap-btn";
         public const string btnCloseSignUpPopup = "//button[@class='close-sign-up']";
         public const string btnConfirmOpt = "//div[@class='agreeBlock']/label[1]//input[@type='checkbox']";
         public const string btnRememberMe = "//div[@class='agreeRemebmer']//input[@type='checkbox']";

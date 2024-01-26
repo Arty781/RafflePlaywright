@@ -228,17 +228,17 @@
 
         public static async Task VerifyUnpauseEmail(string email, string name, string charity, int activeRaffles)
         {
-            await EmailVerificator.VerifyUnpauseEmail(email, name, charity);
+            await EmailVerificator.VerifyIsUnpauseEmail(email, name, charity, activeRaffles);
         }
 
-        public static async Task VerifyUnpauseEmail(string email, string name, string charity)
-        {
-            await EmailVerificator.VerifyIsUnpauseEmail(email, name, charity);
-        }
+        //public static async Task VerifyUnpauseEmail(string email, string name, string charity, int activeRaffles)
+        //{
+        //    await EmailVerificator.VerifyIsUnpauseEmail(email, name, charity, activeRaffles);
+        //}
 
-        public static async Task VerifyInitialEmailAuth(string email, string name, int quantity, double value, string charity)
+        public static async Task VerifyInitialEmailAuth(string email, string name, int quantity, double value, string charity, int activeRaffles)
         {
-            await EmailVerificator.VerifyInitialEmailAuth(email, name, charity);
+            await EmailVerificator.VerifyInitialEmailAuth(email, name, charity, activeRaffles);
         }
 
         public static async Task VerifyInitialEmailUnauth(string email, string name, int quantity, double value, string charity, int activeRaffles)
@@ -272,7 +272,8 @@
                                     activeRaffles);
                 await EmailVerificator.VerifyUnpauseEmail(user.Email,
                                     user.Name,
-                                    "None Selected");
+                                    "None Selected",
+                                    activeRaffles);
             }
 
 

@@ -9,22 +9,28 @@
         public const string applyCouponBtn = "//button[@class='apply-coupon-btn']";
         public const string checkOutNowBtn = "//div[@class='itemPrice']/button";
         public const string orderTotalVal = "//div[@class='itemPrice total-credit']/div[2]";
-        public const string inputCharity = "//input/ancestor::div[@class='select-wrapper']";
-        public const string listCharities = "//div[@id='menu-']//ul/li";
-        public const string dropItemCharities = "//div[@id='menu-']//ul/li";
+        public const string cbbxOrderSummary = "div.checkout-header > div:nth-child(2)";
+        public const string cbbxOrderTotal = "#order-total-wrapper > h1 > span";
+        public const string cbbxOrderHeader = "div.big-cart-item-header";
+        public const string cbbxRemoveOrderBtn = "button.remove-order-button";
+        public const string inputCharity = "div.select-wrapper";
+        public const string listCharities = "#menu- ul > li";
+        public const string dropItemCharities = "#menu- ul > li";
         public const string ageControlSection = "//div[@class='age-control-section']/label//span/input";
         public const string checkboxAgeControl = "//input[@name='checkedB'";
+        public const string formPayment = "#payment-form";
         public const string framePaymentNumber = "//iframe[@id='cardNumber']";
-        public const string framePaymentExpiry = "//iframe[@id='expiryDate']";
-        public const string framePaymentCvv = "//iframe[@id='cvv']";
-        public const string inputCardNumber = "//input[@id='checkout-frames-card-number']";
-        public const string inputExpiryDate = "//input[@id='checkout-frames-expiry-date']";
-        public const string inputCvv = "//input[@id='checkout-frames-cvv']";
+        public const string framePaymentExpiry = "#expiryDate";
+        public const string framePaymentCvv = "#cvv";
+        public const string inputCardNumber = "#checkout-frames-card-number";
+        public const string inputExpiryDate = "#checkout-frames-expiry-date";
+        public const string inputCvv = "#checkout-frames-cvv";
         public const string btnPay = "#pay-button";
         public const string btnPaySub = "#subscription-pay-button";
-        public const string orderSummaryBtn = "//div[@class='checkout-header']";
-        public const string framePayPal = "//iframe[@title='PayPal']";
-        public const string btnPayPal = "#buttons-container > div > div > div";
+        public const string orderSummaryBtn = "div.checkout-header";
+        public const string framePayPal = "div.paypal-buttons iframe:nth-child(2)";
+        public const string btnPayPal = "#buttons-container div.paypal-button";
+        
 
         #region Checkout Verification page
 
