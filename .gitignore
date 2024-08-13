@@ -368,3 +368,5 @@ FodyWeavers.xsd
 
 TestData.cs
 /Playwright/Helpers/TestData.cs
+/Playwright/Helpers/TelegramHelper.cs
+/Playwright/Helpers/AppDbHelper.cs
