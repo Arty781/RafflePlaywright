@@ -9,7 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-TestData.cs
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -365,3 +365,5 @@ FodyWeavers.xsd
 /allure-results
 /ErrorImages
 /client_secret_1080640798483-bqaftm7hm7r5429hkbs26n944unhc3el.apps.googleusercontent.com.json
+
+TestData.cs
