@@ -81,6 +81,25 @@ namespace PlaywrightRaffle.PageObjects
             defaultFrame = frame.ParentFrame;
         }
 
+        public static async Task EnterSubscriptionCardDetails()
+        {
+            await WaitUntil.CustomElementIsVisible("div.checkout-content > h1");
+            await Button.Click("div.checkout-content > h1");
+            await WaitUntil.CustomElementIsVisible(formSubscriptionPayment);
+            var f = await Browser.Driver.QuerySelectorAsync(framePaymentNumber);
+            var frame = await f.ContentFrameAsync();
+            await frame.QuerySelectorAsync(framePaymentNumber);
+            await frame.ContentAsync();
+            await frame.TypeAsync(inputCardNumber, CardDetails.CARD_NUMBER[RandomHelper.RandomIntNumber(CardDetails.CARD_NUMBER.Count)]);
+            var defaultFrame = frame.ParentFrame;
+            frame = await Browser.Driver.QuerySelectorAsync(framePaymentExpiry).Result.ContentFrameAsync();
+            await frame.TypeAsync(inputExpiryDate, DateTime.Now.AddYears(2).ToString("MM'/'yy"));
+            defaultFrame = frame.ParentFrame;
+            frame = await Browser.Driver.QuerySelectorAsync(framePaymentCvv).Result.ContentFrameAsync();
+            await frame.TypeAsync(inputCvv, "100");
+            defaultFrame = frame.ParentFrame;
+        }
+
 
         public static async Task EnterCardDetails(string cvv)
         {
@@ -153,6 +172,15 @@ namespace PlaywrightRaffle.PageObjects
             await ClickPayNowBtn();
         }
 
+        public static async Task MakeAPurchaseSubscriptionAsUnauthorizedUser(string email)
+        {
+            //await ClickCheckoutNowBtn();
+            //await SelectedCharity();
+            await EnterEmail(email);
+            await EnterSubscriptionCardDetails();
+            await ClickPayNowBtn();
+        }
+
 
         public static async Task MakeAPurchaseAsAuthorizedUser()
         {
@@ -174,7 +202,7 @@ namespace PlaywrightRaffle.PageObjects
         {
             await GoToBasket(subscriptionId);
             await EnterEmail(email);
-            await EnterCardDetails();
+            await EnterSubscriptionCardDetails();
             await ClickPayNowBtnSub();
         }
 

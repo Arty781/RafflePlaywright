@@ -1,6 +1,6 @@
 ﻿namespace PlaywrightRaffle.PageObjects
 {
-    public partial class WinRafflePage
+    public partial class TMApp
     {
         public static async Task VerifyPriceOfAddedOrder(string bundlePrice)
         {

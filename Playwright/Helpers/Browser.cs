@@ -33,13 +33,17 @@
         {
             await Initialize();
             var pl = await Playwright.CreateAsync();
-            var launch = new BrowserTypeLaunchOptions
+            var iPhone12 = pl.Devices["iPhone 12"];
+            var options = new BrowserTypeLaunchOptions
             {
+                
                 Headless = false,
                 Devtools = false,
                 Timeout = 15000
+               
             };
-            BrowserSet = await pl.Chromium.LaunchAsync(launch);
+            BrowserSet = await pl.Chromium.LaunchAsync(options);
+            
         }
 
         [SetUp]
@@ -47,7 +51,7 @@
         {
             var context = await BrowserSet.NewContextAsync();
             Driver = await context.NewPageAsync();
-            await Driver.SetViewportSizeAsync(width: 1900, height: 980);
+            await Driver.SetViewportSizeAsync(width: 1900, height: 920);
             await Browser.Navigate(WebEndpoints.WEBSITE_HOST);
         }
 

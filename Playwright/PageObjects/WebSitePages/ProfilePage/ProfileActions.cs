@@ -64,7 +64,17 @@
             var email = DateTime.Now.ToString("yyyy-MM-dThh-mm-fff") + "@putsbox.com";
             await WaitUntil.CustomElementIsVisible(btnSave);
             await InputBox.Element(inputEmail, email);
-            await InputBox.Element(inputPhone, RandomHelper.RandomPhone());
+            await InputBox.Element(inputPhone, "+447700150848");
+            await Button.Click(btnSave);
+            return email;
+        }
+
+        public static async Task<string> EditAccountDataWithoutPhone()
+        {
+            var email = DateTime.Now.ToString("yyyy-MM-dThh-mm-fff") + "@putsbox.com";
+            await WaitUntil.CustomElementIsVisible(btnSave);
+            await InputBox.Element(inputEmail, email);
+            await InputBox.Element(inputPhone, "");
             await Button.Click(btnSave);
             return email;
         }
@@ -211,6 +221,39 @@
             await Browser.Driver.QuerySelectorAllAsync(titleSubscriptionStatus).Result.Where(x => x.TextContentAsync().Result == "Active Subscription").First().WaitForElementStateAsync(ElementState.Visible);
 
         }
+
+        public static async Task EditCardDetailsSubscription()
+        {
+            await Button.Click(btnDetails);
+            await Button.Click(btnEditCard);
+            await WaitUntil.WaitSomeInterval();
+            await EnterSubscriptionCardDetails();
+            await Button.Click(btnSaveCard);
+            await WaitUntil.CustomElementIsVisible("//div[@class='status-payment-container']/span[@class='status-payment-success']");
+            await Browser.Driver.QuerySelectorAllAsync("//div[@class='status-payment-container']/span").Result.Where(x => x.TextContentAsync().Result == "Payment card was changed success").First().WaitForElementStateAsync(ElementState.Visible);
+            await Button.Click(btnCloseCardPopup);
+        }
+
+        public static async Task EnterSubscriptionCardDetails()
+        {
+            await WaitUntil.CustomElementIsVisible("div.checkout-popup h3");
+            await Button.Click("div.checkout-popup h3");
+            await WaitUntil.CustomElementIsVisible(Basket.formSubscriptionPayment);
+            var f = await Browser.Driver.QuerySelectorAsync(Basket.framePaymentNumber);
+            var frame = await f.ContentFrameAsync();
+            await frame.QuerySelectorAsync(Basket.framePaymentNumber);
+            await frame.ContentAsync();
+            await frame.TypeAsync(Basket.inputCardNumber, CardDetails.CARD_NUMBERS_FAILURE[RandomHelper.RandomIntNumber(CardDetails.CARD_NUMBERS_FAILURE.Count)]);
+            var defaultFrame = frame.ParentFrame;
+            frame = await Browser.Driver.QuerySelectorAsync(Basket.framePaymentExpiry).Result.ContentFrameAsync();
+            await frame.TypeAsync(Basket.inputExpiryDate, DateTime.Now.AddYears(2).ToString("MM'/'yy"));
+            defaultFrame = frame.ParentFrame;
+            frame = await Browser.Driver.QuerySelectorAsync(Basket.framePaymentCvv).Result.ContentFrameAsync();
+            await frame.TypeAsync(Basket.inputCvv, "100");
+            defaultFrame = frame.ParentFrame;
+        }
+
+
 
         public static async Task VerifyCancelationEmail(string email, string name)
         {

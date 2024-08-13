@@ -22,7 +22,7 @@ namespace PlaywrightRaffle.APIHelpers.Web.PollHome
             {
                 data = new() 
                 { 
-                    value = pollBullets[RandomHelper.RandomNumber(3)]
+                    value = pollBullets[RandomHelper.RandomNumber(2)]
                 },
                 values = string.Join(",", pollBullets)
             };

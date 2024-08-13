@@ -66,6 +66,7 @@ namespace PlaywrightRaffle.PageObjects
         public static async Task SelectFirstBundleBtn()
         {
             await WaitUntil.WaitSomeInterval(750);
+            await Button.Click(tabSinglePurchase);
             await Button.ClickOnNthElement(btnBundles, 0);
             await WaitUntil.WaitSomeInterval(2000);
 
@@ -76,6 +77,7 @@ namespace PlaywrightRaffle.PageObjects
         public static async Task SelectSecondBundleBtn()
         {
             await WaitUntil.WaitSomeInterval(500);
+            await Button.Click(tabSinglePurchase);
             await Button.ClickOnNthElement(btnBundles, 1);
             await WaitUntil.WaitSomeInterval(2000);
 
@@ -86,6 +88,7 @@ namespace PlaywrightRaffle.PageObjects
         public static async Task SelectThirdBundleBtn()
         {
             await WaitUntil.WaitSomeInterval(500);
+            await Button.Click(tabSinglePurchase);
             await Button.ClickOnNthElement(btnBundles, 2);
             await WaitUntil.WaitSomeInterval(2000);
 
@@ -96,6 +99,7 @@ namespace PlaywrightRaffle.PageObjects
         public static async Task SelectForthBundleBtn()
         {
             await WaitUntil.WaitSomeInterval(700);
+            await Button.Click(tabSinglePurchase);
             await Button.ClickOnNthElement(btnBundles, 3);
             await WaitUntil.WaitSomeInterval(2000);
 

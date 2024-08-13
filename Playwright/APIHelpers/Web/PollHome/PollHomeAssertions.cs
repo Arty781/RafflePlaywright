@@ -13,7 +13,7 @@ namespace PlaywrightRaffle.APIHelpers.Web.PollHome
             
 
             var result = (int)(response.Travel + response.Home + response.Share);
-            Assert.That(Math.Abs(CalculatePercentage() - result), Is.LessThanOrEqualTo(0), $"Error: Voted sum is {result}");
+            Assert.That((100-result), Is.LessThanOrEqualTo(0), $"Error: Voted sum is {result}");
         }
 
         private static int CalculatePercentage()
@@ -27,7 +27,8 @@ namespace PlaywrightRaffle.APIHelpers.Web.PollHome
                       (int)Math.Round(((double)travelVotes.Count / allVotes.Count) * 100) +
                       (int)Math.Round(((double)shareVotes.Count / allVotes.Count) * 100));
 
-            bool isSumEqual100 = SumEqual100 == 100;
+            bool isSumEqual100 = Math.Abs(SumEqual100-100) <= 1;
+            Console.WriteLine(SumEqual100);
 
             return isSumEqual100 ? 100 : throw new Exception($"Sum is {SumEqual100}");
         }

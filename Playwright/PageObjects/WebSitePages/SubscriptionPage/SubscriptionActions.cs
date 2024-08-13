@@ -8,7 +8,7 @@
             await WaitUntil.CustomElementIsVisible(btnSubscribeNowTop);
         }
 
-        public static async Task<(double, int)> AddTenSubscriptionToBasket()
+        public static async Task AddThirtySubscriptionToBasket()
         {
             await Button.Click(btnSubscribeNowTop);
             await WaitUntil.WaitSomeInterval();
@@ -17,10 +17,22 @@
             int quantity = int.Parse((await Browser.Driver.QuerySelectorAllAsync(btnSubscribeNowSelector)).FirstOrDefault().GetAttributeAsync("value").Result);
             await (await Browser.Driver.QuerySelectorAllAsync(btnSubscribeNowSelector)).FirstOrDefault().ClickAsync();
             await WaitUntil.CustomElementIsVisible(Basket.framePaymentNumber);
-            return (price, quantity);
+            //return (price, quantity);
         }
 
-        public static async Task<(double, int)> AddTwentyFiveSubscriptionToBasket()
+        public static async Task AddTwentyfiveSubscriptionToBasket()
+        {
+            await Button.Click(btnSubscribeNowTop);
+            await WaitUntil.WaitSomeInterval();
+            await WaitUntil.CustomElementIsVisible(btnSubscribeNowSelector);
+            double price = double.Parse((await Browser.Driver.QuerySelectorAllAsync(textPrice)).TakeLast(2).FirstOrDefault().TextContentAsync().Result.Substring(1, 2));
+           // int quantity = int.Parse((await Browser.Driver.QuerySelectorAllAsync(btnSubscribeNowSelector)).TakeLast(2).FirstOrDefault().TextContentAsync().Result);
+            await (await Browser.Driver.QuerySelectorAllAsync(btnSubscribeNowSelector)).TakeLast(2).FirstOrDefault().ClickAsync();
+            await WaitUntil.CustomElementIsVisible(Basket.framePaymentNumber);
+            //return (price, quantity);
+        }
+
+        public static async Task AddTenSubscriptionToBasket()
         {
             await Button.Click(btnSubscribeNowTop);
             await WaitUntil.WaitSomeInterval();
@@ -29,7 +41,7 @@
             int quantity = int.Parse((await Browser.Driver.QuerySelectorAllAsync(btnSubscribeNowSelector)).LastOrDefault().GetAttributeAsync("value").Result);
             await (await Browser.Driver.QuerySelectorAllAsync(btnSubscribeNowSelector)).LastOrDefault().ClickAsync();
             await WaitUntil.CustomElementIsVisible(Basket.framePaymentNumber);
-            return (price, quantity);
+            //return (price, quantity);
         }
     }
 }

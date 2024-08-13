@@ -19,10 +19,10 @@
 
         public static async Task VerifyAddingTickets(double price, int countOrders)
         {
-            await WaitUntil.CustomElementIsVisible(prizePrice);
+           await WaitUntil.CustomElementIsVisible(prizePrice);
             for (int i = 0; i < countOrders; i++)
             {
-                await (await Browser.Driver.QuerySelectorAllAsync(prizeName)).Last().ScrollIntoViewIfNeededAsync();
+                await (await Browser.Driver.QuerySelectorAllAsync(prizeName))[(await Browser.Driver.QuerySelectorAllAsync(prizeName)).Count - 1].ScrollIntoViewIfNeededAsync();
                 await Browser.Driver.WaitForTimeoutAsync(250);
             }
             var item = await OrderHistoryVerificator.GetOrderHistory((await Browser.Driver.QuerySelectorAllAsync(prizePrice)).ToList(), countOrders);

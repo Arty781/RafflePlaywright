@@ -4,6 +4,7 @@ using PlaywrightRaffle.PageObjects;
 using RestSharp;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace PlaywrightRaffle.Helpers
 {
@@ -66,7 +67,8 @@ namespace PlaywrightRaffle.Helpers
 
         public static async Task ElementImage(string element, string data)
         {
-            await WaitUntil.CustomElementIsVisible(element);
+            //await WaitUntil.CustomElementIsVisible(element);
+            
             await Browser.Driver.QuerySelectorAsync(element).Result.FillAsync(data);
         }
 
@@ -233,6 +235,12 @@ namespace PlaywrightRaffle.Helpers
             string arg = email[..email.IndexOf('@')];
             return $"https://preview.putsbox.com/p/{arg}/{id}.html";
         }
+
+        private static string GetJSONUrl(string email, string id)
+        {
+            string arg = email[..email.IndexOf('@')];
+            return $"https://preview.putsbox.com/p/{arg}/{id}.json";
+        }
         private static string GetHtmlUrlToInspect(string email)
         {
             string arg = email[..email.IndexOf('@')];
@@ -309,6 +317,14 @@ namespace PlaywrightRaffle.Helpers
             return response.Content ?? throw new Exception("Content is null.");
         }
 
+        private static async Task<string> GetJSONContent(string email, string id)
+        {
+            RestClient client = new(GetJSONUrl(email, id));
+            RestRequest request = new("");
+            var response = await client.ExecuteGetAsync(request);
+            return response.Content ?? throw new Exception("Content is null.");
+        }
+
         private static string GetEmailContent(string email)
         {
             RestClient client = new(GetHtmlUrlToInspect(email));
@@ -347,7 +363,7 @@ namespace PlaywrightRaffle.Helpers
 
             var body = GetBodyData(Decode(jsonContent));
             var links = ParseAllLinks(body).Link;
-            var st = links.First((PutsboxWrapper.Link x) => x.Name.Trim() == value).Url ?? throw new Exception("URL not found");
+            var st = links.First().Url ?? throw new Exception("URL not found");
             return st;
         }
 
@@ -451,6 +467,41 @@ namespace PlaywrightRaffle.Helpers
             return Decode(htmlContent);
         }
 
+        public static async Task<string> GetLinkFromEmail(string domain, string id)
+        {
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(5);
+            var stopWatch = Stopwatch.StartNew();
+            int checkInterval = 10000;
+            string jsonContent = GetJSONContent(domain, id).Result;
+            bool statusChanged = false;
+            while (stopWatch.Elapsed <= maxWaitTime)
+            {
+                switch (!jsonContent.Contains("Not Found"))
+                {
+                    case false:
+                        await Task.Delay(checkInterval);
+                        jsonContent = GetJSONContent(domain, id).Result;
+                        break;
+
+                    case true:
+                        statusChanged = true;
+                        goto LoopExit; // exit the loop since the status has changed
+
+                }
+            }
+            stopWatch.Stop();
+        LoopExit:
+            if (!statusChanged)
+            {
+                throw new Exception($"There are no emails within {maxWaitTime.Minutes} minutes.");
+            }
+            var body = GetBodyData(Decode(jsonContent));
+            var links = ParseAllLinks(body).Link;
+            var st = links.First().Url ?? throw new Exception("URL not found");
+            return st;
+            //return Decode(htmlContent);
+        }
+
         public static async Task<List<PutsboxEmail>?> GetAllEmails(string domain)
         {
             TimeSpan maxWaitTime = TimeSpan.FromMinutes(2);
@@ -520,7 +571,8 @@ namespace PlaywrightRaffle.Helpers
 
         public static async Task GoToActivationLink(string email)
         {
-            var activateLink = PutsBox.GetLinkFromEmailWithValue(email, "Activate account").Result;
+            var activateLink = EmailVerificator.GetEmailReceiptLink(email).Result;
+            //var activateLink = PutsBox.GetLinkFromEmailWithValue(email, "Activate account").Result;
             await Browser.Navigate(activateLink);
         }
 
@@ -534,6 +586,11 @@ namespace PlaywrightRaffle.Helpers
         public static async Task<string> GgetHtmlBody(string email, string id)
         {
             return PutsBox.GetHtmlFromEmail(email, id).Result;
+        }
+
+        public static async Task<string> GetLinkFromJSON(string email, string id)
+        {
+            return PutsBox.GetLinkFromEmail(email, id).Result;
         }
 
         //

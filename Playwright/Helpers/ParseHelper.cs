@@ -145,6 +145,43 @@ namespace PlaywrightRaffle.Helpers
             return (quantity, value);
         }
 
+        public static async Task<string> GetEmailReceiptLink(string email)
+        {
+            emailsList = await Elements.GgetAllEmailData(email);
+            TimeSpan maxWaitTime = TimeSpan.FromMinutes(35);
+            bool statusChanged = false;
+            int checkInterval = 10000;
+            if (emailsList.Where(x => x.subject.Contains("receipt")).Select(q => q.id).Count() <= 1)
+            {
+                var stopwatch = Stopwatch.StartNew();
+                while (stopwatch.Elapsed <= maxWaitTime)
+                {
+                    switch (emailsList.Where(x => x.subject.Contains("receipt")).Select(q => q.id).Count() == 1)
+                    {
+                        case false:
+                            await Task.Delay(checkInterval);
+                            emailsList = await Elements.GgetAllEmailData(email);
+                            break;
+                        case true:
+                            statusChanged = true;
+                            goto LoopExit;
+                    }
+                }
+                stopwatch.Stop();
+            LoopExit:
+                if (!statusChanged)
+                {
+                    throw new Exception($"There are no emails within {maxWaitTime.Minutes} minutes.");
+                }
+            }
+
+            var id = emailsList.Where(x => x.subject.Contains("receipt")).Select(q => q.id).FirstOrDefault();
+            return Elements.GetLinkFromJSON(email, id).Result;
+
+            
+
+        }
+
         public static async Task VerifyInitialEmailAuth(string email, string name, string charity, int activeRaffles)
         {
             emailsList = await Elements.GgetAllEmailData(email);
@@ -359,18 +396,22 @@ namespace PlaywrightRaffle.Helpers
             numRows = Math.Min(maxRows, numRows); // Calculate the actual number of rows to include
             for (int i = 0; i < numRows * elementsPerRow; i += elementsPerRow)
             {
-                IElementHandle prizeElement = inputList[i+1];
-                IElementHandle purchaseDateElement = inputList[i + 2];
-                IElementHandle numTicketsElement = inputList[i + 4];
-                IElementHandle priceElement = inputList[i + 5];
+                IElementHandle prizeElement = inputList[i];
+                IElementHandle purchaseDateElement = inputList[i + 1];
+                IElementHandle numTicketsElement = inputList[i + 2].QuerySelectorAsync("div p").Result;
+                IElementHandle priceElement = inputList[i + 3];
 
-                WebMOdels.Profile.OrderHistory item = new()
-                {
-                    PRIZE = await prizeElement.TextContentAsync() ?? throw new Exception("Prize is null"),
-                    PURCHASE_DATE = await purchaseDateElement.TextContentAsync() ?? throw new Exception("Date is null"),
-                    NUM_TICKETS = int.Parse(await numTicketsElement.TextContentAsync() ?? throw new Exception("Tickets is null")),
-                    PRICE = int.Parse(priceElement.TextContentAsync().Result[1..])
-                };
+                WebMOdels.Profile.OrderHistory item = new();
+                item.PRIZE = await prizeElement.TextContentAsync() ?? throw new Exception("Prize is null");
+                item.PURCHASE_DATE = await purchaseDateElement.TextContentAsync() ?? throw new Exception("Date is null");
+                item.NUM_TICKETS = int.Parse(await numTicketsElement.TextContentAsync() ?? throw new Exception("Tickets is null"));
+                item.PRICE = int.Parse(priceElement.TextContentAsync().Result[1..]);
+                //{
+                //    PRIZE = await prizeElement.TextContentAsync() ?? throw new Exception("Prize is null"),
+                //    PURCHASE_DATE = await purchaseDateElement.TextContentAsync() ?? throw new Exception("Date is null"),
+                //    NUM_TICKETS = int.Parse(await numTicketsElement.TextContentAsync() ?? throw new Exception("Tickets is null")),
+                //    PRICE = int.Parse(priceElement.TextContentAsync().Result[1..])
+                //};
                 sum += item.PRICE; // Accumulate the price
                 historyList.Add(item);
             }
@@ -382,7 +423,7 @@ namespace PlaywrightRaffle.Helpers
 
         public static async Task<(List<WebMOdels.Profile.OrderHistory>, int)> GetOrderHistory(List<IElementHandle> inputList, int maxRows)
         {
-            var history = await SplitIntoRows(inputList, 6, maxRows);
+            var history = await SplitIntoRows(inputList, 4, maxRows);
             List<WebMOdels.Profile.OrderHistory> result = history.Item1;
             int totalPriceSum = history.Item2;
 

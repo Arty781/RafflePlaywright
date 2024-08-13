@@ -26,11 +26,11 @@
         #region Info blocks
 #if CHROME || FIREFOX || DEBUG
 
-        public const string textTitle = "div.desktop h2";
-        public const string textParagraph = "div.desktop p";
+        public const string textTitle = "div h3";
+        public const string textParagraph = "div p";
         public const string textBottomSliderTitle = "//div[contains(@class,'dream-slider-bg')]//h2";
         public const string textBottomSliderParagraph = "div.dream-slider-bg p";
-        public const string btnTicketSelectorInfoBlock = "button.enter-now-button";
+        public const string btnTicketSelectorInfoBlock = "//div//button[contains(text(),'Enter Now')]";
 
 #endif
 
@@ -73,6 +73,14 @@
 
         public const string btnPostalBundle = "div.desktop-postal div.postal-card";
         public const string btnBundles = "div.ticket-bundle-card  button";
+
+        #region Tabs
+
+        public const string tabPostal = "#tickets-tab-0";
+        public const string tabSinglePurchase = "#tickets-tab-1";
+        public const string tabSubscription = "#tickets-tab-2";
+
+        #endregion
 
         #endregion
 

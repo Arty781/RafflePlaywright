@@ -1,3 +1,4 @@
+using RimuTec.Faker;
 using static PlaywrightRaffle.Helpers.AppDbHelper;
 
 namespace WebSiteTests
@@ -29,7 +30,7 @@ namespace WebSiteTests
     {
         public static void ReactivateRafflesDeleteUsers(string email, List<DbModels.Raffle> oldRaffles)
         {
-            AppDbHelper.Users.DeleteTestUserData(email);
+            //AppDbHelper.Users.DeleteTestUserData(email);
             List<DbModels.Raffle> activeDreamhomeListNew = DreamHome.GetAllRaffles().Where(x => x.Active == true).Select(x => x).ToList();
             DreamHome.DeactivateDreamHome(activeDreamhomeListNew);
             DreamHome.ActivateDreamHome(oldRaffles);
@@ -50,37 +51,25 @@ namespace WebSiteTests
             string email = "testuseroutsite@gmail.com";
             AppDbHelper.Users.DeleteTestUserData(email);
             AppDbHelper.Users.DeleteTestUserData("@putsbox.com");
-
+            List<DbModels.UserResponse> users = AppDbHelper.Users.GetUsersByEmail("@xitroo.com");
             #endregion
 
-            //await Common.CloseCookiesPopUp();
+            WaitUntil.WaitSomeInterval(100);
+            //SignUpRequest.RegisterNewUser(out SignUpResponse? response);
+            //var subscriptionsList = SubscriptionsRequest.GetActiveSubscriptions();
+            //string? name;
+            await Common.CloseCookiesPopUp();
+            foreach(var user in users)
+            {
+                await HeaderPage.OpenSignInPage();
+                await SignIn.EnterLoginAndPass(user.Email, Credentials.PASSWORD);
+                await SignIn.VerifyIsSignIn();
+                await Profile.OpenSubscriptionInProfile();
+                await Profile.EditCardDetailsSubscription();
+                await HeaderPage.DoLogout();
+            }
+            
 
-            //await HeaderPage.OpenSignUpPage();
-            //await SignUp.EnterUserData(email);
-            //await SignUp.ClickSignUpBtn();
-            //await WaitUntil.WaitSomeInterval(1000);
-            //await SignUp.VerifyEmail(email);
-            //await Home.AddTicketsToBasket(0);
-            //await Basket.MakeAPurchaseAsAuthorizedUser();
-            //await ThankYou.VerifyThankYouPageIsDisplayed();
-            
-            //for(int i =0; i<99; i++)
-            //{
-            //    await Gift.GoToGiftPage();
-            //    var emailRecipient = Gift.SendGift().Result;
-            //    await HeaderPage.DoLogout();
-            //    var link = PutsBox.GetLinkFromEmailWithValue(emailRecipient, "Get Your Gift").Result;
-            //    Console.WriteLine(link);
-            //    await Navigate(link);
-            //    await SignUp.EnterUserDataAfterGift();
-            //    await SignUp.ClickSignUpBtn();
-            //    await WaitUntil.WaitSomeInterval(1000);
-            //    await SignUp.VerifyEmail(emailRecipient);
-            //    await HeaderPage.DoLogout();
-            //    await SignIn.MakeSignIn(email, Credentials.PASSWORD);
-            //    await SignUp.VerifyEmail(email);
-            //}
-            
 
             #region Postconditions
 
@@ -173,7 +162,7 @@ namespace WebSiteTests
             await Profile.EditPersonalData();
             await Profile.VerifyDisplayingSuccessfullToaster();
             await Profile.ClickEditAccountBtn();
-            await Profile.EditAccountData();
+            await Profile.EditAccountDataWithoutPhone();
             await Profile.VerifyDisplayingSuccessfullToaster();
 
             #region Postconditions
@@ -245,23 +234,29 @@ namespace WebSiteTests
         [Test]
         [Category("Subscriptions")]
         [Author("Artem", "qatester91311@gmail.com")]
+        //[Repeat(2)]
         public async Task PurchaseTenPoundsSubscriptionAsUnauthorizedUser()
         {
 
-            string email = "qatester" + DateTime.Now.ToString("yyyy-MM-d'-'hh-mm-ss") + "@putsbox.com";
+            //string email = "qatester" + DateTime.Now.ToString("yyyy-MM-d'-'hh-mm-ss") + "@xitroo.com";
             var subscriptionsList = SubscriptionsRequest.GetActiveSubscriptions();
 
             await Common.CloseCookiesPopUp();
-            await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscriptionsList.SubscriptionModels.FirstOrDefault().Id);
-            await ThankYou.VerifyThankYouPageIsDisplayed();
-            await ThankYou.ClickActivateMyAccount();
-            await Activate.ActivateUser(email); ;
-            await Activate.VerifySuccessfullActivation();
-            await HeaderPage.OpenSignInPage();
-            await SignIn.EnterLoginAndPass(email, Credentials.PASSWORD); ;
-            await SignIn.VerifyIsSignIn();
-            await Profile.OpenMyTicketsCompetitions(); ;
-            await Profile.OpenDreamHomeHistoryList(); ;
+            for(int i = 0; i < 400; i++)
+            {
+                string email = "qatester" + DateTime.Now.ToString("yyyy-MM-d'-'hh-mm-ss") + "@xitroo.com";
+                await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscriptionsList.SubscriptionModels[RandomHelper.RandomNumber(subscriptionsList.SubscriptionModels.Count)].Id);
+                await ThankYou.VerifyThankSubYouPageIsDisplayed();
+                await ThankYou.ClickActivateMyAccount();
+                await Activate.ActivateUser(email); ;
+                await Activate.VerifySuccessfullActivation();
+            }
+            
+            //await HeaderPage.OpenSignInPage();
+            //await SignIn.EnterLoginAndPass(email, Credentials.PASSWORD); ;
+            //await SignIn.VerifyIsSignIn();
+            //await Profile.OpenMyTicketsCompetitions(); ;
+            //await Profile.OpenDreamHomeHistoryList(); ;
         }
 
         [Test]
@@ -341,7 +336,7 @@ namespace WebSiteTests
             await SignIn.EnterLoginAndPass(Credentials.LOGIN, Credentials.PASSWORD);
             await SignIn.VerifyIsSignIn();
             await Subscription.OpenSubscriptionPage();
-            await Subscription.AddTwentyFiveSubscriptionToBasket();
+            await Subscription.AddThirtySubscriptionToBasket();
             await Basket.EnterCardDetails();
             await Basket.ClickPayNowBtnSub();
             await ThankYou.VerifyThankYouPageIsDisplayed();
@@ -587,7 +582,7 @@ namespace WebSiteTests
 
             await Common.CloseCookiesPopUp();
             await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscriptionsList.Id);
-            await ThankYou.VerifyThankYouPageIsDisplayed();
+            await ThankYou.VerifyThankSubYouPageIsDisplayed();
             await Elements.GoToActivationLink(email);
             await Activate.ActivateUser(email); ;
             await Activate.VerifySuccessfullActivation();
@@ -1662,8 +1657,8 @@ namespace WebSiteTests
 
             }
             await Subscription.OpenSubscriptionPage();
-            await Subscription.AddTenSubscriptionToBasket();
-            await Basket.EnterCardDetails();
+            await Subscription.AddTwentyfiveSubscriptionToBasket();
+            await Basket.EnterSubscriptionCardDetails();
             await Basket.ClickPayNowBtnSub();
             await ThankYou.VerifyThankSubYouPageIsDisplayed();
             await Profile.OpenMyTicketsCompetitions(); ;
@@ -1712,7 +1707,7 @@ namespace WebSiteTests
             await ThankYou.ClickViewTickets();
             await Profile.OpenSubscriptionsTab();
             await Profile.BuyTenPoundsSub();
-            await Basket.EnterCardDetails();
+            await Basket.EnterSubscriptionCardDetails();
             await Basket.ClickPayNowBtnSub();
             await ThankYou.VerifyThankSubYouPageIsDisplayed();
 

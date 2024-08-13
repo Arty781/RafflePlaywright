@@ -35,13 +35,13 @@
         #region Order History
 
         public const string tabMyTicketsCompetitions = "//span[text()='My Tickets & Competitions']/parent::button";
-        public const string listDreamHomeHistory = "//span[text()='Dream Home']/ancestor::div[@class='history-accordion-inner']/div";
+        public const string listDreamHomeHistory = "div.history-accordion-inner > div.expand-accordion";
         public const string listWeeklyHistory = "//span[text()='Lifestyle Competitions']/ancestor::div[@class='history-accordion-inner']/div";
         public const string listFixedOddsHistory = "//span[text()='Fixed Odds']/ancestor::div[@class='history-accordion-inner']/div";
-        public const string prizeName = "//table[@class='historyAreaTable']/tbody/tr/td[1]";
-        public const string prizeTickets = "//table[@class='historyAreaTable']/tbody/tr/td[3]";
-        public const string prizePrice = "//table[@class='historyAreaTable']/tbody/tr/td";
-        public const string listHistory = "history-accordion-droplist";
+        public const string prizeName = "table.historyAreaTable tr > td:nth-child(1)";
+        public const string prizeTickets = "table.historyAreaTable tr > td:nth-child(3)";
+        public const string prizePrice = "table.historyAreaTable tbody tr td";
+        public const string listHistory = "#history-accordion-droplist";
         #endregion
 
         #region Subscriptions
@@ -60,6 +60,9 @@
         public const string btnCancelPopUp = "div.dialog-window button:nth-child(1)";
         public const string btnReactivatePopUp = "div.dialog-window button:nth-child(1)";
         public const string btnBackPopUp = "//button[text()='Back']";
+        public const string btnEditCard = "//div[@class='details expanded']//button[text()='Edit card']";
+        public const string btnSaveCard = "#subscription-pay-button";
+        public const string btnCloseCardPopup = "div.checkout-popup__header button";
 
         public const string btn10BundleWithoutSub = "div.subscription-bundle-card:nth-child(1)  div.buttons > button";
         public const string btn25BundleWithoutSub = "div.subscription-bundle-card:nth-child(2)  div.buttons > button";

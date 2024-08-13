@@ -8,7 +8,7 @@
         public const string paragraphList = "//p";
         public const string btnSubscribeNowTop = "div.left > button";
         public const string btnSubscribeNowBottom = "//div[@class='cta-btn-row']/button[text()='SUBSCRIBE NOW']";
-        public const string btnSubscribeNowSelector = "div.subscription-bundle-card div.inner > div.buttons > button";
-        public const string textPrice = "div.subscription-bundle-card p.price";
+        public const string btnSubscribeNowSelector = "div.bundle-ticket-subscribe-panel > div button";
+        public const string textPrice = "div.details p";
     }
 }

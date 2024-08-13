@@ -16,8 +16,8 @@
   <ItemGroup>
     <PackageReference Include="Allure.Net.Commons" Version="2.11.0" />
     <PackageReference Include="Allure.NUnit" Version="2.11.0" />
-    <PackageReference Include="chilkat-x64" Version="9.5.0.96" />
-    <PackageReference Include="ChilkatNativeLib" Version="9.50.96" />
+    <PackageReference Include="chilkat-x64" Version="9.5.0.98" />
+    <PackageReference Include="ChilkatNativeLib" Version="9.50.98.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

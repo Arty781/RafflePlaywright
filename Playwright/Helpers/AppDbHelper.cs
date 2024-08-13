@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Google.Apis.Gmail.v1.Data;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json.Converters;
 using PlaywrightRaffle.APIHelpers.Admin.UsersPage;
@@ -63,6 +64,16 @@ namespace PlaywrightRaffle.Helpers
                 return result ?? throw new Exception("Content is null.");
             }
 
+            public static List<DbModels.UserResponse> GetUsersByEmail(string email)
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.UserResponse>("users");
+                var filter = Builders<DbModels.UserResponse>.Filter.Regex(u => u.Email, new BsonRegularExpression(email));
+                
+                return collection.Find(filter).ToList() ?? throw new Exception("Content is null.");
+            }
+
             public static DbModels.UserResponse GetOneUserByEmail(string email)
             {
                 var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
@@ -70,7 +81,8 @@ namespace PlaywrightRaffle.Helpers
                 var collection = database.GetCollection<DbModels.UserResponse>("users");
                 var filter = Builders<DbModels.UserResponse>.Filter.Regex("email", new BsonRegularExpression(email));
                 var result = collection.Find(filter).ToList();
-                return result.Select(x => x).FirstOrDefault() ?? throw new Exception("Content is null.");
+                return result.Select(x => x).FirstOrDefault() /*?? throw new Exception("Content is null.")*/;
+                
             }
 
             public static DbModels.UserResponse GetUserById(string id)
@@ -745,6 +757,67 @@ namespace PlaywrightRaffle.Helpers
                     collectionActive.InsertMany(updateActive);
                 }
 
+            }
+
+
+            private static DbModels.InsertUnauthUser InsertUserModel(string email)
+            {
+                var user = new DbModels.InsertUnauthUser();
+
+                user.IsVerified = false;
+                user.FreeEntries = 0;
+                user.SuccessfullReferralCount = 0;
+                user.TotalTicketsBought = 0;
+                user.EmailCommunication = true;
+                user.CorporateNotification = true;
+                user.RegisterReferrals = new List<object>();
+                user.FreeTickets = 0;
+                user.IsSocialRegistration = false;
+                user.IsBlocked = false;
+                user.Notifications = new DbModels.Notifications
+                {
+                    DreamHome = false,
+                    Lifestyle = false,
+                    FixedOdds = false,
+                    MyCompetitions = false,
+                    NewPrizes = false,
+                    All = false
+
+                };
+                user.MobileEntry = false;
+                user.SpentMobile = 0;
+                user.SpentMoney = 0;
+                user.ReferralCredits = 0;
+                user.Email = email;
+                user.RegisterRaffle = new ObjectId("65f9405b903e360033fd82de");
+                user.ReferralKey = Guid.NewGuid().ToString();
+                user.CreatedAt = DateTime.Now;
+                user.UpdatedAt = DateTime.Now;
+                user.V = 0;
+
+                return user;
+            }
+            public static void InsertUsersByGifts(List<DbModels.Gifts> gifts)
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.InsertUnauthUser>("users");
+                var update = new List<DbModels.InsertUnauthUser>();
+                foreach (var gift in gifts)
+                {
+                    var result = AppDbHelper.Users.GetOneUserByEmail(gift.Email);
+                    if (result != null)
+                    {
+                        continue;
+                    }
+                    else { update.Add(InsertUserModel(gift.Email)); }
+                }
+                foreach(var user in update)
+                {
+                    Console.WriteLine("Added user: "+user.Email);
+                    collection.InsertOne(user);
+                }
+                
             }
 
             public static void InsertActiveSubscriptionToUser(List<DbModels.UserResponse> users, Raffles raffle, List<DbModels.SubscriptionsModels> subscriptionModels, string charity, int nextPurchaseDate, int purchaseDate)
@@ -2273,6 +2346,29 @@ namespace PlaywrightRaffle.Helpers
 
         public class Gifts
         {
+
+            public static List<DbModels.Gifts> GetAllGifts()
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Gifts>("gifts");
+                var filter = Builders<DbModels.Gifts>.Filter.Empty;
+                var result = collection.Find(filter).ToList();
+
+                return result;
+            }
+
+            public static List<DbModels.Gifts> GetAllGiftsByType(string type)
+            {
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Gifts>("gifts");
+                var filter = Builders<DbModels.Gifts>.Filter.Eq("type", type);
+                var result = collection.Find(filter).ToList();
+
+                return result;
+            }
+
             public static void DeleteGiftsBySenderId(List<DbModels.UserResponse> users)
             {
                 var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
@@ -2344,6 +2440,48 @@ namespace PlaywrightRaffle.Helpers
                 var filter = Builders<DbModels.Votes>.Filter.Eq("value", "share");
                 var result = collection.Find(filter).ToList();
                 return result;
+            }
+
+            public static void DeleteShareVotes()
+            {
+                int i = 0;
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Votes>("votes");
+                var filter = Builders<DbModels.Votes>.Filter.Eq("value", "share");
+                var result = collection.Find(filter).ToList();
+                foreach(var vote in result)
+                {
+                    if (i < 150)
+                    {
+                        filter = Builders<DbModels.Votes>.Filter.Eq("_id", vote.Id);
+                        collection.DeleteMany(filter);
+                        i++;
+                    }
+                    
+                }
+               
+            }
+
+            public static void DeleteTravelVotes()
+            {
+                int i = 0;
+                var client = new MongoClient(DbConnection.DB_STAGING_CONNECTION_STRING);
+                var database = client.GetDatabase(DbConnection.DB_STAGING);
+                var collection = database.GetCollection<DbModels.Votes>("votes");
+                var filter = Builders<DbModels.Votes>.Filter.Eq("value", "travel");
+                var result = collection.Find(filter).ToList();
+                foreach (var vote in result)
+                {
+                    if (i < 100)
+                    {
+                        filter = Builders<DbModels.Votes>.Filter.Eq("_id", vote.Id);
+                        collection.DeleteMany(filter);
+                        i++;
+                    }
+
+                }
+
             }
         }
     }

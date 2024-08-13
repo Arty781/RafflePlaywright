@@ -30,6 +30,12 @@
 
         }
 
+        public static async Task OpenWinRafflePage()
+        {
+            await Browser.Driver.GotoAsync(WebEndpoints.WIN_RAFFLE);
+
+        }
+
         public static async Task OpenSignUpPage()
         {
 

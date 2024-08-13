@@ -32,7 +32,7 @@
         {
             await EnterFirstName();
             await EnterLastName();
-            await EnterPhone();
+            //await EnterPhone();
             await EnterPassword();
             await VerifyIsDisplayedEmail(email);
             await ClickActivateBtn();

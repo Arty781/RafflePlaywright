@@ -21,7 +21,8 @@ namespace PlaywrightRaffle.Helpers
 
     public class WebEndpoints
     {
-        public const string WEBSITE_HOST = "https://staging.rafflehouse.com";
+        public const string WEBSITE_HOST = "https://mango-forest-0856b1f1e.5.azurestaticapps.net/";
+        //public const string WEBSITE_HOST = "https://staging.rafflehouse.com";
         public const string SIGN_IN = "https://staging.rafflehouse.com/sign-in";
         public const string SIGN_UP = "https://staging.rafflehouse.com/sign-up";
         public const string DREAMHOME = "https://staging.rafflehouse.com/dreamhome";
@@ -41,6 +42,11 @@ namespace PlaywrightRaffle.Helpers
         public const string CITY = "https://staging.rafflehouse.com/city";
         public const string HOLIDAY_HOME = "https://staging.rafflehouse.com/holiday-home";
         public const string GIFT = "https://staging.rafflehouse.com/gift";
+
+        public const string TM_EDIT_MEMBERSHIP = "https://mango-forest-0856b1f1e.5.azurestaticapps.net/memberships/edit-membership?id=";
+        public const string TM_LOGIN = "https://mango-forest-0856b1f1e.5.azurestaticapps.net/auth/login";
+
+
     }
 
     public class ApiEndpoints
@@ -53,8 +59,10 @@ namespace PlaywrightRaffle.Helpers
     {
         public const string DB_STAGING = "rafflehousedb_staging";
         public const string DB_STAGING_CONNECTION_STRING = "mongodb+srv://root:2312Hanford2312!@rafflehousestaging1.jahzn.mongodb.net/rafflehousedb_staging";
-        //public const string DB_LIVE = "rafflehousedb";
-        //public const string DB_LIVE_CONNECTION_STRING = "mongodb+srv://root:2312Hanford2312!@rafflehouse2.iwzre.mongodb.net/rafflehousedb";
+
+        
+        public const string DB_LIVE = "rafflehousedb";
+        public const string DB_LIVE_CONNECTION_STRING = "mongodb+srv://root:2312Hanford2312!@rafflehouse2.iwzre.mongodb.net/rafflehousedb";
 
     }
 #endif
@@ -160,6 +168,44 @@ namespace PlaywrightRaffle.Helpers
             "4242424242424242",
             "4485040371536584",
             "5588686116426417"
+        };
+
+        public static readonly List<string> CARD_NUMBERS_FAILURE = new()
+        {
+            "4734868958733862",
+            "4567361325981788",
+            "4111111111111129",
+            "4024007103573027",
+            "4485381577182090",
+            "4544249167673670",
+            "4724117215951699",
+            "4000141680788456",
+            "4659465888705671",
+            "4151512736305999",
+            "4897453568485113",
+            "4000144348235050",
+            "4556294593757189",
+            "4818924250131070",
+            "4556253752712245",
+            "4095254802642505",
+            "4532819413487978",
+            "4732789363145785",
+            "4000140542610783",
+            "4500622868341387",
+            "4024007162185267",
+            "4941202060999329",
+            "4539253655711767",
+            "4000140543766022",
+            "5148447461737269",
+            "5437821135399682",
+            "5355224542121849",
+            "5355222710253469",
+            "5420951756276171",
+            "5279988405398834",
+            "5265162270587964",
+            "5347965091482021",
+            "5357219827207436",
+            "5363450180402239",
         };
     }
 
@@ -823,6 +869,86 @@ namespace PlaywrightRaffle.Helpers
     public class DbModels
     {
         #region Users Collection
+
+        [BsonIgnoreExtraElements]
+        public class InsertUnauthUser
+        {
+            [BsonElement("isVerified")]
+            public bool? IsVerified { get; set; }
+
+            [BsonElement("freeEntries")]
+            public long? FreeEntries { get; set; }
+
+            [BsonElement("successfullReferralCount")]
+            public long? SuccessfullReferralCount { get; set; }
+
+            [BsonElement("totalTicketsBought")]
+            public long? TotalTicketsBought { get; set; }
+
+            [BsonElement("emailCommunication")]
+            public bool? EmailCommunication { get; set; }
+
+            [BsonElement("corporateNotification")]
+            public bool? CorporateNotification { get; set; }
+
+            [BsonElement("registerReferrals")]
+            public List<object>? RegisterReferrals { get; set; }
+
+            [BsonElement("freeTickets")]
+            public long? FreeTickets { get; set; }
+
+            [BsonElement("isSocialRegistration")]
+            public bool? IsSocialRegistration { get; set; }
+
+            [BsonElement("isBlocked")]
+            public bool? IsBlocked { get; set; }
+
+            [BsonElement("notifications")]
+            public Notifications Notifications { get; set; }
+
+            [BsonElement("mobileEntry")]
+            public bool? MobileEntry { get; set; }
+
+            [BsonElement("spentMobile")]
+            public long? SpentMobile { get; set; }
+
+            [BsonElement("spentMoney")]
+            public long? SpentMoney { get; set; }
+
+            [BsonElement("referralCredits")]
+            public long? ReferralCredits { get; set; }
+
+            [BsonElement("email")]
+            public string? Email { get; set; }
+
+            [BsonElement("registerRaffle")]
+            public ObjectId? RegisterRaffle { get; set; }
+
+            [BsonElement("referralKey")]
+            public string? ReferralKey { get; set; }
+
+            [BsonElement("createdAt")]
+            public DateTime? CreatedAt { get; set; }
+
+            [BsonElement("updatedAt")]
+            public DateTime? UpdatedAt { get; set; }
+
+            [BsonElement("__v")]
+            public long? V { get; set; }
+        }
+
+
+        [BsonIgnoreExtraElements]
+        public class Notifications
+        {
+            
+            public bool? DreamHome { get; set; }
+            public bool? Lifestyle { get; set; }
+            public bool? FixedOdds { get; set; }
+            public bool? MyCompetitions { get; set; }
+            public bool? NewPrizes { get; set; }
+            public bool? All { get; set; }
+        }
 
         [BsonIgnoreExtraElements]
         public class UserRequest
