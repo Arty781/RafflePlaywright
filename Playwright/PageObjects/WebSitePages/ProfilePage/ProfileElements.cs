@@ -46,14 +46,14 @@
 
         #region Subscriptions
 
-        public const string titleSubscriptionProfile = "//h1[text()='My Subscription']";
-        public const string btnDetails = "div.subscriptions-grid div.button-group > p";
+        public const string titleSubscriptionProfile = "//h1[text()='My subscription']";
+        public const string btnDetails = "div.subscriptions-grid > div:nth-child(1) div.button-group > button";
         public const string titleSubscriptionStatus = "div.subscriptions-grid div.header";
         public const string cbbxCharitySelector = "div.subscriptions-grid div.details.expanded div.charity-dropdown-wrapper";
         public const string listCharities = "#menu- ul > li";
         public const string inputCharity = "div.select-wrapper input";
-        public const string inputPause = "div.profile-checkbox input";
-        public const string btnCancelSubscription = "div.expanded button";
+        public const string inputPause = "div.subscriptions-grid > div:nth-child(1) div.profile-checkbox input";
+        public const string btnCancelSubscription = "div.subscriptions-grid > div:nth-child(1) > div.info-box button";
         public const string btnReactivateSubscription = "//button[text()='Reactivate Subscription']";
         public const string btnPausePopUp = "div.pause-dialog button:nth-child(1)";
         public const string btnUnpausePopUp = "div.pause-dialog button:nth-child(1)";

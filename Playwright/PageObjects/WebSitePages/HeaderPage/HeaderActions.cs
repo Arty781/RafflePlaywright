@@ -65,6 +65,7 @@
             await Button.Click(btnBurgerMenu);
             await WaitUntil.WaitSomeInterval(1000);
             await Button.Click(btnLogOut);
+            await Browser.Driver.ReloadAsync();
         }
 
         #endregion

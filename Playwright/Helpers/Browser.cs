@@ -19,7 +19,7 @@
         public static async Task Navigate(string url)
         {
             await WaitUntil.WaitSomeInterval(500);
-            await Driver.GotoAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded});
+            await Driver.GotoAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded, Timeout = 60000});
         }
 
 

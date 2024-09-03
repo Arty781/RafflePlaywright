@@ -1,4 +1,5 @@
 using RimuTec.Faker;
+using System;
 using static PlaywrightRaffle.Helpers.AppDbHelper;
 
 namespace WebSiteTests
@@ -44,38 +45,44 @@ namespace WebSiteTests
     public class Demo : Base
     {
         [Test]
-        //[Repeat(2)]
+        //[Repeat(100)]
         public async Task DemotestAsync()
         {
-            #region Preconditions
-            string email = "testuseroutsite@gmail.com";
-            AppDbHelper.Users.DeleteTestUserData(email);
-            AppDbHelper.Users.DeleteTestUserData("@putsbox.com");
-            List<DbModels.UserResponse> users = AppDbHelper.Users.GetUsersByEmail("@xitroo.com");
-            #endregion
-
-            WaitUntil.WaitSomeInterval(100);
             //SignUpRequest.RegisterNewUser(out SignUpResponse? response);
-            //var subscriptionsList = SubscriptionsRequest.GetActiveSubscriptions();
-            //string? name;
+            //SignInRequestWeb.MakeSignIn(response.User.Email, Credentials.PASSWORD, out SignInResponseModelWeb? token);
+            //var basketOrders = BasketRequest.GetBasketOrders(token);
+            //BasketRequest.DeleteOrders(token, basketOrders);
+            //var prizesList = CountdownRequestWeb.GetDreamHomeCountdown(token);
+            var users = AppDbHelper.Users.GetUsersByEmail("@putsbox.com");
+
             await Common.CloseCookiesPopUp();
-            foreach(var user in users)
+            await HeaderPage.OpenSignInPage();
+
+            foreach (var user in users)
             {
                 await HeaderPage.OpenSignInPage();
                 await SignIn.EnterLoginAndPass(user.Email, Credentials.PASSWORD);
                 await SignIn.VerifyIsSignIn();
-                await Profile.OpenSubscriptionInProfile();
-                await Profile.EditCardDetailsSubscription();
+                for (int i = 0; i < 3; i++)
+                {
+                    await Subscription.OpenTicketSelector();
+                    await Subscription.AddFiftySubscriptionToBasket();
+                    await Basket.ActivatePrepaid(RandomHelper.RandomIntNumber(3));
+                    await Basket.EnterSubscriptionCardDetails();
+                    await Basket.ClickPayNowBtnSub();
+                    await ThankYou.VerifyThankSubYouPageIsDisplayed();
+
+                    await Subscription.OpenTicketSelector();
+                    await Subscription.AddThirtySubscriptionToBasket();
+                    await Basket.ActivatePrepaid(RandomHelper.RandomIntNumber(3));
+                    await Basket.EnterSubscriptionCardDetails();
+                    await Basket.ClickPayNowBtnSub();
+                    await ThankYou.VerifyThankSubYouPageIsDisplayed();
+                }
+                
+
                 await HeaderPage.DoLogout();
             }
-            
-
-
-            #region Postconditions
-
-            //AppDbHelper.Users.DeleteTestUserData(email);
-
-            #endregion
 
         }
 
@@ -335,7 +342,7 @@ namespace WebSiteTests
             await HeaderPage.OpenSignInPage();
             await SignIn.EnterLoginAndPass(Credentials.LOGIN, Credentials.PASSWORD);
             await SignIn.VerifyIsSignIn();
-            await Subscription.OpenSubscriptionPage();
+            await Subscription.OpenSelectorViaSubscriptionPage();
             await Subscription.AddThirtySubscriptionToBasket();
             await Basket.EnterCardDetails();
             await Basket.ClickPayNowBtnSub();
@@ -434,7 +441,7 @@ namespace WebSiteTests
             await HeaderPage.OpenSignInPage();
             await SignIn.EnterLoginAndPass(response.User.Email, Credentials.PASSWORD);
             await SignIn.VerifyIsSignIn();
-            await Subscription.OpenSubscriptionPage();
+            await Subscription.OpenSelectorViaSubscriptionPage();
             await Subscription.AddTenSubscriptionToBasket();
             await Basket.EnterCardDetails();
             await Basket.ClickPayNowBtnSub();
@@ -457,7 +464,7 @@ namespace WebSiteTests
             var subscriptionsList = SubscriptionsRequest.GetActiveSubscriptions();
 
             await Common.CloseCookiesPopUp();
-            await Subscription.OpenSubscriptionPage();
+            await Subscription.OpenSelectorViaSubscriptionPage();
             await Subscription.AddTenSubscriptionToBasket();
             await Basket.MakeAPurchaseSubscriptionAsUnauthorizedUser(email, subscriptionsList.SubscriptionModels.Last().Id);
             await ThankYou.VerifyThankYouPageIsDisplayed();
@@ -476,7 +483,7 @@ namespace WebSiteTests
         [Author("Artem", "qatester91311@gmail.com")]
         public async Task VerifyTextsOnSubscriptionsPage()
         {
-            await Subscription.OpenSubscriptionPage();
+            await Subscription.OpenSelectorViaSubscriptionPage();
             await Common.CloseCookiesPopUp();
             await Element.Action("End");
             await Subscription.VerifyDisplayingH1();
@@ -1656,8 +1663,8 @@ namespace WebSiteTests
                 }
 
             }
-            await Subscription.OpenSubscriptionPage();
-            await Subscription.AddTwentyfiveSubscriptionToBasket();
+            await Subscription.OpenSelectorViaSubscriptionPage();
+            await Subscription.AddFiftySubscriptionToBasket();
             await Basket.EnterSubscriptionCardDetails();
             await Basket.ClickPayNowBtnSub();
             await ThankYou.VerifyThankSubYouPageIsDisplayed();

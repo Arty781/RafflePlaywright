@@ -41,6 +41,11 @@ namespace PlaywrightRaffle.PageObjects
             await Button.Click(addMoreTicketsBtn);
         }
 
+        public static async Task ActivatePrepaid(int index)
+        {
+            await Button.Click(checkboxPrepaidSubscription.Replace("1", $"{index}"));
+        }
+
 
         public static async Task ApplyCouponCode(string coupon)
         {

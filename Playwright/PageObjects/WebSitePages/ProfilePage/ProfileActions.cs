@@ -1,4 +1,6 @@
-﻿namespace PlaywrightRaffle.PageObjects
+﻿using System;
+
+namespace PlaywrightRaffle.PageObjects
 {
     public partial class Profile
     {
@@ -209,6 +211,25 @@
             await Button.Click(btnCancelPopUp);
             await WaitUntil.WaitSomeInterval();
             await Browser.Driver.QuerySelectorAllAsync(titleSubscriptionStatus).Result.Where(x => x.TextContentAsync().Result == "Cancelled Subscription").First().WaitForElementStateAsync(ElementState.Visible);
+        }
+
+        public static async Task PauseMultileSubscriptions(int index)
+        {
+            await Button.Click(btnDetails.Replace("1", $"{index}"));
+            await Button.Click(inputPause.Replace("1", $"{index}"));
+            await Button.Click(btnPausePopUp);
+            await WaitUntil.WaitSomeInterval();
+            //await Browser.Driver.QuerySelectorAllAsync(titleSubscriptionStatus).Result.Where(x => x.TextContentAsync().Result == "Paused Subscription").First().WaitForElementStateAsync(ElementState.Visible);
+
+        }
+
+        public static async Task CancelMultileSubscriptions(int index)
+        {
+            await Button.Click(btnDetails.Replace("1", $"{index}"));
+            await Button.Click(btnCancelSubscription.Replace("1", $"{index}"));
+            await Button.Click(btnCancelPopUp);
+            await WaitUntil.WaitSomeInterval();
+            //await Browser.Driver.QuerySelectorAllAsync(titleSubscriptionStatus).Result.Where(x => x.TextContentAsync().Result == "Cancelled Subscription").First().WaitForElementStateAsync(ElementState.Visible);
         }
 
 

@@ -31,7 +31,8 @@
         public const string orderSummaryBtn = "div.checkout-header";
         public const string framePayPal = "div.paypal-buttons iframe:nth-child(2)";
         public const string btnPayPal = "#buttons-container div.paypal-button";
-        
+        public const string checkboxPrepaidSubscription = "//div[@class='big-subscription-cart-item ']//div[@class='month-toggle-block'][1]//input";
+
 
         #region Checkout Verification page
 
