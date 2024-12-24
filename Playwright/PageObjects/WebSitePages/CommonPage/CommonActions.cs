@@ -10,6 +10,11 @@ namespace PlaywrightRaffle.PageObjects
             await Button.Click(confirmCookieBtn);
         }
 
+        public static async Task CloseCookiesPopUp(IPage page)
+        {
+            await page.ReloadAsync();
+            await Button.Click(page, confirmCookieBtn);
+        }
 
         public static async Task ClickAddTenTickets()
         {

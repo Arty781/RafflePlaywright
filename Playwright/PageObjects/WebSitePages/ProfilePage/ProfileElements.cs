@@ -46,6 +46,7 @@
 
         #region Subscriptions
 
+        public const string subscriptionCard = "div.subscriptions-grid > div.profile-subscription-card";
         public const string titleSubscriptionProfile = "//h1[text()='My subscription']";
         public const string btnDetails = "div.subscriptions-grid > div:nth-child(1) div.button-group > button";
         public const string titleSubscriptionStatus = "div.subscriptions-grid div.header";

@@ -8,7 +8,16 @@ namespace PlaywrightRaffle.PageObjects
         public static async Task ClickCartBtn()
         {
             await Browser.Navigate(WebEndpoints.PAYMENT);
-            await WaitUntil.CustomElementIsVisible(btnPay);
+            await WaitUntil.WaitSomeInterval();
+            await WaitUntil.CustomElementIsVisible(btnPaySub);
+        }
+
+        public static async Task ClickCartBtn(IPage page)
+        {
+            await WaitUntil.WaitSomeInterval(500);
+            await page.GotoAsync(WebEndpoints.PAYMENT, new() { WaitUntil = WaitUntilState.DOMContentLoaded, Timeout = 120000 });
+            await WaitUntil.WaitSomeInterval();
+            await WaitUntil.CustomElementIsVisible(page, btnPaySub);
         }
 
         public static async Task ClickPayPalBtn()
@@ -88,6 +97,7 @@ namespace PlaywrightRaffle.PageObjects
 
         public static async Task EnterSubscriptionCardDetails()
         {
+            Random random = new Random();
             await WaitUntil.CustomElementIsVisible("div.checkout-content > h1");
             await Button.Click("div.checkout-content > h1");
             await WaitUntil.CustomElementIsVisible(formSubscriptionPayment);
@@ -95,7 +105,7 @@ namespace PlaywrightRaffle.PageObjects
             var frame = await f.ContentFrameAsync();
             await frame.QuerySelectorAsync(framePaymentNumber);
             await frame.ContentAsync();
-            await frame.TypeAsync(inputCardNumber, CardDetails.CARD_NUMBER[RandomHelper.RandomIntNumber(CardDetails.CARD_NUMBER.Count)]);
+            await frame.TypeAsync(inputCardNumber, CardDetails.CARD_NUMBER[random.Next(CardDetails.CARD_NUMBER.Count)]);
             var defaultFrame = frame.ParentFrame;
             frame = await Browser.Driver.QuerySelectorAsync(framePaymentExpiry).Result.ContentFrameAsync();
             await frame.TypeAsync(inputExpiryDate, DateTime.Now.AddYears(2).ToString("MM'/'yy"));
@@ -103,6 +113,48 @@ namespace PlaywrightRaffle.PageObjects
             frame = await Browser.Driver.QuerySelectorAsync(framePaymentCvv).Result.ContentFrameAsync();
             await frame.TypeAsync(inputCvv, "100");
             defaultFrame = frame.ParentFrame;
+        }
+
+        public static async Task EnterSubscriptionCardDetails(IPage page)
+        {
+            Random random = new Random();
+            await WaitUntil.CustomElementIsVisible(page, "div.checkout-content > h1");
+            await Button.Click(page, "div.checkout-content > h1");
+            await WaitUntil.CustomElementIsVisible(page, formSubscriptionPayment);
+            var f = await page.QuerySelectorAsync(framePaymentNumber);
+            var frame = await f.ContentFrameAsync();
+            await frame.QuerySelectorAsync(framePaymentNumber);
+            await frame.ContentAsync();
+            await frame.TypeAsync(inputCardNumber, CardDetails.CARD_NUMBER[random.Next(CardDetails.CARD_NUMBER.Count)]);
+            var defaultFrame = frame.ParentFrame;
+            frame = await page.QuerySelectorAsync(framePaymentExpiry).Result.ContentFrameAsync();
+            await frame.TypeAsync(inputExpiryDate, DateTime.Now.AddYears(2).ToString("MM'/'yy"));
+            defaultFrame = frame.ParentFrame;
+            frame = await page.QuerySelectorAsync(framePaymentCvv).Result.ContentFrameAsync();
+            await frame.TypeAsync(inputCvv, "100");
+            defaultFrame = frame.ParentFrame;
+        }
+
+        public static async Task<string> EnterSubscriptionCardDetailsMultyCards()
+        {
+            Random random = new Random();
+            var cardNumber = CardDetails.CARD_NUMBER[random.Next(CardDetails.CARD_NUMBER.Count)];
+            await WaitUntil.CustomElementIsVisible("div.checkout-content > h1");
+            await Button.Click("div.checkout-content > h1");
+            await WaitUntil.CustomElementIsVisible(formSubscriptionPayment);
+            var f = await Browser.Driver.QuerySelectorAsync(framePaymentNumber);
+            var frame = await f.ContentFrameAsync();
+            await frame.QuerySelectorAsync(framePaymentNumber);
+            await frame.ContentAsync();
+            await frame.TypeAsync(inputCardNumber, cardNumber);
+            var defaultFrame = frame.ParentFrame;
+            frame = await Browser.Driver.QuerySelectorAsync(framePaymentExpiry).Result.ContentFrameAsync();
+            await frame.TypeAsync(inputExpiryDate, DateTime.Now.AddYears(2).ToString("MM'/'yy"));
+            defaultFrame = frame.ParentFrame;
+            frame = await Browser.Driver.QuerySelectorAsync(framePaymentCvv).Result.ContentFrameAsync();
+            await frame.TypeAsync(inputCvv, "100");
+            defaultFrame = frame.ParentFrame;
+            return cardNumber;
         }
 
 
@@ -134,14 +186,43 @@ namespace PlaywrightRaffle.PageObjects
             await Button.Click(btnPaySub);
         }
 
+        public static async Task ClickPayNowBtnSub(IPage page)
+        {
+            await Button.Click(page, btnPaySub);
+        }
+
+        //public static async Task ConfirmPurchaseStage()
+        //{
+        //    await WaitUntil.CustomElementIsVisible(frameCheckout, 12000);
+        //    var f = await Browser.Driver.QuerySelectorAsync(frameCheckout);
+        //    var frame = await f.ContentFrameAsync();
+        //    await frame.QuerySelectorAsync(frameCheckout);
+        //    await frame.ContentAsync();
+        //    await frame.FillAsync(inputPasswordCheckout, "Checkout1!");
+        //    await frame.ClickAsync(btnContinueCheckout);
+        //    await WaitUntil.FrameIsInvisible(frameCheckout, 120000);
+        //    var defaultFrame = frame.ParentFrame;
+        //}
 
         public static async Task ConfirmPurchaseStage()
         {
-            var frame = await Browser.Driver.QuerySelectorAsync(frameCheckout).Result.ContentFrameAsync();
-            await frame.TypeAsync(inputPasswordCheckout, "Checkout1!");
+            await WaitUntil.CustomElementIsVisible(frameCheckout, 12000);
+            // Wait for the frame to be available
+            var elementHandle = await Browser.Driver.QuerySelectorAsync(frameCheckout);
+            if (elementHandle == null) throw new Exception("Frame checkout not found");
+
+            var frame = await elementHandle.ContentFrameAsync();
+            if (frame == null) throw new Exception("Could not access frame content");
+
+            // Ensure element visibility before proceeding
+            await WaitUntil.CustomElementIsVisible(frame, 12000);
+
+            // Perform actions
+            await frame.FillAsync(inputPasswordCheckout, "Checkout1!");
             await frame.ClickAsync(btnContinueCheckout);
+
+            // Wait for the frame to be invisible (navigation complete)
             await WaitUntil.FrameIsInvisible(frameCheckout, 120000);
-            var defaultFrame = frame.ParentFrame;
         }
 
 

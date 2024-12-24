@@ -20,6 +20,7 @@
         public const string checkboxAgeControl = "//input[@name='checkedB'";
         public const string formPayment = "#payment-form";
         public const string formSubscriptionPayment = "#subscription-payment-form";
+        public const string formEditSubscriptionPayment = "#subscription-edit-payment-card-form";
         public const string framePaymentNumber = "//iframe[@id='cardNumber']";
         public const string framePaymentExpiry = "#expiryDate";
         public const string framePaymentCvv = "#cvv";
@@ -37,7 +38,7 @@
         #region Checkout Verification page
 
         public const string frameCheckout = "//iframe[@name='cko-3ds2-iframe']";
-        public const string inputPasswordCheckout = "//input[@id='password']";
+        public const string inputPasswordCheckout = "#password]";
         public const string btnContinueCheckout = "//input[@value='Continue']";
         public const string btncheckOutNow = "//button[@class='rafflebtn primary full-width']";
         public const string inputEmail = "//input[@name='email']";

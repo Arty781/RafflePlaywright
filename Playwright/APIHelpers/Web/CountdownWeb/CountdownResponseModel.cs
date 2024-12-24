@@ -14,6 +14,8 @@
 
         [JsonProperty("title")]
         public string? Title { get; set; }
+        [JsonProperty("bundleTitle")]
+        public string? BundleTitle { get; set; }
     }
     public partial class PropertyDreamHome
     {
@@ -28,7 +30,15 @@
 
         [JsonProperty("cardImage")]
         public string? CardImage { get; set; }
+        [JsonProperty("floorPlanImage")]
+        public string? FloorPlanImage { get; set; }
+        [JsonProperty("locationMapImage")]
+        public string? LocationMapImage { get; set; }
+        [JsonProperty("mobileCardImage")]
+        public string? MobileCardImage { get; set; }
     }
+
+
 
     #endregion
 

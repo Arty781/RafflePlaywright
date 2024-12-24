@@ -1,5 +1,7 @@
 ﻿using Chilkat;
 using Newtonsoft.Json.Linq;
+using SharpCompress.Common;
+using static PlaywrightRaffle.APIHelpers.Web.Subscriptions.SubsriptionsResponse;
 
 namespace PlaywrightRaffle.APIHelpers.Web.Subscriptions
 {
@@ -16,6 +18,31 @@ namespace PlaywrightRaffle.APIHelpers.Web.Subscriptions
             req.AddHeader("Connection", "Keep-Alive");
             req.AddHeader("applicationid", "WppJsNsSvr");
             req.AddHeader("accept-encoding", "gzip, deflate, br");
+
+            Http http = new();
+
+            HttpResponse resp = http.SynchronousRequest(ApiEndpoints.API_CHIL, 443, true, req);
+            if (http.LastMethodSuccess != true)
+            {
+                throw new ArgumentException(http.LastErrorText);
+            }
+
+            var response = JsonConvert.DeserializeObject<SubsriptionsResponse.Subscriptions>(resp.BodyStr);
+            return response;
+        }
+
+        public static SubsriptionsResponse.Subscriptions? AddSubscriptions(SubsriptionsResponse.Subscriptions activeSub)
+        {
+            HttpRequest req = new()
+            {
+                HttpVerb = "POST",
+                Path = $"/api/subscriptions",
+                ContentType = "application/json"
+            };
+            req.AddHeader("Connection", "Keep-Alive");
+            req.AddHeader("applicationid", "WppJsNsSvr");
+            req.AddHeader("accept-encoding", "gzip, deflate, br");
+            req.LoadBodyFromString(JsonBody(activeSub), charset: "utf-8");
 
             Http http = new();
 
@@ -164,6 +191,27 @@ namespace PlaywrightRaffle.APIHelpers.Web.Subscriptions
                         break;
                 }
             }
+        }
+
+        private static string JsonBody(SubsriptionsResponse.Subscriptions activeSub)
+        {
+            var body = new SubsriptionsResponse.SubscriptionsReq()
+            {
+                subscription = new SubsriptionsResponse.Subscription
+                {
+                    charity = "",
+                    totalCost = activeSub.SubscriptionModels.FirstOrDefault().TotalCost,
+                    numOfTickets = activeSub.SubscriptionModels.FirstOrDefault().NumOfTickets,
+                    extra = activeSub.SubscriptionModels.FirstOrDefault().Extra,
+                    subscriptionModel = activeSub.SubscriptionModels.FirstOrDefault().Id,
+                    count = 0,
+                    status = "PENDING_BASKET",
+                    raffle = ""
+                }
+            };
+
+
+            return JsonConvert.SerializeObject(body);
         }
 
     }

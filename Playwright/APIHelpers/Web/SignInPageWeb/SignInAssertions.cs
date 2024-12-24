@@ -5,7 +5,7 @@
 
         public static void VerifyIsAdminSignInSuccesfull(SignInResponseModelWeb response)
         {
-            Assert.IsTrue(Credentials.LOGIN == response.User.Email);
+            Assert.That(Credentials.LOGIN.Equals(response.User.Email, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }

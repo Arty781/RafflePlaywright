@@ -6,12 +6,13 @@ namespace PlaywrightRaffle.APIHelpers.Web.SignUpPageWeb
     {
         private static string JsonBody()
         {
+            
             SignUpRequestModel req = new()
             {
                 Name = Name.FirstName(),
                 Surname = Name.LastName(),
                 Password = Credentials.PASSWORD,
-                Email = "qatester-" + DateTime.Now.ToString("yyyy-MM-dThh-mm-ss-ffffff") + "@putsbox.com",
+                Email = "qatester-" + DateTime.Now.ToString("yyyy-MM-dThh-mm-ss-ffffff") + "@xitroo.com",
                 EmailCommunication = true,
                 Country = Country.COUNTRY_CODES[138],
                 Phone = "",

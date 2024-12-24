@@ -4,6 +4,7 @@
     {
         public static IPage Driver { get; set; }
         public static IBrowser BrowserSet { get; set; }
+        public static IBrowserContext Context;
 
         public static async Task Initialize()
         {
@@ -19,7 +20,7 @@
         public static async Task Navigate(string url)
         {
             await WaitUntil.WaitSomeInterval(500);
-            await Driver.GotoAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded, Timeout = 60000});
+            await Driver.GotoAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded, Timeout = 120000});
         }
 
 
@@ -38,19 +39,37 @@
             {
                 
                 Headless = false,
-                Devtools = false,
                 Timeout = 15000
                
             };
+
             BrowserSet = await pl.Chromium.LaunchAsync(options);
-            
+                       
+
         }
 
         [SetUp]
         public static async Task SetUp()
         {
-            var context = await BrowserSet.NewContextAsync();
-            Driver = await context.NewPageAsync();
+            Context = await BrowserSet.NewContextAsync();
+            // Block specific URLs
+            string[] urlsToBlock = new[]
+            {
+            "https://raffle-house-staging.s3-eu-west-1.amazonaws.com/videos/competition-video-01-11-2024.mp4",
+            "https://www.facebook.com/tr/?id*",
+            "*snapchat.com*",
+            "https://analytics.tiktok.com*",
+            "https://google.com/ccm*",
+            "https://td.doubleclick.net*"
+        };
+            foreach (var url in urlsToBlock)
+            {
+                await Context.RouteAsync(url, async route =>
+                {
+                    await route.AbortAsync();
+                });
+            }
+            Driver = await Context.NewPageAsync();
             await Driver.SetViewportSizeAsync(width: 1900, height: 920);
             await Browser.Navigate(WebEndpoints.WEBSITE_HOST);
         }

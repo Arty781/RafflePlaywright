@@ -30,6 +30,12 @@
 
         }
 
+        public static async Task OpenSignInPage(IPage page)
+        {
+            await page.GotoAsync(WebEndpoints.SIGN_IN);
+
+        }
+
         public static async Task OpenWinRafflePage()
         {
             await Browser.Driver.GotoAsync(WebEndpoints.WIN_RAFFLE);
@@ -66,6 +72,14 @@
             await WaitUntil.WaitSomeInterval(1000);
             await Button.Click(btnLogOut);
             await Browser.Driver.ReloadAsync();
+        }
+
+        public static async Task DoLogout(IPage page)
+        {
+            await Button.Click(page, btnBurgerMenu);
+            await WaitUntil.WaitSomeInterval(1000);
+            await Button.Click(page, btnLogOut);
+            await page.ReloadAsync();
         }
 
         #endregion

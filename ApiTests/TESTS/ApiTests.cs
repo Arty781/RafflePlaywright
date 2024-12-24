@@ -24,44 +24,32 @@ namespace API
 
         public async Task Demo()
         {
-            var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
-            AppDbHelper.Insert.InsertUser(raffle.FirstOrDefault());
-            var gifts = AppDbHelper.Gifts.GetAllGiftsByType("recipient");
-            AppDbHelper.Insert.InsertUsersByGifts(gifts);
-
+            var u = AppDbHelper.Users.GetUserByEmail(Credentials.LOGIN);
+            var s = AppDbHelper.Subscriptions.GetAllSubscriptionsByUserId(u).Skip(30);
+            var f = s.Where(x => x.User != null && x.CheckoutId == "pay_bk2u4k2jcl3eniqrvjun4lm3zi").ToList();
+            AppDbHelper.Subscriptions.DeleteSubscriptionsById(f);
+          //  var fs = f.GroupBy(x => x.User)
+          //.Where(g => g.Any(x => x.Months == 1) && g.Any(x => x.Months > 1)) // Ensure both conditions are met
+          //.Select(g => new { UserId = g.Key, Count = g.Count() })
+          //.ToList();
 
         }
 
         [Test]
         public async Task Demo2()
         {
-            //Insert.InsertSubscriptionModel(Errors.ErrorTotalCost.ERROR_BAD_TRACK_DATA);
-            var raffle = AppDbHelper.DreamHome.GetAciveRaffles().Where(x => x.EndsAt > DateTime.Now).Select(x => x).ToList();
-            var subscriptionsModel = AppDbHelper.Subscriptions.GetAllSubscriptionModels();
-            SignUpResponse? responseFail = null;
-            SignUpResponse? response = null;
+            //SignInResponseModelWeb? token = null;
+            //SignInRequestWeb.MakeSignIn(Credentials.LOGIN, Credentials.PASSWORD, out token);
 
-            for (int i = 0; i < 5; i++)
+            var tasks = new List<Task>();
+
+            for (int q = 0; q < 30; q++)
             {
-                //var emailPause = string.Concat("qatester-", DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss-fffff"), "@putsbox.com");
-                //SignUpRequest.RegisterNewUser(emailPause, out responseFail);
-                //var userFail = AppDbHelper.Users.GetUserByEmail(emailPause);
-                //AppDbHelper.Insert.InsertSubscriptionsToUsers(userFail, raffle.FirstOrDefault(), subscriptionsModel);
-
-                //string emailCancell = "qatester" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss-ffff") + "@putsbox.com";
-                //SignUpRequest.RegisterNewUser(emailCancell, out response);
-                //var user = AppDbHelper.Users.GetUserByEmailpattern(emailCancell).FirstOrDefault();
-                //Insert.InsertSubscriptionsToUserForFailPayment(user, raffle.FirstOrDefault(), subscriptionsModel);
-
-                var emailActive = string.Concat("qatester-", DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss-ffffff"), "@putsbox.com");
-                SignUpRequest.RegisterNewUser(emailActive, out responseFail);
-                var userActive = AppDbHelper.Users.GetUserByEmail(emailActive);
-                AppDbHelper.Insert.InsertActiveSubscriptionsToUsers(userActive, raffle.FirstOrDefault(), subscriptionsModel);
-
+                WaitUntil.WaitSomeInterval(100);
+                tasks.Add(Task.Run(() => SignUpRequest.RegisterNewUser(out SignUpResponse? response)));
             }
 
-            //var users = AppDbHelper.Users.GetUserByEmailpattern("@putsbox.com");
-            //gr4vy.AddUsersToKlavio(users);
+            await Task.WhenAll(tasks);
         }
     }
 
@@ -210,14 +198,11 @@ namespace API
         }
 
         [Test]
-
-        public void UpdateSubscriptionsToNextPurchase()
+        //[Repeat(17)]
+        public async Task UpdateSubscriptionsToNextPurchase()
         {
-            var users = AppDbHelper.Users.GetAllUsers().Where(x => x.Email.Contains("@xitroo.com")).Select(x => x).ToList();
-            foreach (var user in users)
-            {
-                AppDbHelper.Subscriptions.UpdateSubscriptionDateByIdToNextPurchase(user);
-            }
+            AppDbHelper.Subscriptions.UpdateAllSubscriptionDateToNextPurchase();
+            //await Task.Delay(660000);
 
         }
 
@@ -256,6 +241,16 @@ namespace API
             {
                 AppDbHelper.Insert.InsertUser(raffle);
             }
+
+        }
+
+        [Test]
+        public void GetSubscriptions()
+        {
+            //var user = AppDbHelper.Users.GetAllUsers();
+            //var subscriptionsBefore = AppDbHelper.Subscriptions.GetAllSubscriptionsByUserId(user);
+            var list = AppDbHelper.Subscriptions.GetAllSubscriptions();
+
 
         }
 

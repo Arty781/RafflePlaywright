@@ -20,6 +20,14 @@ namespace PlaywrightRaffle.Helpers
 
         }
 
+        public static async Task Click(IPage page, string element)
+        {
+            await WaitUntil.CustomElementIsVisible(page, element);
+            await page.QuerySelectorAsync(element).Result.ScrollIntoViewIfNeededAsync();
+            await page.ClickAsync(element);
+
+        }
+
 
         public static async Task ClickCountry(string selector)
         {
@@ -65,6 +73,16 @@ namespace PlaywrightRaffle.Helpers
             await WaitUntil.WaitSomeInterval(350);
         }
 
+        public static async Task Element(IPage page, string element, string data)
+        {
+            await WaitUntil.CustomElementIsVisible(page, element);
+            await page.FocusAsync(element);
+            await page.Keyboard.PressAsync("Control+A");
+            await page.Keyboard.PressAsync("Delete");
+            await page.QuerySelectorAsync(element).Result.FillAsync(data);
+            await WaitUntil.WaitSomeInterval(350);
+        }
+
         public static async Task ElementImage(string element, string data)
         {
             //await WaitUntil.CustomElementIsVisible(element);
@@ -105,6 +123,12 @@ namespace PlaywrightRaffle.Helpers
         {
             await WaitUntil.CustomElementIsVisible(element);
             return await Browser.Driver.QuerySelectorAsync(element).Result.GetAttributeAsync(attribute);
+        }
+
+        public static async Task<string> GetAttribute(IPage page, string element, string attribute)
+        {
+            await WaitUntil.CustomElementIsVisible(page, element);
+            return await page.QuerySelectorAsync(element).Result.GetAttributeAsync(attribute);
         }
 
         public static async Task<string> GetTextForList(string selector, int index)

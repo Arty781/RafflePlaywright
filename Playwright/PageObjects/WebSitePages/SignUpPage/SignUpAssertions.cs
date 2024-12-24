@@ -43,21 +43,21 @@
         public static async Task VerifyDisplayingEmailErrorMessage()
         {
             await WaitUntil.CustomElementIsVisible(textEmailErrorMessage);
-            Assert.IsTrue(await Browser.Driver.QuerySelectorAsync(textEmailErrorMessage).Result.IsVisibleAsync(), "Email error message is not displayed");
+            Assert.That(Browser.Driver.QuerySelectorAsync(textEmailErrorMessage).Result.IsVisibleAsync().Equals(true), "Email error message is not displayed");
         }
 
 
         public static async Task VerifyDisplayingPhoneErrorMessage()
         {
             await WaitUntil.CustomElementIsVisible(textPhoneErrorMessage);
-            Assert.IsTrue(await Browser.Driver.QuerySelectorAsync(textPhoneErrorMessage).Result.IsVisibleAsync(), "Phone error message is not displayed");
+            Assert.That(Browser.Driver.QuerySelectorAsync(textPhoneErrorMessage).Result.IsVisibleAsync().Equals(true), "Phone error message is not displayed");
         }
 
 
         public static async Task VerifyDisplayingPasswordErrorMessage()
         {
             await WaitUntil.CustomElementIsVisible(textPasswordErrorMessage);
-            Assert.IsTrue(await Browser.Driver.QuerySelectorAsync(textPasswordErrorMessage).Result.IsVisibleAsync(), "Password error message is not displayed");
+            Assert.That(Browser.Driver.QuerySelectorAsync(textPasswordErrorMessage).Result.IsVisibleAsync().Equals(true), "Password error message is not displayed");
         }
 
 

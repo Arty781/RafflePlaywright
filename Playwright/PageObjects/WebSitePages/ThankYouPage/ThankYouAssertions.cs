@@ -18,5 +18,10 @@
             //await Button.Click(btnCloseThirdPartyPopup);
         }
 
+        public static async Task VerifyThankSubYouPageIsDisplayed(IPage page)
+        {
+            await WaitUntil.CustomElementIsVisible(page, titleThankYouPageSub);
+        }
+
     }
 }

@@ -27,6 +27,7 @@ namespace PlaywrightRaffle.APIHelpers.Web
             return response;
         }
 
+
         #region Weekly
 
         public static List<CompetitionResponseModelWeb>? GetWeeklyPrizesCompetitionId(SignInResponseModelWeb SignIn)

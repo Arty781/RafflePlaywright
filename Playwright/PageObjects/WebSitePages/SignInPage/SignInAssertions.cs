@@ -1,7 +1,15 @@
-﻿namespace PlaywrightRaffle.PageObjects
+﻿using System.Net.NetworkInformation;
+
+namespace PlaywrightRaffle.PageObjects
 {
     public partial class SignIn
     {
+
+        public static async Task<string> VerifyIsSignIn(IPage page)
+        {
+            await WaitUntil.CustomElementIsVisible(page, Profile.inputFirstName);
+            return await TextBox.GetAttribute(page, Profile.inputFirstName, "value");
+        }
 
         public static async Task<string> VerifyIsSignIn()
         {

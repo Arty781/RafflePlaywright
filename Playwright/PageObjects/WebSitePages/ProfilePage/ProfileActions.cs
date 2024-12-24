@@ -181,6 +181,14 @@ namespace PlaywrightRaffle.PageObjects
 
         }
 
+        public static async Task OpenSubscriptionInProfile(IPage page)
+        {
+            await page.GotoAsync("https://staging.rafflehouse.com/profile/subscription");
+            await page.ReloadAsync();
+            await WaitUntil.CustomElementIsVisible(page, titleSubscriptionProfile);
+
+        }
+
 
         public static async Task PauseSubscription()
         {
@@ -255,22 +263,124 @@ namespace PlaywrightRaffle.PageObjects
             await Button.Click(btnCloseCardPopup);
         }
 
+        public static async Task EditCardDetailsForAllSubscription()
+        {
+            var listCards = await Browser.Driver.QuerySelectorAllAsync(subscriptionCard);
+            foreach (var item in listCards.SkipLast(2))
+            {
+                var detailsBtn = item.QuerySelectorAsync("div.button-group > button").Result;
+                detailsBtn.ClickAsync();
+                var updateCardBtn = item.QuerySelectorAsync("//div[@class='details-inner']/button[text()='Update payment details here']").Result;
+                updateCardBtn.ClickAsync();
+                await WaitUntil.WaitSomeInterval();
+                await EnterSubscriptionCardDetails();
+                await Button.Click(btnSaveCard);
+                await WaitUntil.CustomElementIsInvisible(Basket.formEditSubscriptionPayment);
+
+            }
+            
+        }
+
         public static async Task EnterSubscriptionCardDetails()
         {
+            var random = new Random();
             await WaitUntil.CustomElementIsVisible("div.checkout-popup h3");
             await Button.Click("div.checkout-popup h3");
-            await WaitUntil.CustomElementIsVisible(Basket.formSubscriptionPayment);
+            await WaitUntil.CustomElementIsVisible(Basket.formEditSubscriptionPayment);
             var f = await Browser.Driver.QuerySelectorAsync(Basket.framePaymentNumber);
             var frame = await f.ContentFrameAsync();
             await frame.QuerySelectorAsync(Basket.framePaymentNumber);
             await frame.ContentAsync();
-            await frame.TypeAsync(Basket.inputCardNumber, CardDetails.CARD_NUMBERS_FAILURE[RandomHelper.RandomIntNumber(CardDetails.CARD_NUMBERS_FAILURE.Count)]);
+            await frame.FillAsync(Basket.inputCardNumber, CardDetails.CARD_NUMBERS_FAILURE[random.Next(CardDetails.CARD_NUMBERS_FAILURE.Count)]);
             var defaultFrame = frame.ParentFrame;
             frame = await Browser.Driver.QuerySelectorAsync(Basket.framePaymentExpiry).Result.ContentFrameAsync();
-            await frame.TypeAsync(Basket.inputExpiryDate, DateTime.Now.AddYears(2).ToString("MM'/'yy"));
+            await frame.FillAsync(Basket.inputExpiryDate, DateTime.Now.AddYears(2).ToString("MM'/'yy"));
             defaultFrame = frame.ParentFrame;
             frame = await Browser.Driver.QuerySelectorAsync(Basket.framePaymentCvv).Result.ContentFrameAsync();
-            await frame.TypeAsync(Basket.inputCvv, "100");
+            await frame.FillAsync(Basket.inputCvv, "100");
+            defaultFrame = frame.ParentFrame;
+        }
+        public static async Task EditCardDetailsForAllSubscription(string card)
+        {
+            var listCards = await Browser.Driver.QuerySelectorAllAsync(subscriptionCard);
+            foreach (var item in listCards.SkipLast(2))
+            {
+                var detailsBtn = item.QuerySelectorAsync("div.button-group > button").Result;
+                detailsBtn.ClickAsync();
+                if(item.QuerySelectorAsync("//div[@class='details-inner']/button[text()='Update payment details here']").Result != null)
+                {
+                    var updateCardBtn = item.QuerySelectorAsync("//div[@class='details-inner']/button[text()='Update payment details here']").Result;
+                    updateCardBtn.ClickAsync();
+                    await WaitUntil.WaitSomeInterval();
+                    await EnterSubscriptionCardDetails(card);
+                    await Button.Click(btnSaveCard);
+                    await WaitUntil.CustomElementIsInvisible(Basket.formEditSubscriptionPayment);
+                }
+                
+
+            }
+
+        }
+
+        public static async Task EditCardDetailsForAllSubscription(IPage page, string card)
+        {
+            var listCards = await page.QuerySelectorAllAsync(subscriptionCard);
+            foreach (var item in listCards.SkipLast(2))
+            {
+                var detailsBtn = item.QuerySelectorAsync("div.button-group > button").Result;
+                detailsBtn.ClickAsync();
+                if (item.QuerySelectorAsync("//div[@class='details-inner']/button[text()='Update payment details here']").Result != null)
+                {
+                    var updateCardBtn = item.QuerySelectorAsync("//div[@class='details-inner']/button[text()='Update payment details here']").Result;
+                    updateCardBtn.ClickAsync();
+                    await WaitUntil.WaitSomeInterval();
+                    await EnterSubscriptionCardDetails(page, card);
+                    await Button.Click(page, btnSaveCard);
+                    await WaitUntil.CustomElementIsInvisible(page, Basket.formEditSubscriptionPayment);
+                }
+
+
+            }
+
+        }
+
+        public static async Task EnterSubscriptionCardDetails(string card)
+        {
+            var random = new Random();
+            await WaitUntil.CustomElementIsVisible("div.checkout-popup h3");
+            await Button.Click("div.checkout-popup h3");
+            await WaitUntil.CustomElementIsVisible(Basket.formEditSubscriptionPayment);
+            var f = await Browser.Driver.QuerySelectorAsync(Basket.framePaymentNumber);
+            var frame = await f.ContentFrameAsync();
+            await frame.QuerySelectorAsync(Basket.framePaymentNumber);
+            await frame.ContentAsync();
+            await frame.FillAsync(Basket.inputCardNumber, card);
+            var defaultFrame = frame.ParentFrame;
+            frame = await Browser.Driver.QuerySelectorAsync(Basket.framePaymentExpiry).Result.ContentFrameAsync();
+            await frame.FillAsync(Basket.inputExpiryDate, DateTime.Now.AddYears(2).ToString("MM'/'yy"));
+            defaultFrame = frame.ParentFrame;
+            frame = await Browser.Driver.QuerySelectorAsync(Basket.framePaymentCvv).Result.ContentFrameAsync();
+            await frame.FillAsync(Basket.inputCvv, "100");
+            defaultFrame = frame.ParentFrame;
+        }
+
+        public static async Task EnterSubscriptionCardDetails(IPage page, string card)
+        {
+            var random = new Random();
+            await WaitUntil.CustomElementIsVisible(page, "div.checkout-popup h3");
+            await Button.Click(page, "div.checkout-popup h3");
+            await WaitUntil.CustomElementIsVisible(page, Basket.formEditSubscriptionPayment);
+            var f = await page.QuerySelectorAsync(Basket.framePaymentNumber);
+            var frame = await f.ContentFrameAsync();
+            await frame.QuerySelectorAsync(Basket.framePaymentNumber);
+            await frame.ContentAsync();
+            await frame.FillAsync(Basket.inputCardNumber, card);
+            var defaultFrame = frame.ParentFrame;
+            frame = await page.QuerySelectorAsync(Basket.framePaymentExpiry).Result.ContentFrameAsync();
+            await frame.FillAsync(Basket.inputExpiryDate, DateTime.Now.AddYears(2).ToString("MM'/'yy"));
+            defaultFrame = frame.ParentFrame;
+            frame = await page.QuerySelectorAsync(Basket.framePaymentCvv).Result.ContentFrameAsync();
+            await frame.FillAsync(Basket.inputCvv, "100");
             defaultFrame = frame.ParentFrame;
         }
 

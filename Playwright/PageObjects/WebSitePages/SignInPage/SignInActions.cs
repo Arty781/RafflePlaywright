@@ -13,6 +13,14 @@ namespace PlaywrightRaffle.PageObjects
             await Button.Click(btnSignIn);
         }
 
+        public static async Task EnterLoginAndPass(IPage page, string login, string password)
+        {
+            await WaitUntil.CustomElementIsVisible(page, inputLogin);
+            await InputBox.Element(page, inputLogin, login);
+            await InputBox.Element(page, inputPassword, password);
+            await Button.Click(page, btnSignIn);
+        }
+
 
         public static async Task MakeSignIn(string login, string password)
         {
