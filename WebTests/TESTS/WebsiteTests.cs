@@ -142,6 +142,9 @@ namespace WebSiteTests
         [Test]
         public async Task DemotestAsyncP()
         {
+            
+            
+
             var users = AppDbHelper.Users.GetAllUsers()
                          .Where(x => x.Email.Contains("xitroo.com"))
                          .ToList();
@@ -198,8 +201,8 @@ namespace WebSiteTests
                         await Basket.EnterSubscriptionCardDetails(page);
                         await Basket.ClickPayNowBtnSub(page);
                         await ThankYou.VerifyThankSubYouPageIsDisplayed(page);
-                        await Profile.OpenSubscriptionInProfile(page);
-                        await Profile.EditCardDetailsForAllSubscription(page, card);
+                        //await Profile.OpenSubscriptionInProfile(page);
+                        //await Profile.EditCardDetailsForAllSubscription(page, card);
                         await HeaderPage.DoLogout(page);
 
                     }
@@ -215,6 +218,9 @@ namespace WebSiteTests
                 });
 
                 await Task.WhenAll(tasks);
+                users = AppDbHelper.Users.GetAllUsers().Where(x => x.Email.Contains("@xitroo.com")).Select(x => x).ToList();
+                AppDbHelper.Subscriptions.DeleteSubscriptionsByUserId(users);
+                AppDbHelper.Orders.DeleteOrdersByUserId(users);
             }
         }
 
