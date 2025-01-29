@@ -1,8 +1,5 @@
-using RimuTec.Faker;
-using System;
-using PlaywrightRaffle.Helpers;
-using static PlaywrightRaffle.Helpers.AppDbHelper;
 using Microsoft.Playwright;
+using NUnit.Framework.Interfaces;
 
 namespace WebSiteTests
 {
@@ -98,60 +95,18 @@ namespace WebSiteTests
     [AllureTag("Demo"), AllureOwner("Artem Sukharevskyi"), AllureSeverity(Allure.Net.Commons.SeverityLevel.critical), AllureSubSuite("DemoTest")]
     public class Demo1
     {
-        [Test]
+        [Test]        
         //[Repeat(18)]
         public async Task DemotestAsync()
         {
 
-            var users = AppDbHelper.Users.GetAllUsers();
-            int i = 0;
-
-            await Common.CloseCookiesPopUp();
-            //SignUpRequest.RegisterNewUser(out SignUpResponse? response);
-            foreach (var user in users.Where(x => x.Email.Contains("xitroo.com")).Skip(0))
-            {
-                i++;
-                Console.WriteLine("Count: " + i);
-                var random = new Random();
-                string card = CardDetails.CARD_NUMBERS_FAILURE[random.Next(CardDetails.CARD_NUMBERS_FAILURE.Count)];
-                SignInRequestWeb.MakeSignIn(user.Email, Credentials.PASSWORD, out var token);
-                var tasks = new List<Task>();
-                for (int q = 0; q < 7; q++)
-                {
-                    tasks.Add(Task.Run(() => DreamHomeOrderRequestWeb.AddSubscriptions(token)));
-                }
-                await Task.WhenAll(tasks);
-                await HeaderPage.OpenSignInPage();
-                await SignIn.EnterLoginAndPass(user.Email, Credentials.PASSWORD);
-                await SignIn.VerifyIsSignIn();
-
-                await Basket.ClickCartBtn();
-                await Basket.EnterSubscriptionCardDetails();
-                await Basket.ClickPayNowBtnSub();
-                await ThankYou.VerifyThankSubYouPageIsDisplayed();
-                //await Profile.OpenSubscriptionInProfile();
-                //await Profile.EditCardDetailsForAllSubscription(card);
-                await HeaderPage.DoLogout();
-
-            }
-
-
-        }
-
-
-        [Test]
-        public async Task DemotestAsyncP()
-        {
-            
-            
-
             var users = AppDbHelper.Users.GetAllUsers()
                          .Where(x => x.Email.Contains("xitroo.com"))
-                         .ToList();
+                         .ToList().Skip(511);
 
             // Group users into batches of 10
             var userGroups = users.Select((user, index) => new { user, index })
-                                  .GroupBy(x => x.index / 3)
+                                  .GroupBy(x => x.index / 1)
                                   .Select(g => g.Select(x => x.user).ToList())
                                   .ToList();
 
@@ -165,7 +120,9 @@ namespace WebSiteTests
                     var playwright = await Playwright.CreateAsync();
                     await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
                     {
-                        Headless = false // Use `false` to debug
+                        Headless = false, // Use `false` to debug
+
+                        Timeout = 15000
                     });
 
                     // Create an isolated context for the user
@@ -186,7 +143,7 @@ namespace WebSiteTests
                         SignInRequestWeb.MakeSignIn(user.Email, Credentials.PASSWORD, out var token);
 
                         // Simulate adding subscriptions
-                        var subscriptionTasks = Enumerable.Range(0, 2).Select(_ => Task.Run(async () =>
+                        var subscriptionTasks = Enumerable.Range(0, 1).Select(_ => Task.Run(async () =>
                         {
                             DreamHomeOrderRequestWeb.AddSubscriptions(token);
                         }));
@@ -218,9 +175,102 @@ namespace WebSiteTests
                 });
 
                 await Task.WhenAll(tasks);
-                users = AppDbHelper.Users.GetAllUsers().Where(x => x.Email.Contains("@xitroo.com")).Select(x => x).ToList();
-                AppDbHelper.Subscriptions.DeleteSubscriptionsByUserId(users);
-                AppDbHelper.Orders.DeleteOrdersByUserId(users);
+                //var userList = group.Select(x=>x).ToList();
+                //AppDbHelper.Subscriptions.DeleteSubscriptionsByUserId(users);
+                //AppDbHelper.Orders.DeleteOrdersByUserId(users);
+            }
+
+        }
+
+
+        [Test]
+        public async Task DemotestAsyncP()
+        {
+            
+            
+
+            var users = AppDbHelper.Users.GetAllUsers()
+                         .Where(x => x.Email.Contains("xitroo.com"))
+                         .ToList().Skip(306);
+
+            // Group users into batches of 10
+            var userGroups = users.Select((user, index) => new { user, index })
+                                  .GroupBy(x => x.index / 3)
+                                  .Select(g => g.Select(x => x.user).ToList())
+                                  .ToList();
+
+            foreach (var group in userGroups)
+            {
+                Console.WriteLine($"Processing group with {group.Count} users");
+
+                // Run each group in parallel
+                var tasks = group.Select(async user =>
+                {
+                    var playwright = await Playwright.CreateAsync();
+                    await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+                    {
+                        Headless = false, // Use `false` to debug
+                        
+                        Timeout = 15000
+                    });
+
+                    // Create an isolated context for the user
+                    var context = await browser.NewContextAsync();
+                    
+                    var page = await context.NewPageAsync();
+                    await page.SetViewportSizeAsync(width: 1900, height: 920);
+
+                    try
+                    {
+                        Console.WriteLine($"Processing user: {user.Email}");
+
+                        // Perform login or other actions on this page
+                        await WaitUntil.WaitSomeInterval(500);
+                        await page.GotoAsync(WebEndpoints.WEBSITE_HOST, new() { /*WaitUntil = WaitUntilState.Load,*/ Timeout = 120000 });
+                        await Common.CloseCookiesPopUp(page);
+                        var random = new Random();
+                        string card = CardDetails.CARD_NUMBERS_FAILURE[random.Next(CardDetails.CARD_NUMBERS_FAILURE.Count)];
+                        SignInRequestWeb.MakeSignIn(user.Email, Credentials.PASSWORD, out var token);
+
+                        // Simulate adding subscriptions
+                        var subscriptionTasks = Enumerable.Range(0, 1).Select(_ => Task.Run(async () =>
+                        {
+                            DreamHomeOrderRequestWeb.AddSubscriptions(token);
+                        }));
+                        await Task.WhenAll(subscriptionTasks);
+
+                        // Verify UI elements
+                        await HeaderPage.OpenSignInPage(page);
+                        await SignIn.EnterLoginAndPass(page, user.Email, Credentials.PASSWORD);
+                        await SignIn.VerifyIsSignIn(page);
+
+                        await Basket.ClickCartBtn(page);
+                        await Basket.EnterSubscriptionCardDetails(page);
+                        await Basket.ClickPayNowBtnSub(page);
+                        await ThankYou.VerifyThankSubYouPageIsDisplayed(page);
+                        //await Profile.OpenSubscriptionInProfile(page);
+                        //await Profile.EditCardDetailsForAllSubscription(page, card);
+                        await HeaderPage.DoLogout(page);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error processing user {user.Email}: {ex.Message}");
+                    }
+                    finally
+                    {
+                        TestStatus testStatus = TestContext.CurrentContext.Result.Outcome.Status;
+                        _ = testStatus == TestStatus.Failed ? TelegramHelper.SendMessage() : null;
+                        // Cleanup browser context
+                        await browser.CloseAsync();
+                        await browser.DisposeAsync();
+                    }
+                });
+
+                await Task.WhenAll(tasks);
+                //var userList = group.Select(x=>x).ToList();
+                //AppDbHelper.Subscriptions.DeleteSubscriptionsByUserId(users);
+                //AppDbHelper.Orders.DeleteOrdersByUserId(users);
             }
         }
 
@@ -2026,26 +2076,15 @@ namespace WebSiteTests
         public async Task VerifiedDisplayingFooterElements()
         {
             await Common.CloseCookiesPopUp();
-            await Home.OpenHomePage(WebEndpoints.WEBSITE_HOST);
-            await Footer.VerifyIsDisplayedFooterTitle();
-            await Footer.VerifyIsDisplayedFooterParagraph();
-            await Footer.VerifyIsDisplayedContactLinks();
-            await Footer.VerifyIsDisplayedSponsorLinks();
-            await HeaderPage.OpenWinnersPage();
-            await Footer.VerifyIsDisplayedFooterTitle();
-            await Footer.VerifyIsDisplayedFooterParagraph();
-            await Footer.VerifyIsDisplayedContactLinks();
-            await Footer.VerifyIsDisplayedSponsorLinks();
-            await HeaderPage.OpenCartPage();
-            await Footer.VerifyIsDisplayedFooterTitle();
-            await Footer.VerifyIsDisplayedFooterParagraph();
-            await Footer.VerifyIsDisplayedContactLinks();
-            await Footer.VerifyIsDisplayedSponsorLinks();
-            await HeaderPage.OpenPostPage();
-            await Footer.VerifyIsDisplayedFooterTitle();
-            await Footer.VerifyIsDisplayedFooterParagraph();
-            await Footer.VerifyIsDisplayedContactLinks();
-            await Footer.VerifyIsDisplayedSponsorLinks();
+            foreach(var entry in WebEndpoints.UrlDictionary.Skip(4))
+            {
+                await HeaderPage.OpenPage(entry.Value);
+                await Footer.VerifyIsDisplayedFooterTitle();
+                await Footer.VerifyIsDisplayedFooterParagraph();
+                await Footer.VerifyIsDisplayedContactLinks();
+                await Footer.VerifyIsDisplayedSponsorLinks();
+            }
+            
         }
 
         [Test, Category("Winners")]

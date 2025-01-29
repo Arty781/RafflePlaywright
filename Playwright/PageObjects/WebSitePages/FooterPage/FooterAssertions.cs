@@ -5,39 +5,77 @@
         public static async Task VerifyIsDisplayedFooterTitle()
         {
             await WaitUntil.CustomElementIsVisible(textTitleFooter);
-            var title = Browser.Driver.QuerySelectorAsync(textTitleFooter).Result.TextContentAsync().Result;
-            Assert.That(title.ToLower() == FooterText.FOOTER_TITLE.ToLower(), Is.True, string.Concat("\"", title, "\"", " not matched with ", FooterText.FOOTER_TITLE));
+
+            var title = await Browser.Driver.QuerySelectorAsync(textTitleFooter)
+                                            .ContinueWith(t => t.Result.TextContentAsync())
+                                            .Unwrap();
+
+            Assert.That(
+                title.Trim().Equals(FooterText.FOOTER_TITLE.Trim(), StringComparison.CurrentCultureIgnoreCase),
+                Is.True,
+                $"\"{title}\" not matched with \"{FooterText.FOOTER_TITLE}\""
+            );
         }
 
         public static async Task VerifyIsDisplayedFooterParagraph()
         {
             await WaitUntil.CustomElementIsVisible(textParagraphFooter);
-            var paragraph = Browser.Driver.QuerySelectorAsync(textParagraphFooter).Result.TextContentAsync().Result;
-            Assert.That(paragraph.ToLower() == FooterText.FOOTER_PARAGRAPH.ToLower(), Is.True, string.Concat("\"", paragraph, "\"", " not matched with ", FooterText.FOOTER_PARAGRAPH));
+
+            var paragraph = await Browser.Driver.QuerySelectorAsync(textParagraphFooter)
+                                                .ContinueWith(t => t.Result.TextContentAsync())
+                                                .Unwrap();
+
+            Assert.That(
+                paragraph.Trim().Equals(FooterText.FOOTER_PARAGRAPH.Trim(), StringComparison.CurrentCultureIgnoreCase),
+                Is.True,
+                $"\"{paragraph}\" not matched with \"{FooterText.FOOTER_PARAGRAPH}\""
+            );
         }
 
         public static async Task VerifyIsDisplayedContactLinks()
         {
             await WaitUntil.CustomElementIsVisible(textLinkContactsFooter);
-            var links = Browser.Driver.QuerySelectorAllAsync(textLinkContactsFooter).Result.ToList();
-            for (int i = 0; i < links.Count; i++)
+
+            var links = await Browser.Driver.QuerySelectorAllAsync(textLinkContactsFooter);
+            var actualLinks = await Task.WhenAll(links.Select(async link => (await link.TextContentAsync()).Trim()));
+            actualLinks = await Task.WhenAll(links.Select(async link => (await link.TextContentAsync()).Trim()));
+
+            Assert.That(
+                actualLinks.Length,
+                Is.EqualTo(FooterText.FOOTER_CONTACTS_LINKS.Count),
+                $"Expected {FooterText.FOOTER_CONTACTS_LINKS.Count} links but found {actualLinks.Length}."
+            );
+
+            for (int i = 0; i < actualLinks.Length; i++)
             {
-                string expectedLink = FooterText.FOOTER_CONTACTS_LINKS[i].ToLower();
-                string actualLink = links[i].TextContentAsync().Result.ToLower();
-                Assert.That(actualLink, Is.EqualTo(expectedLink), $"Not matched. Expected: \"{expectedLink}\". Actual: \"{actualLink}\"");
+                Assert.That(
+                    actualLinks[i].Equals(FooterText.FOOTER_CONTACTS_LINKS[i], StringComparison.CurrentCultureIgnoreCase),
+                    Is.True,
+                    $"Not matched. Expected: \"{FooterText.FOOTER_CONTACTS_LINKS[i]}\". Actual: \"{actualLinks[i]}\""
+                );
             }
         }
+
 
         public static async Task VerifyIsDisplayedSponsorLinks()
         {
             await WaitUntil.CustomElementIsVisible(textLinkSponsorFooter);
-            var links = Browser.Driver.QuerySelectorAllAsync(textLinkSponsorFooter).Result.ToList();
-            for (int i = 0; i < links.Count; i++)
+            var links = await Browser.Driver.QuerySelectorAllAsync(textLinkSponsorFooter);
+            var actualLinks = await Task.WhenAll(links.Select(async link => (await link.TextContentAsync()).Trim()));
+            Assert.That(
+                actualLinks.Length,
+                Is.EqualTo(FooterText.FOOTER_SPONSORS_LINKS.Count),
+                $"Expected {FooterText.FOOTER_SPONSORS_LINKS.Count} links but found {actualLinks.Length}."
+            );
+            for (int i = 0; i < actualLinks.Length; i++)
             {
-                string expectedLink = FooterText.FOOTER_SPONSORS_LINKS[i].ToLower();
-                string actualLink = links[i].TextContentAsync().Result.ToLower();
-                Assert.That(actualLink, Is.EqualTo(expectedLink), $"Not matched. Expected: \"{expectedLink}\". Actual: \"{actualLink}\"");
+                Assert.That(
+                    actualLinks[i].Equals(FooterText.FOOTER_SPONSORS_LINKS[i], StringComparison.CurrentCultureIgnoreCase),
+                    Is.True,
+                    $"Not matched. Expected: \"{FooterText.FOOTER_SPONSORS_LINKS[i]}\". Actual: \"{actualLinks[i]}\""
+                );
             }
+
         }
     }
 }

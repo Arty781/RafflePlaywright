@@ -10,15 +10,15 @@ namespace PlaywrightRaffle.APIHelpers.Web
 
             static SubscriptionList()
             {
-                AddSubscription("", 1000, 5, 40, "642d5866f2d6b25c843fcc99", 0, "PENDING_BASKET", "67473dc94102530049ecddbd", 1);
-                AddSubscription("", 3000, 15, 165, "667946903b19fe0033a827d2", 0, "PENDING_BASKET", "67473dc94102530049ecddbd", 1);
-                AddSubscription("", 5000, 25, 425, "666ae7798dd015003297b4ca", 0, "PENDING_BASKET", "67473dc94102530049ecddbd", 1);
-                AddSubscription("", 8100, 15, 165, "667946903b19fe0033a827d2", 0, "PENDING_BASKET", "67473dc94102530049ecddbd", 3);
-                AddSubscription("", 13500, 25, 425, "666ae7798dd015003297b4ca", 0, "PENDING_BASKET", "67473dc94102530049ecddbd", 3);
-                AddSubscription("", 14400, 15, 165, "667946903b19fe0033a827d2", 0, "PENDING_BASKET", "67473dc94102530049ecddbd", 6);
-                AddSubscription("", 24000, 25, 425, "666ae7798dd015003297b4ca", 0, "PENDING_BASKET", "67473dc94102530049ecddbd", 6);
-                AddSubscription("", 25200, 15, 165, "667946903b19fe0033a827d2", 0, "PENDING_BASKET", "67473dc94102530049ecddbd", 12);
-                AddSubscription("", 42000, 25, 425, "666ae7798dd015003297b4ca", 0, "PENDING_BASKET", "67473dc94102530049ecddbd", 12);
+                AddSubscription("", 1000, 5, 40, "642d5866f2d6b25c843fcc99", 0, "PENDING_BASKET", "67583b447ea99e0034685642", 1);
+                AddSubscription("", 3000, 15, 165, "667946903b19fe0033a827d2", 0, "PENDING_BASKET", "67583b447ea99e0034685642", 1);
+                AddSubscription("", 5000, 25, 425, "666ae7798dd015003297b4ca", 0, "PENDING_BASKET", "67583b447ea99e0034685642", 1);
+                AddSubscription("", 8100, 15, 165, "667946903b19fe0033a827d2", 0, "PENDING_BASKET", "67583b447ea99e0034685642", 3);
+                AddSubscription("", 13500, 25, 425, "666ae7798dd015003297b4ca", 0, "PENDING_BASKET", "67583b447ea99e0034685642", 3);
+                AddSubscription("", 14400, 15, 165, "667946903b19fe0033a827d2", 0, "PENDING_BASKET", "67583b447ea99e0034685642", 6);
+                AddSubscription("", 24000, 25, 425, "666ae7798dd015003297b4ca", 0, "PENDING_BASKET", "67583b447ea99e0034685642", 6);
+                AddSubscription("", 25200, 15, 165, "667946903b19fe0033a827d2", 0, "PENDING_BASKET", "67583b447ea99e0034685642", 12);
+                AddSubscription("", 42000, 25, 425, "666ae7798dd015003297b4ca", 0, "PENDING_BASKET", "67583b447ea99e0034685642", 12);
             }
 
             private static void AddSubscription(
@@ -63,7 +63,8 @@ namespace PlaywrightRaffle.APIHelpers.Web
 
         private static string RequestSubscriptionBuilder()
         {
-            return JsonConvert.SerializeObject(SubscriptionList.GetRandomSubscription());
+            var req = JsonConvert.SerializeObject(SubscriptionList.GetRandomSubscription());
+            return req;
         }
         private static string RequestBuilderWithError(string id, int numOfTickets)
         {
@@ -166,7 +167,7 @@ namespace PlaywrightRaffle.APIHelpers.Web
             Http http = new Http();
 
             HttpResponse resp = http.SynchronousRequest(ApiEndpoints.API_CHIL, 443, true, req);
-            if (http.LastMethodSuccess != true)
+            if (http.LastStatus.ToString().StartsWith("2"))
             {
                 throw new ArgumentException(http.LastErrorText);
             }

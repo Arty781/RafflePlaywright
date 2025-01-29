@@ -5,6 +5,12 @@
 #if DEBUG || RELEASE || CHROME || FIREFOX
 
         #region Opening links in header
+
+        public static async Task OpenPage(string url)
+        {
+            await Browser.Driver.GotoAsync(url);
+
+        }
         public static async Task OpenHomePage(string url)
         {
             await Browser.Driver.GotoAsync(url);
